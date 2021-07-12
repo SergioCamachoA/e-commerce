@@ -1,0 +1,36 @@
+$color-one: #f5487f;
+$color-two: #c7417b;
+$color-three: #8f3b76;
+$color-four: #553772;
+$color-five: #e3e3e3;
+$background: #1f306e;
+
+.user,
+.name,
+.email,
+.password {
+  min-height: 2rem;
+  height: 4vh;
+  min-width: 16rem;
+  width: 20vw;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  text-align: center;
+  color: $color-five;
+  border: none;
+  //   background-color: $color-four;
+}
+// input::placeholder {
+//   color: $color-five;
+// }
+.Signup,
+.Login {
+  // width: 50vw;
+  // height: 60vh;
+  input:focus {
+    outline: none;
+    background-color: $color-two;
+    // border: 3px solid $color-three;
+    // color: $color-one;
+  }
+}

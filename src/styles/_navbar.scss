@@ -1,0 +1,103 @@
+$color-one: #f5487f;
+$color-two: #c7417b;
+$color-three: #8f3b76;
+$color-four: #553772;
+$color-five: #e3e3e3;
+$background: #1f306e;
+
+.navbar {
+  // padding: 0;
+  //   background-color: greenyellow;
+  width: 99vw;
+  height: 8vh;
+  position: fixed;
+  top: 0;
+  //   left: 0;
+  display: flex;
+  flex-direction: row;
+  // justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
+  a {
+    display: flex;
+    width: 15%;
+    flex-direction: row;
+    align-items: center;
+    color: $color-one;
+    font-size: 2rem;
+    transition: 500ms;
+    i {
+      margin: 0 1rem;
+    }
+  }
+  form {
+    width: 50%;
+    // width: fit-content;
+    overflow-x: hidden;
+    height: 75%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 24vw;
+    // background-color: whitesmoke;
+    // background-color: $color-four;
+    // border: 3px solid $color-one;
+    // border-radius: 2rem;
+    // color: $color-one;
+    transition: 900ms;
+    // pointer-events: none;
+  }
+  input,
+  button {
+    background-color: $color-four;
+    border: 3px solid $color-one;
+    border-radius: 2rem;
+    color: $color-one;
+    transition: 900ms;
+  }
+  input {
+    opacity: 0;
+    width: 0%;
+    height: 90%;
+    text-align: right;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    color: $color-one;
+  }
+  button {
+    height: 100%;
+    width: 2.8rem;
+    margin: 0 1rem;
+    padding: 0;
+    cursor: pointer;
+    font-size: 1.6rem;
+    transition: 500ms;
+    text-align: right;
+    i {
+      position: relative;
+      top: 0.2rem;
+      right: 0.1rem;
+    }
+  }
+  form:hover > input {
+    width: 70%;
+    opacity: 1;
+  }
+  input:focus,
+  button:focus {
+    outline: none;
+    color: $color-five;
+    border-color: $color-five;
+  }
+  input:focus {
+    width: 70%;
+    opacity: 1;
+  }
+  button:hover,
+  a:hover,
+  input:hover {
+    color: $color-five;
+    border-color: $color-five;
+  }
+}

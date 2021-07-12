@@ -1,0 +1,152 @@
+@import "./navBar";
+@import "./error";
+@import "./login";
+@import "./signup";
+
+@font-face {
+  font-family: chillbold;
+  src: url("../font/Chillax-Semibold.otf");
+}
+@font-face {
+  font-family: chill;
+  src: url("../font/Chillax-Regular.otf");
+}
+
+$color-one: #f5487f;
+$color-two: #c7417b;
+$color-three: #8f3b76;
+$color-four: #553772;
+$color-five: #e3e3e3;
+$background: #1f306e;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+html {
+  background-color: $background;
+}
+.App {
+  height: 100vh;
+  width: 100vw;
+  background-color: $background;
+  //   background: linear-gradient(180deg, #553772 0%, #1f306e 100%);
+  color: $color-five;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+div {
+  font-family: chill;
+  font-size: 2vw;
+}
+header {
+  font-family: chillbold;
+  font-size: 5vw;
+  color: $color-one;
+}
+li {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+  color: $color-five;
+  transition: 300ms;
+  z-index: 2;
+}
+a:hover {
+  color: $color-two;
+}
+input {
+  font-family: chill;
+}
+button,
+input {
+  background-color: $color-four;
+  border: 3px solid $color-one;
+  border-radius: 2rem;
+  color: $color-one;
+  transition: 900ms;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+button::-webkit-scrollbar,
+form::-webkit-scrollbar {
+  display: none;
+}
+
+.container {
+  background: linear-gradient(
+    24.3deg,
+    rgba(143, 59, 118, 0.6) 0%,
+    rgba(199, 65, 123, 0.1) 100%
+  );
+  // border: 0.3rem solid $color-three;
+  border-radius: 2rem;
+  padding: 2rem;
+  position: relative;
+  z-index: 2;
+}
+.main-header {
+  font-size: 6vw;
+}
+@import "./circles";
+
+@media only screen and (max-width: 800px) {
+  .circle {
+    height: 5rem;
+    width: 5rem;
+  }
+  .circle-two {
+    display: none;
+  }
+  .navbar {
+    margin-top: 2vw;
+    height: 3rem;
+    form {
+      width: 80%;
+      height: 100%;
+      margin-right: 1vw;
+    }
+    a {
+      h2 {
+        display: none;
+      }
+    }
+
+    button {
+      // background-color: greenyellow;
+      max-width: 2.6rem;
+      max-height: 2.6rem;
+      i {
+        font-size: 1.6rem;
+      }
+    }
+    input {
+      max-height: 2rem;
+    }
+  }
+  .container {
+    // margin-top: 20vw;
+    background: transparent;
+  }
+  .main-header {
+    font-size: 8vh;
+  }
+  li {
+    font-size: 9vw;
+  }
+  header {
+    font-size: 10vh;
+    margin-bottom: 10%;
+  }
+}
+
+.Item {
+  // width: 50vw;
+  // background-color: greenyellow;
+}

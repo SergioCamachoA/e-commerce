@@ -1,0 +1,49 @@
+.circle,
+.circle-two {
+  width: 12vw;
+  height: 12vw;
+  position: fixed;
+  background-color: rgba(199, 65, 123, 0.3);
+  border-radius: 50%;
+  animation-name: circle;
+  animation-iteration-count: infinite;
+  animation-duration: 6s;
+  animation-direction: alternate;
+  z-index: 1;
+}
+.circle-two {
+  animation-name: circle2;
+  animation-duration: 4s;
+  top: 62%;
+  left: 71%;
+  animation-direction: normal;
+}
+@keyframes circle {
+  0% {
+    top: 20%;
+    left: 18%;
+  }
+  50% {
+    top: 30%;
+    left: 18%;
+  }
+  100% {
+    top: 20%;
+    left: 18%;
+  }
+}
+@keyframes circle2 {
+  0% {
+    top: 40%;
+    left: 73%;
+  }
+  50% {
+    top: 45%;
+    left: 73%;
+  }
+
+  100% {
+    top: 40%;
+    left: 73%;
+  }
+}

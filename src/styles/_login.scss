@@ -1,0 +1,48 @@
+$color-one: #f5487f;
+$color-two: #c7417b;
+$color-three: #8f3b76;
+$color-four: #553772;
+$color-five: #e3e3e3;
+$background: #1f306e;
+.App {
+  background-color: greenyellow;
+}
+
+header {
+  text-align: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.user,
+.name,
+.email,
+.password {
+  min-height: 2rem;
+  height: 4vh;
+  min-width: 16rem;
+  width: 20vw;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  text-align: center;
+  color: $color-five;
+}
+input::placeholder {
+  color: $color-five;
+}
+
+// .Login {
+//   animation: login-container 4s infinite alternate;
+//   //   transition: 500ms;
+// }
+// @keyframes login-container {
+//   0% {
+//   }
+//   50% {
+//   }
+//   100% {
+//   }
+// }
