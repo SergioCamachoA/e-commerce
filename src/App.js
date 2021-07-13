@@ -15,7 +15,7 @@ import { useState } from "react"
 
 function App() {
   const location = useLocation()
-  const [isLogged, setIsLogged] = useState(true)
+  const [isLogged, setIsLogged] = useState(false)
 
   // console.log(location)
   return (
