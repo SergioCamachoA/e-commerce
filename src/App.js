@@ -8,16 +8,18 @@ import { SingleProduct } from "./pages/SingleProduct"
 import { NewProduct } from "./pages/NewProduct"
 import { Error } from "./pages/Error"
 import { NavBar } from "./components/NavBar"
-import { GlobalStyle } from "./components/GlobalStyles"
+// import { GlobalStyle } from "./GlobalStyles"
 import { AnimatePresence } from "framer-motion"
+import { Cart } from "./components/Cart"
 
 function App() {
   const location = useLocation()
   // console.log(location)
   return (
     <div className="App">
-      <GlobalStyle />
+      {/* <GlobalStyle /> */}
       <NavBar />
+      <Cart />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
           <Route exact path="/" children={<Main />} />

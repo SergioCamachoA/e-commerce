@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 // import styled from "styled-components"
 import { motion } from "framer-motion"
@@ -6,6 +6,19 @@ import { pageAnimation } from "../animation/animation"
 
 export const SingleProduct = () => {
   const { id } = useParams()
+  const [item, setItem] = useState({})
+
+  useEffect(() => {
+    async function getItem() {
+      const currentItem = await fetch(
+        "https://ecomerce-master.herokuapp.com/api/v1/item/5fbc19a65a3f794d72471163"
+      )
+        .then((res) => res.json())
+        .catch((err) => console.log(err))
+      setItem(currentItem)
+    }
+    getItem()
+  }, [id])
 
   return (
     <motion.div
@@ -16,9 +29,15 @@ export const SingleProduct = () => {
       className="Item"
     >
       <motion.header>
-        {/* <motion.header variants={headerAnim} animate="show" initial="hidden"> */}
+        {console.log(item)}
         {id}
       </motion.header>
+      <div className="content">
+        <img src={item.image} alt="product" />
+        <h3>{item.product_name}</h3>
+        <h3>{item.description}</h3>
+        <h3>{`$${item.price}`}</h3>
+      </div>
     </motion.div>
   )
 }

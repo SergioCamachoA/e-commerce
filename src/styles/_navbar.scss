@@ -7,97 +7,53 @@ $background: #1f306e;
 
 .navbar {
   // padding: 0;
-  //   background-color: greenyellow;
-  width: 99vw;
-  height: 8vh;
+  // background-color: black;
+  width: 50vh;
+  height: 100vh;
   position: fixed;
+  overflow: hidden;
   top: 0;
-  //   left: 0;
+  left: 0;
   display: flex;
-  flex-direction: row;
-  // justify-content: flex-start;
-  justify-content: space-between;
-  align-items: center;
-  a {
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: left;
+  transition: 500ms;
+
+  a,
+  form {
+    position: relative;
+    z-index: 99;
+    // background-color: greenyellow;
     display: flex;
-    width: 15%;
+    width: 100px;
+    height: 10vh;
     flex-direction: row;
     align-items: center;
+    justify-content: left;
     color: $color-one;
     font-size: 2rem;
     transition: 500ms;
+    border-radius: 0 2rem 2rem 0;
     i {
-      margin: 0 1rem;
+      display: flex;
+      align-items: center;
+      // justify-content: center;
+      margin: 0 2rem;
+      min-width: 40px;
+    }
+    h2 {
+      // display: none;
+      height: 90%;
     }
   }
-  form {
-    width: 50%;
-    // width: fit-content;
-    overflow-x: hidden;
-    height: 75%;
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    justify-content: flex-start;
-    margin-right: 24vw;
-    // background-color: whitesmoke;
-    // background-color: $color-four;
-    // border: 3px solid $color-one;
-    // border-radius: 2rem;
-    // color: $color-one;
-    transition: 900ms;
-    // pointer-events: none;
-  }
-  input,
-  button {
-    background-color: $color-four;
-    border: 3px solid $color-one;
-    border-radius: 2rem;
-    color: $color-one;
-    transition: 900ms;
-  }
-  input {
-    opacity: 0;
-    width: 0%;
-    height: 90%;
-    text-align: right;
-    padding-right: 1rem;
-    font-size: 1.5rem;
-    color: $color-one;
-  }
-  button {
-    height: 100%;
-    width: 2.8rem;
-    margin: 0 1rem;
-    padding: 0;
-    cursor: pointer;
-    font-size: 1.6rem;
-    transition: 500ms;
-    text-align: right;
-    i {
-      position: relative;
-      top: 0.2rem;
-      right: 0.1rem;
-    }
-  }
-  form:hover > input {
-    width: 70%;
-    opacity: 1;
-  }
-  input:focus,
-  button:focus {
-    outline: none;
-    color: $color-five;
-    border-color: $color-five;
-  }
-  input:focus {
-    width: 70%;
-    opacity: 1;
-  }
-  button:hover,
   a:hover,
-  input:hover {
+  form:hover {
+    width: 40vw;
+    background-color: $color-four;
     color: $color-five;
-    border-color: $color-five;
+    > h2 {
+      display: block;
+    }
   }
 }

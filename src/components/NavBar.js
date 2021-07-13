@@ -1,5 +1,27 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {
+  faArrowLeft,
+  // faBars,
+  faSearch,
+  faUserCircle,
+  // faTimes,
+  faClipboardList,
+  faPlus,
+  faFingerprint,
+  faCircle,
+} from "@fortawesome/free-solid-svg-icons"
+
+const back = <FontAwesomeIcon icon={faArrowLeft} />
+const search = <FontAwesomeIcon icon={faSearch} />
+const newUser = <FontAwesomeIcon icon={faUserCircle} />
+const user = <FontAwesomeIcon icon={faFingerprint} />
+const all = <FontAwesomeIcon icon={faClipboardList} />
+const single = <FontAwesomeIcon icon={faCircle} />
+const add = <FontAwesomeIcon icon={faPlus} />
+// const hamburger = <FontAwesomeIcon icon={faBars} />
+// const close = <FontAwesomeIcon icon={faTimes} />
 
 export const NavBar = () => {
   function submitHandler(e) {
@@ -8,15 +30,33 @@ export const NavBar = () => {
   return (
     <div className="navbar">
       <Link to="/">
-        <i className="fas fa-arrow-left"></i>
+        <i>{back}</i>
         <h2>home</h2>
       </Link>
-      <form onSubmit={submitHandler} className="search-form">
-        <button className="search-btn">
-          <i className="fas fa-search"></i>
-        </button>
-        <input type="text" className="search-input" />
+      <form onSubmit={submitHandler}>
+        <i>{search}</i>
+        <h2>search</h2>
       </form>
+      <Link to="/login">
+        <i>{user}</i>
+        <h2>login</h2>
+      </Link>
+      <Link to="/signup">
+        <i>{newUser}</i>
+        <h2>signup</h2>
+      </Link>
+      <Link to="/products">
+        <i>{all}</i>
+        <h2>all products</h2>
+      </Link>
+      <Link to="/product/example">
+        <i>{single}</i>
+        <h2>example product</h2>
+      </Link>
+      <Link to="/add-new">
+        <i>{add}</i>
+        <h2>new product</h2>
+      </Link>
     </div>
   )
 }

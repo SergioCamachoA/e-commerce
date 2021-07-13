@@ -14,7 +14,12 @@ export const Signup = () => {
       <header>signup</header>
       <form className="signup-form">
         <input type="text" className="name" placeholder="name" />
-        <input type="text" className="user" placeholder="username" />
+        <input type="text" className="user" placeholder="last name" />
+        <select name="gender" id="gender">
+          <option value="male">male</option>
+          <option value="female">female</option>
+        </select>
+        <input type="date" className="user" placeholder="birthdate" />
         <input type="email" className="email" placeholder="email" />
         <input type="password" className="password" placeholder="password" />
       </form>

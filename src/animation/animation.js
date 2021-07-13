@@ -13,3 +13,17 @@ export const pageAnimation = {
     transition: { duration: 0.5 },
   },
 }
+
+export const mainPageAnimation = {
+  hidden: { opacity: 0, x: 500 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.8 },
+  },
+  exit: {
+    opacity: 0,
+    x: 500,
+    transition: { duration: 0.8 },
+  },
+}
