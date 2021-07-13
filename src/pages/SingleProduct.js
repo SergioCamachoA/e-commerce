@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-// import styled from "styled-components"
+import styled from "styled-components"
 import { motion } from "framer-motion"
 import { pageAnimation } from "../animation/animation"
 
@@ -28,30 +28,40 @@ export const SingleProduct = () => {
       animate="show"
       className="Item"
     >
-      <motion.header>
-        {console.log(item)}
-        {id}
-      </motion.header>
-      <div className="content">
+      <HeaderStyled>{id}</HeaderStyled>
+      <ItemStyled className="content">
         <img src={item.image} alt="product" />
         <h3>{item.product_name}</h3>
         <h3>{item.description}</h3>
         <h3>{`$${item.price}`}</h3>
-      </div>
+      </ItemStyled>
     </motion.div>
   )
 }
 //styled component
+const HeaderStyled = styled(motion.header)`
+  text-align: center;
+`
 
-// const Item = styled.div`
-//   min-height: 90vh;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   padding: 5rem, 10rem;
-//   color: whitesmoke;
-//   background-color: greenyellow;
-// `
+const ItemStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  img {
+    height: 200px;
+    border-radius: 50%;
+    transition: 800ms;
+    &:hover {
+      border-radius: 1rem;
+    }
+  }
+  h3 {
+    max-width: 450px;
+    height: 60px;
+    overflow: scroll;
+  }
+`
 
 // const headerAnim = {
 //   hidden: { opacity: 0 },

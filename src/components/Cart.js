@@ -3,32 +3,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-import { motion } from "framer-motion"
+// import { motion } from "framer-motion"
 
-const cart = <FontAwesomeIcon color="#f5487f" icon={faShoppingCart} />
-// const liked = <FontAwesomeIcon color="#f5487f" icon={faHeart} spin />
+const cart = <FontAwesomeIcon icon={faShoppingCart} />
 
 export const Cart = () => {
   return (
-    <CartStyle>
-      {/* <Link>
-        <i>{liked}</i>
-      </Link> */}
-      <Link>
-        <i>{cart}</i>
-      </Link>
-    </CartStyle>
+    <Link to="/">
+      <CartStyle>{cart}</CartStyle>
+    </Link>
   )
 }
 
 //styled component
 
-const CartStyle = styled(motion.div)`
+const CartStyle = styled.i`
   position: absolute;
-  top: 5%;
-  right: 5%;
-  i {
-    font-size: 35px;
-    margin-left: 1vw;
+  top: 2vh;
+  right: 2vw;
+  color: var(--one);
+  font-size: 2.5rem;
+  transition: 400ms;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--three);
   }
 `

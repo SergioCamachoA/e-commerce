@@ -1,6 +1,8 @@
-import axios from "axios"
+// import axios from "axios"
+import { useEffect, useState } from "react"
 
 export const useAuth = () => {
-  let auth = { isLogged: true }
-  return auth
+  const [isLogged, setIsLogged] = useState(false)
+
+  return { isLogged, setIsLogged }
 }
