@@ -21,6 +21,7 @@ const CartStyle = styled.i`
   position: absolute;
   top: 2vh;
   right: 2vw;
+  z-index: 2;
   color: var(--one);
   font-size: 2.5rem;
   transition: 400ms;

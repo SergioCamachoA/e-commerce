@@ -15,9 +15,11 @@ import { setLogin } from "./helpers/submitHandler"
 
 function App() {
   const location = useLocation()
-  const [isLogged, setIsLogged] = useState()
+  const [isLogged, setIsLogged] = useState(false)
+  const [userData, setUserData] = useState({})
+
   useEffect(() => {
-    setLogin(setIsLogged)
+    setLogin(setIsLogged, setUserData)
   }, [])
 
   // console.log(location)
@@ -31,15 +33,33 @@ function App() {
           <Route
             exact
             path="/"
-            children={<Main isLogged={isLogged} setIsLogged={setIsLogged} />}
+            children={
+              <Main
+                data={userData}
+                isLogged={isLogged}
+                setIsLogged={setIsLogged}
+              />
+            }
           />
           <Route
             path="/login"
-            children={<Login isLogged={isLogged} setIsLogged={setIsLogged} />}
+            children={
+              <Login
+                isLogged={isLogged}
+                setIsLogged={setIsLogged}
+                setUserData={setUserData}
+              />
+            }
           />
           <Route
             path="/signup"
-            children={<Signup isLogged={isLogged} setIsLogged={setIsLogged} />}
+            children={
+              <Signup
+                isLogged={isLogged}
+                setIsLogged={setIsLogged}
+                setUserData={setUserData}
+              />
+            }
           />
           <Route path="/products" children={<Products />} />
           <Route path="/product/:id" children={<SingleProduct />} />

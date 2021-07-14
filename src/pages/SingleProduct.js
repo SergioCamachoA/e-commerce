@@ -59,7 +59,7 @@ const ItemStyled = styled.div`
   h3 {
     max-width: 450px;
     height: 60px;
-    overflow: scroll;
+    overflow: hidden;
   }
 `
 

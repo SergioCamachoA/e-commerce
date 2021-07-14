@@ -1,18 +1,31 @@
-import React from "react"
+import React, { useState } from "react"
 import { motion } from "framer-motion"
 import { pageAnimation } from "../animation/animation"
 import styled from "styled-components"
 import { Redirect } from "react-router-dom"
 import { useForm } from "../helpers/useForm"
 import { logInHandler } from "../helpers/submitHandler"
-// import axios from "axios"
 
-export const Login = ({ isLogged, setIsLogged }) => {
+export const Login = ({ isLogged, setIsLogged, setUserData }) => {
   const emptyForm = {
     email: "",
     password: "",
   }
   const { form, onChangeHandler } = useForm(emptyForm)
+
+  const [isClicked, setIsClicked] = useState(false)
+
+  const variants = {
+    clicked: { y: 100, transition: { duration: 0.5 } },
+    notClicked: { y: 0 },
+  }
+
+  const loginAnim = () => {
+    setIsClicked(true)
+    setTimeout(() => {
+      logInHandler(form, "login", setIsLogged, setUserData)
+    }, 500)
+  }
 
   return !isLogged ? (
     <LoginStyled
@@ -22,31 +35,56 @@ export const Login = ({ isLogged, setIsLogged }) => {
       animate="show"
       className="Login"
     >
-      <header>login</header>
-      <form className="login-form">
-        <input
-          onChange={onChangeHandler}
-          value={form.email}
-          type="email"
-          name="email"
-          className="email"
-          placeholder="email"
-        />
-        <input
-          onChange={onChangeHandler}
-          value={form.password}
-          type="password"
-          name="password"
-          className="password"
-          placeholder="password"
-        />
-        <button
-          type="button"
-          className="login-btn"
-          onClick={() => logInHandler(form, "login", setIsLogged)}
+      <motion.div className="anim-container">
+        <motion.header
+          variants={variants}
+          initial={"notClicked"}
+          animate={isClicked ? "clicked" : "notClicked"}
         >
-          Confirm
-        </button>
+          login
+        </motion.header>
+      </motion.div>
+      <form className="login-form">
+        <motion.div className="header-container">
+          <motion.input
+            variants={variants}
+            initial={"notClicked"}
+            animate={isClicked ? "clicked" : "notClicked"}
+            onChange={onChangeHandler}
+            value={form.email}
+            type="email"
+            name="email"
+            className="email"
+            placeholder="email"
+          />
+        </motion.div>
+
+        <motion.div className="header-container">
+          <motion.input
+            variants={variants}
+            initial={"notClicked"}
+            animate={isClicked ? "clicked" : "notClicked"}
+            onChange={onChangeHandler}
+            value={form.password}
+            type="password"
+            name="password"
+            className="password"
+            placeholder="password"
+          />
+        </motion.div>
+
+        <motion.div className="header-container">
+          <motion.button
+            variants={variants}
+            initial={"notClicked"}
+            animate={isClicked ? "clicked" : "notClicked"}
+            type="button"
+            className="login-btn"
+            onClick={loginAnim}
+          >
+            Confirm
+          </motion.button>
+        </motion.div>
       </form>
     </LoginStyled>
   ) : (
@@ -56,6 +94,10 @@ export const Login = ({ isLogged, setIsLogged }) => {
 
 const LoginStyled = styled(motion.div)`
   text-align: center;
+  .anim-container {
+    overflow: hidden;
+    /* background-color: greenyellow; */
+  }
   form {
     display: flex;
     flex-direction: column;

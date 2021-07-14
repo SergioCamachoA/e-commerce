@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom"
 import { useForm } from "../helpers/useForm"
 import { signupHandler } from "../helpers/submitHandler"
 
-export const Signup = ({ isLogged, setIsLogged }) => {
+export const Signup = ({ isLogged, setIsLogged, setUserData }) => {
   const emptyForm = {
     first_name: "",
     last_name: "",
@@ -89,7 +89,9 @@ export const Signup = ({ isLogged, setIsLogged }) => {
         <button
           type="button"
           className="login-btn"
-          onClick={() => signupHandler(form, "signup", setIsLogged)}
+          onClick={() =>
+            signupHandler(form, "signup", setIsLogged, setUserData)
+          }
         >
           Confirm
         </button>

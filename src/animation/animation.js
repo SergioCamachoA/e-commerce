@@ -19,7 +19,7 @@ export const mainPageAnimation = {
   show: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.8 },
+    transition: { when: "beforeChildren", duration: 0.8 },
   },
   exit: {
     opacity: 0,
@@ -27,3 +27,21 @@ export const mainPageAnimation = {
     transition: { duration: 0.8 },
   },
 }
+
+//------------------
+// const variants = {
+//   open: { opacity: 1, x: 0 },
+//   closed: { opacity: 0, x: "-100%" },
+// }
+
+// export const MyComponent = () => {
+//   const [isOpen, setIsOpen] = useState(false)
+
+//   return (
+//     <motion.nav animate={isOpen ? "open" : "closed"} variants={variants}>
+//       <Toggle onClick={() => setIsOpen((isOpen) => !isOpen)} />
+//       <Items />
+//     </motion.nav>
+//   )
+// }
+//-----------------

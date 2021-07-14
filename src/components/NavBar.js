@@ -9,16 +9,16 @@ import {
   faSearch,
   faUserCircle,
   // faTimes,
-  faClipboardList,
   faPlus,
   faFingerprint,
+  faTags,
 } from "@fortawesome/free-solid-svg-icons"
 
 const back = <FontAwesomeIcon icon={faArrowLeft} />
 const search = <FontAwesomeIcon icon={faSearch} />
 const newUser = <FontAwesomeIcon icon={faUserCircle} />
 const user = <FontAwesomeIcon icon={faFingerprint} />
-const all = <FontAwesomeIcon icon={faClipboardList} />
+const all = <FontAwesomeIcon icon={faTags} />
 const add = <FontAwesomeIcon icon={faPlus} />
 // const hamburger = <FontAwesomeIcon icon={faBars} />
 // const close = <FontAwesomeIcon icon={faTimes} />
@@ -79,6 +79,7 @@ const NavStyle = styled(motion.div)`
   /* width: 50vw; */
   height: 100vh;
   position: fixed;
+  z-index: 3;
   /* overflow: hidden; */
   top: 0;
   left: 0;
@@ -92,7 +93,7 @@ const NavStyle = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 500ms;
+    transition: 700ms;
     width: 10vh;
     min-width: 100px;
     border-radius: 0 2rem 2rem 0;
@@ -101,9 +102,13 @@ const NavStyle = styled(motion.div)`
       width: 20vw;
       a,
       form {
-        color: var(--three);
+        color: var(--one);
+        i {
+          color: var(--four);
+        }
       }
-      background-color: rgba(35, 41, 70, 0.438);
+      /* background-color: rgba(35, 41, 70, 0.438); */
+      background-color: var(--three);
     }
   }
 
