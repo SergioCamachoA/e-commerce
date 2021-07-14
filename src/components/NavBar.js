@@ -66,7 +66,7 @@ export const NavBar = ({ isLogged }) => {
       <div className="hovered">
         <Link to={"/add-new"}>
           <i>{add}</i>
-          <h2>new product</h2>
+          <h2>add new</h2>
         </Link>
       </div>
     </NavStyle>
@@ -93,7 +93,7 @@ const NavStyle = styled(motion.div)`
     justify-content: center;
     align-items: center;
     transition: 500ms;
-    width: 8vw;
+    width: 10vh;
     min-width: 100px;
     border-radius: 0 2rem 2rem 0;
     &:hover {
@@ -124,7 +124,7 @@ const NavStyle = styled(motion.div)`
     i,
     h2 {
       margin: 0 1rem 0 2rem;
-      min-width: 40px;
+      min-width: 50px;
       display: flex;
       justify-content: center;
       align-items: center;

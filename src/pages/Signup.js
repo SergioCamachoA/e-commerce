@@ -3,13 +3,25 @@ import { pageAnimation } from "../animation/animation"
 import { motion } from "framer-motion"
 import styled from "styled-components"
 import { Redirect } from "react-router-dom"
+import { useForm } from "../helpers/useForm"
+import { submitHandler } from "../helpers/submitHandler"
 
 export const Signup = ({ isLogged, setIsLogged }) => {
-  function loginHandler(e) {
-    e.preventDefault()
-    console.log("loggin in")
-    setIsLogged(true)
+  const emptyForm = {
+    first_name: "",
+    last_name: "",
+    birth_date: "",
+    gender: "",
+    email: "",
+    password: "",
   }
+
+  const { form, onChangeHandler } = useForm(emptyForm)
+
+  // function formPrevent(e) {
+  //   e.preventDefault()
+  // }
+
   return isLogged ? (
     <Redirect to="/" />
   ) : (
@@ -21,17 +33,64 @@ export const Signup = ({ isLogged, setIsLogged }) => {
       className="Signup"
     >
       <header>signup</header>
-      <form className="signup-form">
-        <input type="text" className="name" placeholder="name" />
-        <input type="text" className="user" placeholder="last name" />
-        <select name="gender" id="gender">
-          <option value="male">male</option>
-          <option value="female">female</option>
+      <form
+        //  onSubmit={formPrevent}
+        className="signup-form"
+      >
+        <input
+          onChange={onChangeHandler}
+          value={form.name}
+          type="text"
+          name="first_name"
+          className="name"
+          placeholder="name"
+        />
+        <input
+          onChange={onChangeHandler}
+          value={form.lastName}
+          type="text"
+          name="last_name"
+          className="last-name"
+          placeholder="last name"
+        />
+        <select
+          onChange={onChangeHandler}
+          value={form.select}
+          name="gender"
+          id="gender"
+        >
+          <option value="M">M</option>
+          <option value="F">F</option>
         </select>
-        <input type="date" className="user" placeholder="birthdate" />
-        <input type="email" className="email" placeholder="email" />
-        <input type="password" className="password" placeholder="password" />
-        <button className="login-btn" onClick={loginHandler}>
+        <input
+          onChange={onChangeHandler}
+          value={form.birthdate}
+          name="birth_date"
+          type="input"
+          className="birthdate"
+          placeholder="birthdate"
+        />
+        <input
+          onChange={onChangeHandler}
+          value={form.email}
+          type="email"
+          name="email"
+          className="email"
+          placeholder="email"
+        />
+        <input
+          onChange={onChangeHandler}
+          value={form.password}
+          type="password"
+          name="password"
+          className="password"
+          placeholder="password"
+        />
+        <button
+          type="button"
+          className="login-btn"
+          onClick={() => submitHandler(form, setIsLogged, "signup")}
+        >
           Confirm
         </button>
       </form>
@@ -45,12 +104,9 @@ const SignupStyled = styled(motion.div)`
     display: flex;
     flex-direction: column;
   }
-  .user,
-  .name,
-  .email,
-  .password,
+  input,
   select,
-  .login-btn {
+  button {
     min-height: 2rem;
     height: 4vh;
     min-width: 16rem;
@@ -58,16 +114,26 @@ const SignupStyled = styled(motion.div)`
     margin-top: 1rem;
     font-size: 1.5rem;
     text-align: center;
-    color: $color-five;
+    /* color: $color-five; */
     border: none;
-    //   background-color: $color-four;
+    background-color: var(--bg);
+    transition: 400ms;
+    &:hover {
+      background-color: var(--three);
+      color: var(--one);
+    }
   }
   option {
     text-align: center;
   }
+  button {
+    background-color: var(--one);
+    color: var(--three);
+  }
+
   input:focus,
   select:focus {
     outline: none;
-    background-color: $color-two;
+    background-color: var(--three);
   }
 `

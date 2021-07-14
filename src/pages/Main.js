@@ -1,11 +1,29 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { mainPageAnimation } from "../animation/animation"
 import { motion } from "framer-motion"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons"
+import axios from "axios"
 
 export const Main = ({ isLogged, setIsLogged }) => {
+  useEffect(() => {
+    const config = {
+      header: {
+        Authorization: `JWT ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    }
+    console.log(config.header.Authorization)
+    axios.get("use/me", config).then(
+      (res) => {
+        console.log(res)
+      },
+      (err) => {
+        console.log(err, "valio gaver")
+      }
+    )
+  })
+
   return !isLogged ? (
     <motion.div
       variants={mainPageAnimation}

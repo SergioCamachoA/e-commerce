@@ -3,7 +3,9 @@ import ReactDOM from "react-dom"
 import App from "./App"
 import reportWebVitals from "./reportWebVitals"
 import { BrowserRouter as Router } from "react-router-dom"
+import axios from "axios"
 
+axios.defaults.baseURL = "https://ecomerce-master.herokuapp.com/api/v1/"
 ReactDOM.render(
   <React.StrictMode>
     <Router>

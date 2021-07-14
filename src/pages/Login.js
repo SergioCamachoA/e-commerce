@@ -3,13 +3,17 @@ import { motion } from "framer-motion"
 import { pageAnimation } from "../animation/animation"
 import styled from "styled-components"
 import { Redirect } from "react-router-dom"
+import { useForm } from "../helpers/useForm"
+import { submitHandler } from "../helpers/submitHandler"
 
 export const Login = ({ isLogged, setIsLogged }) => {
-  function loginHandler(e) {
-    e.preventDefault()
-    console.log("loggin in")
-    setIsLogged(true)
+  const emptyForm = {
+    email: "",
+    password: "",
   }
+
+  const { form, onChangeHandler } = useForm(emptyForm)
+
   return !isLogged ? (
     <LoginStyled
       exit="exit"
@@ -20,9 +24,27 @@ export const Login = ({ isLogged, setIsLogged }) => {
     >
       <header>login</header>
       <form className="login-form">
-        <input type="text" className="user" placeholder="username" />
-        <input type="password" className="password" placeholder="password" />
-        <button className="login-btn" onClick={loginHandler}>
+        <input
+          onChange={onChangeHandler}
+          value={form.email}
+          type="email"
+          name="email"
+          className="email"
+          placeholder="email"
+        />
+        <input
+          onChange={onChangeHandler}
+          value={form.password}
+          type="password"
+          name="password"
+          className="password"
+          placeholder="password"
+        />
+        <button
+          type="button"
+          className="login-btn"
+          onClick={() => submitHandler(form, setIsLogged, "login")}
+        >
           Confirm
         </button>
       </form>
@@ -33,20 +55,14 @@ export const Login = ({ isLogged, setIsLogged }) => {
 }
 
 const LoginStyled = styled(motion.div)`
-  header {
-    text-align: center;
-  }
+  text-align: center;
   form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
-  .user,
-  .name,
-  .email,
-  .password,
-  .login-btn {
+  input,
+  select,
+  button {
     min-height: 2rem;
     height: 4vh;
     min-width: 16rem;
@@ -54,14 +70,26 @@ const LoginStyled = styled(motion.div)`
     margin-top: 1rem;
     font-size: 1.5rem;
     text-align: center;
-    color: $color-five;
+    /* color: $color-five; */
+    border: none;
+    background-color: var(--bg);
+    transition: 400ms;
+    &:hover {
+      background-color: var(--three);
+      color: var(--one);
+    }
   }
-  input::placeholder {
-    color: $color-five;
+  option {
+    text-align: center;
   }
+  button {
+    background-color: var(--one);
+    color: var(--three);
+  }
+
   input:focus,
   select:focus {
     outline: none;
-    background-color: $color-two;
+    background-color: var(--three);
   }
 `
