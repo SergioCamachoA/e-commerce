@@ -66,7 +66,7 @@ export const Signup = ({ isLogged, setIsLogged }) => {
           onChange={onChangeHandler}
           value={form.birthdate}
           name="birth_date"
-          type="input"
+          type="text"
           className="birthdate"
           placeholder="birthdate"
         />

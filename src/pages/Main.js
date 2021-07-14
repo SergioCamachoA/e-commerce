@@ -8,13 +8,13 @@ import axios from "axios"
 
 export const Main = ({ isLogged, setIsLogged }) => {
   useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("token"))
     const config = {
-      header: {
-        Authorization: `JWT ${JSON.parse(localStorage.getItem("token"))}`,
-      },
+      headers: { Authorization: `JWT ${token}` },
     }
-    console.log(config.header.Authorization)
-    axios.get("use/me", config).then(
+    console.log(config)
+
+    axios.get("user/me", config).then(
       (res) => {
         console.log(res)
       },
