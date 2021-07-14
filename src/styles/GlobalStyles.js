@@ -14,10 +14,10 @@ export const GlobalStyle = createGlobalStyle`
 :root {
     --one: #232946;
     --two: #121629;
-    --three: #eebbc3;
-    --four: #e3e3e3;
+    --three: #8860D0;
+    --four: #5AB9EA;
     --five: #d4d8f0;
-    --bg: #b8c1ec;
+    --bg: #84CEEB;
 }
 
 * {
