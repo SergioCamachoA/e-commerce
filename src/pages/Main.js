@@ -17,6 +17,7 @@ export const Main = ({ isLogged, setIsLogged }) => {
     axios.get("user/me", config).then(
       (res) => {
         console.log(res)
+        setIsLogged(true)
       },
       (err) => {
         console.log(err, "valio gaver")

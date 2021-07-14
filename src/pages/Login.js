@@ -1,12 +1,32 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { motion } from "framer-motion"
 import { pageAnimation } from "../animation/animation"
 import styled from "styled-components"
 import { Redirect } from "react-router-dom"
 import { useForm } from "../helpers/useForm"
-import { submitHandler } from "../helpers/submitHandler"
+import { submitHandler } from "../helpers/useSubmitHandler"
+import axios from "axios"
 
 export const Login = ({ isLogged, setIsLogged }) => {
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("token"))
+    const config = {
+      headers: { Authorization: `JWT ${token}` },
+    }
+    console.log(config)
+
+    axios.get("user/me", config).then(
+      (res) => {
+        console.log(res)
+        setIsLogged(true)
+        console.log(isLogged)
+      },
+      (err) => {
+        console.log(err, "valio gaver")
+      }
+    )
+  })
+
   const emptyForm = {
     email: "",
     password: "",

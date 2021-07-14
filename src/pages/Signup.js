@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import styled from "styled-components"
 import { Redirect } from "react-router-dom"
 import { useForm } from "../helpers/useForm"
-import { submitHandler } from "../helpers/submitHandler"
+import { submitHandler } from "../helpers/useSubmitHandler"
 
 export const Signup = ({ isLogged, setIsLogged }) => {
   const emptyForm = {
