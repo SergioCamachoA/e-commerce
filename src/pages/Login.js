@@ -1,37 +1,17 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { motion } from "framer-motion"
 import { pageAnimation } from "../animation/animation"
 import styled from "styled-components"
 import { Redirect } from "react-router-dom"
 import { useForm } from "../helpers/useForm"
-import { submitHandler } from "../helpers/useSubmitHandler"
-import axios from "axios"
+import { logInHandler } from "../helpers/submitHandler"
+// import axios from "axios"
 
 export const Login = ({ isLogged, setIsLogged }) => {
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token"))
-    const config = {
-      headers: { Authorization: `JWT ${token}` },
-    }
-    console.log(config)
-
-    axios.get("user/me", config).then(
-      (res) => {
-        console.log(res)
-        setIsLogged(true)
-        console.log(isLogged)
-      },
-      (err) => {
-        console.log(err, "valio gaver")
-      }
-    )
-  })
-
   const emptyForm = {
     email: "",
     password: "",
   }
-
   const { form, onChangeHandler } = useForm(emptyForm)
 
   return !isLogged ? (
@@ -63,7 +43,7 @@ export const Login = ({ isLogged, setIsLogged }) => {
         <button
           type="button"
           className="login-btn"
-          onClick={() => submitHandler(form, setIsLogged, "login")}
+          onClick={() => logInHandler(form, "login", setIsLogged)}
         >
           Confirm
         </button>
@@ -90,7 +70,6 @@ const LoginStyled = styled(motion.div)`
     margin-top: 1rem;
     font-size: 1.5rem;
     text-align: center;
-    /* color: $color-five; */
     border: none;
     background-color: var(--bg);
     transition: 400ms;

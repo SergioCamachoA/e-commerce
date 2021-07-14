@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import styled from "styled-components"
 import { Redirect } from "react-router-dom"
 import { useForm } from "../helpers/useForm"
-import { submitHandler } from "../helpers/useSubmitHandler"
+import { signupHandler } from "../helpers/submitHandler"
 
 export const Signup = ({ isLogged, setIsLogged }) => {
   const emptyForm = {
@@ -89,7 +89,7 @@ export const Signup = ({ isLogged, setIsLogged }) => {
         <button
           type="button"
           className="login-btn"
-          onClick={() => submitHandler(form, setIsLogged, "signup")}
+          onClick={() => signupHandler(form, "signup", setIsLogged)}
         >
           Confirm
         </button>

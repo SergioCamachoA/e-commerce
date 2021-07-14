@@ -1,5 +1,4 @@
 import { Route, Switch, useLocation } from "react-router-dom"
-// import "./styles/App.css"
 import { Main } from "./pages/Main"
 import { Login } from "./pages/Login"
 import { Signup } from "./pages/Signup"
@@ -11,11 +10,15 @@ import { NavBar } from "./components/NavBar"
 import { GlobalStyle } from "./styles/GlobalStyles"
 import { AnimatePresence } from "framer-motion"
 import { Cart } from "./components/Cart"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { setLogin } from "./helpers/submitHandler"
 
 function App() {
   const location = useLocation()
-  const [isLogged, setIsLogged] = useState(false)
+  const [isLogged, setIsLogged] = useState()
+  useEffect(() => {
+    setLogin(setIsLogged)
+  }, [])
 
   // console.log(location)
   return (

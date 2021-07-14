@@ -1,29 +1,16 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { mainPageAnimation } from "../animation/animation"
 import { motion } from "framer-motion"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons"
-import axios from "axios"
+// import axios from "axios"
 
 export const Main = ({ isLogged, setIsLogged }) => {
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token"))
-    const config = {
-      headers: { Authorization: `JWT ${token}` },
-    }
-    console.log(config)
-
-    axios.get("user/me", config).then(
-      (res) => {
-        console.log(res)
-        setIsLogged(true)
-      },
-      (err) => {
-        console.log(err, "valio gaver")
-      }
-    )
-  })
+  function logOutHandler() {
+    localStorage.clear()
+    setIsLogged(false)
+  }
 
   return !isLogged ? (
     <motion.div
@@ -51,7 +38,7 @@ export const Main = ({ isLogged, setIsLogged }) => {
         </div>
       </motion.div>
       <div>
-        <LogOutStyled onClick={() => setIsLogged(false)} className="log-out">
+        <LogOutStyled onClick={logOutHandler} className="log-out">
           <FontAwesomeIcon icon={faSignOutAlt} />
         </LogOutStyled>
       </div>
