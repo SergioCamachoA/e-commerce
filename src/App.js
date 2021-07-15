@@ -12,6 +12,7 @@ import { AnimatePresence } from "framer-motion"
 import { Cart } from "./components/Cart"
 import { useEffect, useState } from "react"
 import { setLogin } from "./helpers/submitHandler"
+import { Settings } from "./pages/Settings"
 
 function App() {
   const location = useLocation()
@@ -66,6 +67,17 @@ function App() {
           <Route
             path="/add-new"
             children={<NewProduct isLogged={isLogged} />}
+          />
+          <Route
+            path="/settings"
+            children={
+              <Settings
+                data={userData}
+                // isLogged={isLogged}
+                // setIsLogged={setIsLogged}
+                // setUserData={setUserData}
+              />
+            }
           />
           <Route path="*">
             <Error />

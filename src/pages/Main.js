@@ -10,10 +10,6 @@ import { BigCircle } from "../components/BigCircle"
 export const Main = ({ isLogged, setIsLogged, data }) => {
   function logOutHandler() {
     setIsClicked(!isClicked)
-    // setTimeout(() => {
-    //   localStorage.clear()
-    //   setIsLogged(false)
-    // }, 500)
   }
 
   const confirmLogOut = () => {

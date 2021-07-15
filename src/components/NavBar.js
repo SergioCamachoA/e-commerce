@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styled from "styled-components"
@@ -12,6 +12,7 @@ import {
   faPlus,
   faFingerprint,
   faTags,
+  faCog,
 } from "@fortawesome/free-solid-svg-icons"
 
 const back = <FontAwesomeIcon icon={faArrowLeft} />
@@ -20,13 +21,20 @@ const newUser = <FontAwesomeIcon icon={faUserCircle} />
 const user = <FontAwesomeIcon icon={faFingerprint} />
 const all = <FontAwesomeIcon icon={faTags} />
 const add = <FontAwesomeIcon icon={faPlus} />
+const settings = <FontAwesomeIcon icon={faCog} />
 // const hamburger = <FontAwesomeIcon icon={faBars} />
 // const close = <FontAwesomeIcon icon={faTimes} />
 
 export const NavBar = ({ isLogged }) => {
+  const [searchInput, setSearchInput] = useState("")
+
   function submitHandler(e) {
     e.preventDefault()
   }
+  const searchInputHandler = (e) => {
+    setSearchInput(e.target.value)
+  }
+
   return (
     <NavStyle className="navbar">
       <div className="hovered">
@@ -34,12 +42,6 @@ export const NavBar = ({ isLogged }) => {
           <i>{back}</i>
           <h2>home</h2>
         </Link>
-      </div>
-      <div className="hovered">
-        <form onSubmit={submitHandler}>
-          <i>{search}</i>
-          <h2>search</h2>
-        </form>
       </div>
       {!isLogged && (
         <div className="hovered">
@@ -57,6 +59,18 @@ export const NavBar = ({ isLogged }) => {
           </Link>
         </div>
       )}
+      <div className="hovered hover-form">
+        <form onSubmit={submitHandler}>
+          <i>{search}</i>
+          {/* <h2>search</h2> */}
+          <input
+            onChange={searchInputHandler}
+            value={searchInput}
+            type="text"
+            placeholder="search"
+          />
+        </form>
+      </div>
       <div className="hovered">
         <Link to="/products">
           <i>{all}</i>
@@ -69,6 +83,14 @@ export const NavBar = ({ isLogged }) => {
           <h2>add new</h2>
         </Link>
       </div>
+      {isLogged && (
+        <div className="hovered">
+          <Link to="/settings">
+            <i>{settings}</i>
+            <h2>settings</h2>
+          </Link>
+        </div>
+      )}
     </NavStyle>
   )
 }
@@ -88,16 +110,18 @@ const NavStyle = styled(motion.div)`
   justify-content: space-around;
   align-items: left;
   .hovered {
-    /* background-color: black; */
     height: 8vh;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: 700ms;
-    width: 10vh;
+    width: 10vh; // <--------------
+    /* width: 20vh; */
     min-width: 100px;
     border-radius: 0 2rem 2rem 0;
     &:hover {
+      background-color: var(--three);
+
       min-width: 330px;
       width: 20vw;
       a,
@@ -106,9 +130,10 @@ const NavStyle = styled(motion.div)`
         i {
           color: var(--four);
         }
+        input {
+          background-color: var(--four);
+        }
       }
-      /* background-color: rgba(35, 41, 70, 0.438); */
-      background-color: var(--three);
     }
   }
 
@@ -142,5 +167,16 @@ const NavStyle = styled(motion.div)`
       margin: 0 0 0 1rem;
       /* text-align: left; */
     }
+    input {
+      background-color: var(--three);
+      height: 8vh;
+      font-size: 3.6vh;
+      transition: 500ms;
+      margin-left: 0.5rem;
+      padding-left: 1rem;
+    }
   }
+  /* form {
+    background-color: ;
+  } */
 `

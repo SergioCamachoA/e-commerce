@@ -12,12 +12,12 @@ export const GlobalStyle = createGlobalStyle`
   src: url(${chillFont});
 }
 :root {
-    --one: #232946;
-    --two: #121629;
-    --three: #8860D0;
-    --four: #5AB9EA;
-    --five: #d4d8f0;
-    --bg: #84CEEB;
+    --one: #505050;
+    --two: #292929;
+    --three: #b4b4b4;
+    --four: #cacaca;
+    --five: #eeeeee;
+    --bg: #e6e6e6;
 }
 
 * {
