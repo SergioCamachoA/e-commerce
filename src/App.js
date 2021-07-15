@@ -4,20 +4,21 @@ import { Login } from "./pages/Login"
 import { Signup } from "./pages/Signup"
 import { Products } from "./pages/Products"
 import { SingleProduct } from "./pages/SingleProduct"
-import { NewProduct } from "./pages/NewProduct"
+// import { NewProduct } from "./pages/NewProduct"
 import { Error } from "./pages/Error"
 import { NavBar } from "./components/NavBar"
 import { GlobalStyle } from "./styles/GlobalStyles"
 import { AnimatePresence } from "framer-motion"
 import { Cart } from "./components/Cart"
 import { useEffect, useState } from "react"
-import { setLogin } from "./helpers/submitHandler"
+import { setLogin } from "./helpers/loginHandler"
 import { Settings } from "./pages/Settings"
 
 function App() {
   const location = useLocation()
   const [isLogged, setIsLogged] = useState(false)
   const [userData, setUserData] = useState({})
+  const [history, setHistory] = useState()
 
   useEffect(() => {
     setLogin(setIsLogged, setUserData)
@@ -46,6 +47,7 @@ function App() {
             path="/login"
             children={
               <Login
+                history={history}
                 isLogged={isLogged}
                 setIsLogged={setIsLogged}
                 setUserData={setUserData}
@@ -64,18 +66,17 @@ function App() {
           />
           <Route path="/products" children={<Products />} />
           <Route path="/product/:id" children={<SingleProduct />} />
-          <Route
+          {/* <Route
             path="/add-new"
             children={<NewProduct isLogged={isLogged} />}
-          />
+          /> */}
           <Route
             path="/settings"
             children={
               <Settings
+                setHistory={setHistory}
+                isLogged={isLogged}
                 data={userData}
-                // isLogged={isLogged}
-                // setIsLogged={setIsLogged}
-                // setUserData={setUserData}
               />
             }
           />

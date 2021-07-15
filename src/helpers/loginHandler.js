@@ -27,17 +27,18 @@ export const signupHandler = (form, accessType, setIsLogged, setUserData) => {
 //es invocada en la funcion logInHandler y en App.js en el primer render
 export const setLogin = (setIsLogged, setUserData) => {
   const token = localStorage.getItem("token")
+  setIsLogged(!!token)
   if (token !== null) {
     const config = {
       headers: { Authorization: `JWT ${token}` },
     }
     axios.get("user/me", config).then(
       (res) => {
-        setUserData(res)
-        setIsLogged(true)
+        setUserData(res.data.user)
       },
       (err) => {
         console.log(err)
+        setIsLogged(false)
       }
     )
   }

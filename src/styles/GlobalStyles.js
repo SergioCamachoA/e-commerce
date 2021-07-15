@@ -59,14 +59,14 @@ select {
   border-radius: 2rem;
   border: none;
   ::placeholder{
-    color: var(--one);
+    color: var(--two);
   }
 }
 button:hover {
   cursor: pointer;
 }
 select{
-  padding-left: 36%;
+  /* padding-left: 16%; */
   /* transform: translateX(50%); */
 }
 

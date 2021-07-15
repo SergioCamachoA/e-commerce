@@ -1,33 +1,38 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { pageAnimation } from "../animation/animation"
 import styled from "styled-components"
 import { Redirect } from "react-router-dom"
 import { useForm } from "../helpers/useForm"
-import { logInHandler } from "../helpers/submitHandler"
+import { logInHandler } from "../helpers/loginHandler"
+import { Loader } from "../components/Loader"
 
-export const Login = ({ isLogged, setIsLogged, setUserData }) => {
+export const Login = ({ isLogged, setIsLogged, setUserData, history }) => {
   const emptyForm = {
     email: "",
     password: "",
   }
   const { form, onChangeHandler } = useForm(emptyForm)
-
-  const [isClicked, setIsClicked] = useState(false)
-
-  const variants = {
-    clicked: { y: 100, transition: { duration: 0.5 } },
-    notClicked: { y: 0 },
-  }
+  const [isLoading, setIsLoading] = useState(false)
 
   const loginAnim = () => {
-    setIsClicked(true)
-    setTimeout(() => {
-      logInHandler(form, "login", setIsLogged, setUserData)
-    }, 500)
+    setIsLoading(true)
+    logInHandler(form, "login", setIsLogged, setUserData)
   }
 
-  return !isLogged ? (
+  useEffect(() => {
+    // console.log(isLogged)
+    isLogged && setIsLoading(false)
+  }, [isLogged])
+
+  //redirects to previous pathname (currently set up only in Settings.js)
+  //if pathname undefined returns to homepage '/'
+  if (isLogged) {
+    // console.log(history)
+    return <Redirect to={history === undefined ? "/" : history} />
+  }
+
+  return !isLoading ? (
     <LoginStyled
       exit="exit"
       variants={pageAnimation}
@@ -35,49 +40,33 @@ export const Login = ({ isLogged, setIsLogged, setUserData }) => {
       animate="show"
       className="Login"
     >
+      {/* <Loader /> */}
       <motion.div className="anim-container">
-        <motion.header
-          variants={variants}
-          initial={"notClicked"}
-          animate={isClicked ? "clicked" : "notClicked"}
-        >
-          login
-        </motion.header>
+        <motion.header>login</motion.header>
       </motion.div>
       <form className="login-form">
         <motion.div className="header-container">
           <motion.input
-            variants={variants}
-            initial={"notClicked"}
-            animate={isClicked ? "clicked" : "notClicked"}
             onChange={onChangeHandler}
             value={form.email}
             type="email"
             name="email"
-            className="email"
             placeholder="email"
           />
         </motion.div>
 
         <motion.div className="header-container">
           <motion.input
-            variants={variants}
-            initial={"notClicked"}
-            animate={isClicked ? "clicked" : "notClicked"}
             onChange={onChangeHandler}
             value={form.password}
             type="password"
             name="password"
-            className="password"
             placeholder="password"
           />
         </motion.div>
 
         <motion.div className="header-container">
           <motion.button
-            variants={variants}
-            initial={"notClicked"}
-            animate={isClicked ? "clicked" : "notClicked"}
             type="button"
             className="login-btn"
             onClick={loginAnim}
@@ -88,7 +77,7 @@ export const Login = ({ isLogged, setIsLogged, setUserData }) => {
       </form>
     </LoginStyled>
   ) : (
-    <Redirect to="/" />
+    <Loader />
   )
 }
 

@@ -1,53 +1,50 @@
 import axios from "axios"
 import { motion } from "framer-motion"
 import React, { useEffect, useState } from "react"
+import { Redirect, useLocation } from "react-router-dom"
 import { pageAnimation } from "../animation/animation"
 
-export const Settings = (data) => {
+export const Settings = ({ data, isLogged, setHistory }) => {
   const [userId, setUserId] = useState("")
-  //   console.log(data)
   const [input, setInput] = useState("")
+  let location = useLocation()
+
+  //save location pathname in a state to be used in redirection after auth on login
+  useEffect(() => {
+    setHistory(location.pathname)
+  }, [location, setHistory])
 
   useEffect(() => {
-    if (data.data.data !== undefined) {
-      console.log(data.data.data)
-      setUserId(data.data.data.user._id)
-    }
-  }, [data, userId])
-
-  const token = localStorage.getItem("token")
-
-  let body = { first_name: input }
-  console.log(body)
+    console.log(data._id)
+    !data && setUserId(data._id)
+  }, [data, isLogged, userId])
 
   const inputHandler = (e) => {
     setInput(e.target.value)
   }
 
   const changeName = () => {
-    console.log(input)
+    const token = localStorage.getItem("token")
+    let body = { first_name: input }
+    let id = userId
     if (token !== null) {
       const config = {
         headers: { Authorization: `JWT ${token}` },
       }
-      //   axios.patch(`user/user`, body, config).then(
-      axios.patch(`user/${userId}`, body, config).then(
+      axios.patch(`user/60efb1f85b8e9c0017883858`, body, config).then(
+        // axios.patch(`user/${userId}`, body, config).then(
         (res) => {
-          // setUserData(res)
-          // setIsLogged(true)
+          console.log(id)
           console.log(res)
         },
         (err) => {
-          console.log(userId)
-          console.log(config)
-          console.log(body)
           console.log(err)
         }
       )
     }
   }
 
-  return (
+  return isLogged ? (
     <motion.div
       exit="exit"
       variants={pageAnimation}
@@ -63,5 +60,7 @@ export const Settings = (data) => {
       />
       <button onClick={changeName}>confirmar</button>
     </motion.div>
+  ) : (
+    <Redirect to="login" />
   )
 }

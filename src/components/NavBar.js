@@ -9,7 +9,7 @@ import {
   faSearch,
   faUserCircle,
   // faTimes,
-  faPlus,
+  // faPlus,
   faFingerprint,
   faTags,
   faCog,
@@ -20,7 +20,7 @@ const search = <FontAwesomeIcon icon={faSearch} />
 const newUser = <FontAwesomeIcon icon={faUserCircle} />
 const user = <FontAwesomeIcon icon={faFingerprint} />
 const all = <FontAwesomeIcon icon={faTags} />
-const add = <FontAwesomeIcon icon={faPlus} />
+// const add = <FontAwesomeIcon icon={faPlus} />
 const settings = <FontAwesomeIcon icon={faCog} />
 // const hamburger = <FontAwesomeIcon icon={faBars} />
 // const close = <FontAwesomeIcon icon={faTimes} />
@@ -75,12 +75,6 @@ export const NavBar = ({ isLogged }) => {
         <Link to="/products">
           <i>{all}</i>
           <h2>all products</h2>
-        </Link>
-      </div>
-      <div className="hovered">
-        <Link to={"/add-new"}>
-          <i>{add}</i>
-          <h2>add new</h2>
         </Link>
       </div>
       {isLogged && (
@@ -180,3 +174,10 @@ const NavStyle = styled(motion.div)`
     background-color: ;
   } */
 `
+
+// <div className="hovered">
+//   <Link to={"/add-new"}>
+//     <i>{add}</i>
+//     <h2>add new</h2>
+//   </Link>
+// </div>
