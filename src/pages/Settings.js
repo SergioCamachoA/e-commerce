@@ -13,7 +13,7 @@ export const Settings = (data) => {
       console.log(data.data.data)
       setUserId(data.data.data.user._id)
     }
-  }, [data, userId])
+  }, [data])
 
   const token = localStorage.getItem("token")
 
@@ -35,6 +35,7 @@ export const Settings = (data) => {
         (res) => {
           // setUserData(res)
           // setIsLogged(true)
+          console.log(userId)
           console.log(res)
         },
         (err) => {
