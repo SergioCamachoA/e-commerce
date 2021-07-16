@@ -3,16 +3,18 @@ import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styled from "styled-components"
 import { motion } from "framer-motion"
+import { useGlobal } from "../hooks/useGlobal"
 import {
   faArrowLeft,
   // faBars,
   faSearch,
   faUserCircle,
   // faTimes,
-  faPlus,
+  // faPlus,
   faFingerprint,
   faTags,
   faCog,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons"
 
 const back = <FontAwesomeIcon icon={faArrowLeft} />
@@ -25,7 +27,10 @@ const settings = <FontAwesomeIcon icon={faCog} />
 // const hamburger = <FontAwesomeIcon icon={faBars} />
 // const close = <FontAwesomeIcon icon={faTimes} />
 
-export const NavBar = ({ isLogged }) => {
+const isAdmin = false
+
+export const NavBar = () => {
+  const { isLogged } = useGlobal()
   const [searchInput, setSearchInput] = useState("")
 
   function submitHandler(e) {
@@ -77,12 +82,14 @@ export const NavBar = ({ isLogged }) => {
           <h2>all products</h2>
         </Link>
       </div>
-      <div className="hovered">
-        <Link to={"/add-new"}>
-          <i>{add}</i>
-          <h2>add new</h2>
-        </Link>
-      </div>
+      {isLogged && isAdmin && (
+        <div className="hovered">
+          <Link to={"/add-new"}>
+            <i>{add}</i>
+            <h2>add new</h2>
+          </Link>
+        </div>
+      )}
       {isLogged && (
         <div className="hovered">
           <Link to="/settings">
@@ -176,7 +183,4 @@ const NavStyle = styled(motion.div)`
       padding-left: 1rem;
     }
   }
-  /* form {
-    background-color: ;
-  } */
 `

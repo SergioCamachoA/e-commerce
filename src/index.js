@@ -4,13 +4,16 @@ import App from "./App"
 import reportWebVitals from "./reportWebVitals"
 import { BrowserRouter as Router } from "react-router-dom"
 import axios from "axios"
+import { GlobalContextProvider } from "./hooks/useGlobal"
 
 axios.defaults.baseURL = "https://ecomerce-master.herokuapp.com/api/v1/"
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <GlobalContextProvider>
+      <Router>
+        <App />
+      </Router>
+    </GlobalContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 )

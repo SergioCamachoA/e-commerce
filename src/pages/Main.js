@@ -1,13 +1,27 @@
-import React, { useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import { mainPageAnimation } from "../animation/animation"
 import { motion } from "framer-motion"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons"
 import { BigCircle } from "../components/BigCircle"
+import { useLocation } from "react-router-dom"
 // import axios from "axios"
+import { GlobalContext } from "../hooks/useGlobal"
 
-export const Main = ({ isLogged, setIsLogged, data }) => {
+// export const Main = ({ isLogged, setIsLogged, data, setHistory }) => {
+export const Main = () => {
+  let location = useLocation()
+  console.log(useContext(GlobalContext))
+  const { isLogged, setIsLogged, userData, setHistory } =
+    useContext(GlobalContext)
+  // const [confirmedLogin, setConfirmedLogin] = useState(false)
+
+  //save location pathname in a state to be used in redirection after auth on login
+  useEffect(() => {
+    setHistory(location.pathname)
+  }, [location, setHistory])
+
   function logOutHandler() {
     setIsClicked(!isClicked)
   }
@@ -16,7 +30,11 @@ export const Main = ({ isLogged, setIsLogged, data }) => {
     localStorage.clear()
     setIsLogged(false)
   }
-  const username = data.data !== undefined && data.data.user.first_name
+
+  const [username, setUsername] = useState()
+  useEffect(() => {
+    setUsername(userData.first_name)
+  }, [userData])
 
   const variants = {
     clicked: { y: -50 },
@@ -24,6 +42,10 @@ export const Main = ({ isLogged, setIsLogged, data }) => {
   }
 
   const [isClicked, setIsClicked] = useState(false)
+
+  useEffect(() => {
+    console.log(isLogged)
+  }, [isLogged])
 
   return !isLogged ? (
     <MainStyled
@@ -55,7 +77,7 @@ export const Main = ({ isLogged, setIsLogged, data }) => {
             variants={variants}
             className="main-header"
           >
-            {!isClicked ? `this is your account, ${username}` : `logout`}
+            {!isClicked ? `happy shopping, ${username}` : `logout`}
           </motion.header>
           {isClicked && (
             <motion.div
@@ -63,8 +85,10 @@ export const Main = ({ isLogged, setIsLogged, data }) => {
               animate={isClicked ? "clicked" : "notClicked"}
               variants={variants}
             >
-              <button onClick={confirmLogOut}>Confirm</button>
-              <button onClick={() => setIsClicked(!isClicked)}>Cancel</button>
+              <button onClick={confirmLogOut}>confirm</button>
+              <button onClick={() => setIsClicked(!isClicked)}>
+                keep shopping
+              </button>
             </motion.div>
           )}
         </ContainerStyled>
@@ -98,11 +122,13 @@ const ContainerStyled = styled(motion.div)`
   align-items: center;
   button {
     height: 7vh;
-    width: 25vh;
+    /* width: 25vh; */
+    padding: 0rem 1rem;
     font-size: 4vh;
     margin: 1rem;
     margin-top: 5rem;
     transition: 500ms;
+    background-color: transparent;
     &:hover {
       background-color: var(--one);
       color: var(--three);
