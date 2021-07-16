@@ -12,7 +12,6 @@ import { GlobalContext } from "../hooks/useGlobal"
 // export const Main = ({ isLogged, setIsLogged, data, setHistory }) => {
 export const Main = () => {
   let location = useLocation()
-  console.log(useContext(GlobalContext))
 
   const { isLogged, setIsLogged, userData, setHistory } =
     useContext(GlobalContext)

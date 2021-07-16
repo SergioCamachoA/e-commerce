@@ -25,8 +25,8 @@ function App() {
   // const [history, setHistory] = useState()
 
   useEffect(() => {
-    console.log("puto bucle")
     setLogin()
+    // eslint-disable-next-line
   }, [])
 
   // console.log(location)
