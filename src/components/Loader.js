@@ -16,7 +16,11 @@ export const Loader = () => {
         initial={{ pathLength: 0 }}
         animate={{
           pathLength: 1,
-          transition: { duration: 0.7, yoyo: Infinity },
+          transition: {
+            duration: 0.7,
+            repeatType: "mirror",
+            repeat: "Infinity",
+          },
         }}
         //   exit={{}}
         d="M560.999 147C-805.801 770.24 756.207 475.733 1014 147C1271.79 -181.732 1057.71 856.613 1014 533.001C970.287 209.388 724.879 -187.651 560.999 520.001C397.119 1227.65 1927.8 -476.239 560.999 147Z"

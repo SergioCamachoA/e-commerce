@@ -40,6 +40,7 @@ function App() {
                 data={userData}
                 isLogged={isLogged}
                 setIsLogged={setIsLogged}
+                setHistory={setHistory}
               />
             }
           />
@@ -48,6 +49,7 @@ function App() {
             children={
               <Login
                 history={history}
+                setHistory={setHistory}
                 isLogged={isLogged}
                 setIsLogged={setIsLogged}
                 setUserData={setUserData}
@@ -77,6 +79,7 @@ function App() {
                 setHistory={setHistory}
                 isLogged={isLogged}
                 data={userData}
+                setData={setUserData}
               />
             }
           />

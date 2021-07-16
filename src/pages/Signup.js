@@ -15,6 +15,7 @@ export const Signup = ({ isLogged, setIsLogged, setUserData }) => {
     gender: "",
     email: "",
     password: "",
+    role: "ADMIN",
   }
 
   const { form, onChangeHandler } = useForm(emptyForm)

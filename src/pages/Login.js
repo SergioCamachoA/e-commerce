@@ -7,7 +7,13 @@ import { useForm } from "../helpers/useForm"
 import { logInHandler } from "../helpers/loginHandler"
 import { Loader } from "../components/Loader"
 
-export const Login = ({ isLogged, setIsLogged, setUserData, history }) => {
+export const Login = ({
+  isLogged,
+  setIsLogged,
+  setUserData,
+  history,
+  // setHistory,
+}) => {
   const emptyForm = {
     email: "",
     password: "",
@@ -20,15 +26,22 @@ export const Login = ({ isLogged, setIsLogged, setUserData, history }) => {
     logInHandler(form, "login", setIsLogged, setUserData)
   }
 
+  // const [current, setCurrent] = useState("/")
+
   useEffect(() => {
     // console.log(isLogged)
     isLogged && setIsLoading(false)
+
+    // setCurrent(history)
+    // setHistory(undefined)
+    // console.log(history)
+    // console.log(current)
   }, [isLogged])
 
   //redirects to previous pathname (currently set up only in Settings.js)
   //if pathname undefined returns to homepage '/'
   if (isLogged) {
-    // console.log(history)
+    console.log(history)
     return <Redirect to={history === undefined ? "/" : history} />
   }
 

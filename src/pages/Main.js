@@ -5,9 +5,17 @@ import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons"
 import { BigCircle } from "../components/BigCircle"
+import { useLocation } from "react-router-dom"
 // import axios from "axios"
 
-export const Main = ({ isLogged, setIsLogged, data }) => {
+export const Main = ({ isLogged, setIsLogged, data, setHistory }) => {
+  let location = useLocation()
+
+  //save location pathname in a state to be used in redirection after auth on login
+  useEffect(() => {
+    setHistory(location.pathname)
+  }, [location, setHistory])
+
   function logOutHandler() {
     setIsClicked(!isClicked)
   }
