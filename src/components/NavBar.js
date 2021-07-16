@@ -26,7 +26,7 @@ const settings = <FontAwesomeIcon icon={faCog} />
 // const hamburger = <FontAwesomeIcon icon={faBars} />
 // const close = <FontAwesomeIcon icon={faTimes} />
 
-const isAdmin = true
+const isAdmin = false
 
 export const NavBar = ({ isLogged }) => {
   const [searchInput, setSearchInput] = useState("")
