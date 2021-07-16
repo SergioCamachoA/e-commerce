@@ -31,17 +31,11 @@ export const Login = ({
   useEffect(() => {
     // console.log(isLogged)
     isLogged && setIsLoading(false)
-
-    // setCurrent(history)
-    // setHistory(undefined)
-    // console.log(history)
-    // console.log(current)
   }, [isLogged])
 
   //redirects to previous pathname (currently set up only in Settings.js)
   //if pathname undefined returns to homepage '/'
   if (isLogged) {
-    console.log(history)
     return <Redirect to={history === undefined ? "/" : history} />
   }
 

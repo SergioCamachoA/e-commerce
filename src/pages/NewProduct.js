@@ -2,50 +2,67 @@ import React from "react"
 import { motion } from "framer-motion"
 import { pageAnimation } from "../animation/animation"
 import { Redirect } from "react-router-dom"
-// import axios from "axios"
+import axios from "axios"
 import styled from "styled-components"
 // import { useAuth } from "../helpers/useAuth"
 
 export const NewProduct = ({ isLogged }) => {
-  let inputs = [
-    "isActive",
-    "product_name",
-    "description",
-    "price",
-    "category",
-    "brand",
-    "sku",
-    "image",
-  ]
+  let inputs =
+    // [
+    //   "isActive",
+    //   "product_name",
+    //   "description",
+    //   "price",
+    //   "category",
+    //   "brand",
+    //   "sku",
+    //   "image",
+    // ]
+
+    {
+      isActive: true,
+      product_name: "tacos al pastor",
+      description:
+        "Bonitos tacos No Yaiba Aretes De Sol Kamado Tanjiro Demon Slayer 2",
+      price: 90962,
+      category: "Women",
+      brand: "Hatori Hanso",
+      sku: "e9cbfdb4-890a-42c3-b94a-687a39dc7ed1",
+      image:
+        "https://i.pinimg.com/originals/eb/83/be/eb83be580847bcdc4c8f403c8085d3c8.jpg",
+    }
 
   const newItemHandler = () => {
-    console.log("ahorita no joven")
-    // const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token")
 
-    // let body = inputs
+    let body = inputs
 
-    // if (token !== null) {
-    //   const config = {
-    //     headers: {
-    //       Authorization: `JWT ${token}`,
-    //     },
-    //   }
+    if (token !== null) {
+      const config = {
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      }
 
-    //   axios.post("item", body, config).then(
-    //     (res) => {
-    //       console.log()
-    //     },
-    //     (err) => {
-    //       console.log(config)
-    //       console.log(body)
-    //       console.log("bailo berta")
-    //     }
-    //   )
-    // }
+      axios.post("item", body, config).then(
+        (res) => {
+          console.log(res)
+        },
+        (err) => {
+          console.log(config)
+          console.log(body)
+          console.log("bailo berta")
+        }
+      )
+    }
   }
 
+  const isAdmin = false
+
   return !isLogged ? (
-    <Redirect to="./login" />
+    <Redirect to="/login" />
+  ) : !isAdmin ? (
+    <Redirect to="/" />
   ) : (
     <SignupStyled
       exit="exit"
@@ -55,10 +72,10 @@ export const NewProduct = ({ isLogged }) => {
       className="Products"
     >
       <header>add a new product</header>
-      <form className="signup-form">
-        {inputs.map((each) => {
-          return <input type="text" placeholder={each} />
-        })}
+      <form onSubmit={(e) => e.preventDefault()} className="signup-form">
+        {/* {inputs.map((each, index) => {
+          return <input key={index} type="text" placeholder={each} />
+        })} */}
         <button onClick={newItemHandler}>confirm</button>
       </form>
     </SignupStyled>

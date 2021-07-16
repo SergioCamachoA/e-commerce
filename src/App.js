@@ -4,7 +4,7 @@ import { Login } from "./pages/Login"
 import { Signup } from "./pages/Signup"
 import { Products } from "./pages/Products"
 import { SingleProduct } from "./pages/SingleProduct"
-// import { NewProduct } from "./pages/NewProduct"
+import { NewProduct } from "./pages/NewProduct"
 import { Error } from "./pages/Error"
 import { NavBar } from "./components/NavBar"
 import { GlobalStyle } from "./styles/GlobalStyles"
@@ -46,6 +46,7 @@ function App() {
           />
           <Route
             path="/login"
+            exact
             children={
               <Login
                 history={history}
@@ -58,6 +59,7 @@ function App() {
           />
           <Route
             path="/signup"
+            exact
             children={
               <Signup
                 isLogged={isLogged}
@@ -68,10 +70,10 @@ function App() {
           />
           <Route path="/products" children={<Products />} />
           <Route path="/product/:id" children={<SingleProduct />} />
-          {/* <Route
+          <Route
             path="/add-new"
             children={<NewProduct isLogged={isLogged} />}
-          /> */}
+          />
           <Route
             path="/settings"
             children={

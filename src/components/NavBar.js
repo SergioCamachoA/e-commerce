@@ -13,6 +13,7 @@ import {
   faFingerprint,
   faTags,
   faCog,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons"
 
 const back = <FontAwesomeIcon icon={faArrowLeft} />
@@ -20,10 +21,12 @@ const search = <FontAwesomeIcon icon={faSearch} />
 const newUser = <FontAwesomeIcon icon={faUserCircle} />
 const user = <FontAwesomeIcon icon={faFingerprint} />
 const all = <FontAwesomeIcon icon={faTags} />
-// const add = <FontAwesomeIcon icon={faPlus} />
+const add = <FontAwesomeIcon icon={faPlus} />
 const settings = <FontAwesomeIcon icon={faCog} />
 // const hamburger = <FontAwesomeIcon icon={faBars} />
 // const close = <FontAwesomeIcon icon={faTimes} />
+
+const isAdmin = true
 
 export const NavBar = ({ isLogged }) => {
   const [searchInput, setSearchInput] = useState("")
@@ -77,6 +80,14 @@ export const NavBar = ({ isLogged }) => {
           <h2>all products</h2>
         </Link>
       </div>
+      {isLogged && isAdmin && (
+        <div className="hovered">
+          <Link to={"/add-new"}>
+            <i>{add}</i>
+            <h2>add new</h2>
+          </Link>
+        </div>
+      )}
       {isLogged && (
         <div className="hovered">
           <Link to="/settings">
@@ -170,14 +181,4 @@ const NavStyle = styled(motion.div)`
       padding-left: 1rem;
     }
   }
-  /* form {
-    background-color: ;
-  } */
 `
-
-// <div className="hovered">
-//   <Link to={"/add-new"}>
-//     <i>{add}</i>
-//     <h2>add new</h2>
-//   </Link>
-// </div>

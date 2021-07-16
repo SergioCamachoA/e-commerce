@@ -12,7 +12,13 @@ export const logInHandler = (form, accessType, setIsLogged, setUserData) => {
       console.log(err)
     })
 }
-export const signupHandler = (form, accessType, setIsLogged, setUserData) => {
+export const signupHandler = (
+  form,
+  accessType,
+  setIsLogged,
+  setUserData,
+  setIsLoading
+) => {
   const redirectForm = { email: form.email, password: form.password }
   axios
     .post(accessType, form)
@@ -20,7 +26,11 @@ export const signupHandler = (form, accessType, setIsLogged, setUserData) => {
       // console.log(res)
       logInHandler(redirectForm, "login", setIsLogged, setUserData)
     })
-    .catch((err) => console.log(err))
+    .catch((err) => {
+      console.log(err)
+      setIsLoading(false)
+      console.log("cabron")
+    })
 }
 
 //esta funcion es la que cambia el estado de isLogged y redirige al homepage con el login valido,

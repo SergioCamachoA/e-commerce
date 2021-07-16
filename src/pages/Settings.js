@@ -50,14 +50,19 @@ export const Settings = ({ data, setData, isLogged, setHistory }) => {
     let specsValue = []
     for (let key in data) {
       if (
-        key !== "role" &&
+        // key !== "role" &&
         key !== "isActive" &&
         key !== "_id" &&
         key !== "updatedAt" &&
+        key !== "createdAt" &&
         key !== "__v"
       ) {
         specsKey.push(key)
-        specsValue.push(data[key])
+        if (data[key].includes(":")) {
+          specsValue.push(data[key].slice(0, 10))
+        } else {
+          specsValue.push(data[key])
+        }
       }
     }
     setSpecsType(specsKey)
@@ -65,13 +70,18 @@ export const Settings = ({ data, setData, isLogged, setHistory }) => {
   }, [data])
 
   return isLogged ? (
-    <StyledSettings>
+    <StyledSettings
+      exit="exit"
+      variants={pageAnimation}
+      initial="hidden"
+      animate="show"
+    >
       <div>
         <header>your info</header>
         <StyledInfo>
           <div className="specs">
             {specsType.map((each, index) => {
-              return <p key={index}>{each}</p>
+              return <p key={index}>{each.replace("_", " ")}</p>
             })}
           </div>
           <div>
@@ -81,12 +91,7 @@ export const Settings = ({ data, setData, isLogged, setHistory }) => {
           </div>
         </StyledInfo>
       </div>
-      <motion.div
-        exit="exit"
-        variants={pageAnimation}
-        initial="hidden"
-        animate="show"
-      >
+      <motion.div>
         <header>change name</header>
         <form onSubmit={(e) => e.preventDefault()}>
           <input
@@ -114,7 +119,7 @@ const StyledInfo = styled(motion.div)`
     color: var(--one);
   }
 `
-const StyledSettings = styled.div`
+const StyledSettings = styled(motion.div)`
   height: 100%;
   display: flex;
   flex-direction: column;

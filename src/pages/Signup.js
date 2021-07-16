@@ -24,7 +24,7 @@ export const Signup = ({ isLogged, setIsLogged, setUserData }) => {
 
   const loginAnim = () => {
     setIsLoading(true)
-    signupHandler(form, "signup", setIsLogged, setUserData)
+    signupHandler(form, "signup", setIsLogged, setUserData, setIsLoading)
   }
 
   useEffect(() => {
