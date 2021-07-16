@@ -13,14 +13,20 @@ import { GlobalContext } from "../hooks/useGlobal"
 export const Main = () => {
   let location = useLocation()
   console.log(useContext(GlobalContext))
+
   const { isLogged, setIsLogged, userData, setHistory } =
     useContext(GlobalContext)
-  // const [confirmedLogin, setConfirmedLogin] = useState(false)
 
   //save location pathname in a state to be used in redirection after auth on login
   useEffect(() => {
     setHistory(location.pathname)
   }, [location, setHistory])
+
+  //animation properties
+  const variants = {
+    clicked: { y: -50 },
+    notClicked: { y: 0 },
+  }
 
   function logOutHandler() {
     setIsClicked(!isClicked)
@@ -36,16 +42,7 @@ export const Main = () => {
     setUsername(userData.first_name)
   }, [userData])
 
-  const variants = {
-    clicked: { y: -50 },
-    notClicked: { y: 0 },
-  }
-
   const [isClicked, setIsClicked] = useState(false)
-
-  useEffect(() => {
-    console.log(isLogged)
-  }, [isLogged])
 
   return !isLogged ? (
     <MainStyled

@@ -7,6 +7,7 @@ import { pageAnimation } from "../animation/animation"
 import { useGlobal } from "../hooks/useGlobal"
 
 export const Settings = () => {
+  console.log(useGlobal())
   const { userData, setUserData, isLogged, setHistory } = useGlobal()
 
   const [userId, setUserId] = useState("")
@@ -35,7 +36,8 @@ export const Settings = () => {
       }
       axios.patch(`user/${userId}`, body, config).then(
         (res) => {
-          setUserData(res.userData)
+          console.log(res)
+          setUserData(res.data)
           setInput("")
         },
         (err) => {
@@ -71,10 +73,6 @@ export const Settings = () => {
     setSpecsType(specsKey)
     setSpecs(specsValue)
   }, [userData])
-
-  useEffect(() => {
-    console.log(isLogged)
-  }, [isLogged])
 
   return isLogged ? (
     <StyledSettings
