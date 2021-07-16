@@ -4,8 +4,11 @@ import React, { useEffect, useState } from "react"
 import { Redirect, useLocation } from "react-router-dom"
 import styled from "styled-components"
 import { pageAnimation } from "../animation/animation"
+import { useGlobal } from "../hooks/useGlobal"
 
-export const Settings = ({ data, setData, isLogged, setHistory }) => {
+export const Settings = () => {
+  const { userData, setUserData, isLogged, setHistory } = useGlobal()
+
   const [userId, setUserId] = useState("")
   const [input, setInput] = useState("")
   let location = useLocation()
@@ -16,8 +19,8 @@ export const Settings = ({ data, setData, isLogged, setHistory }) => {
   }, [location, setHistory])
 
   useEffect(() => {
-    data !== undefined && setUserId(data._id)
-  }, [data])
+    userData !== undefined && setUserId(userData._id)
+  }, [userData])
 
   const inputHandler = (e) => {
     setInput(e.target.value)
@@ -32,7 +35,7 @@ export const Settings = ({ data, setData, isLogged, setHistory }) => {
       }
       axios.patch(`user/${userId}`, body, config).then(
         (res) => {
-          setData(res.data)
+          setUserData(res.userData)
           setInput("")
         },
         (err) => {
@@ -48,7 +51,7 @@ export const Settings = ({ data, setData, isLogged, setHistory }) => {
   useEffect(() => {
     let specsKey = []
     let specsValue = []
-    for (let key in data) {
+    for (let key in userData) {
       if (
         // key !== "role" &&
         key !== "isActive" &&
@@ -58,16 +61,20 @@ export const Settings = ({ data, setData, isLogged, setHistory }) => {
         key !== "__v"
       ) {
         specsKey.push(key)
-        if (data[key].includes(":")) {
-          specsValue.push(data[key].slice(0, 10))
+        if (userData[key].includes(":")) {
+          specsValue.push(userData[key].slice(0, 10))
         } else {
-          specsValue.push(data[key])
+          specsValue.push(userData[key])
         }
       }
     }
     setSpecsType(specsKey)
     setSpecs(specsValue)
-  }, [data])
+  }, [userData])
+
+  useEffect(() => {
+    console.log(isLogged)
+  }, [isLogged])
 
   return isLogged ? (
     <StyledSettings

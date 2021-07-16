@@ -5,8 +5,11 @@ import { Redirect } from "react-router-dom"
 import axios from "axios"
 import styled from "styled-components"
 // import { useAuth } from "../helpers/useAuth"
+import { useGlobal } from "../hooks/useGlobal"
 
-export const NewProduct = ({ isLogged }) => {
+export const NewProduct = () => {
+  const { isLogged } = useGlobal()
+
   let inputs =
     // [
     //   "isActive",

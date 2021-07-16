@@ -10,25 +10,33 @@ import { NavBar } from "./components/NavBar"
 import { GlobalStyle } from "./styles/GlobalStyles"
 import { AnimatePresence } from "framer-motion"
 import { Cart } from "./components/Cart"
-import { useEffect, useState } from "react"
-import { setLogin } from "./helpers/loginHandler"
+import { useEffect } from "react"
+import { useAuth } from "./hooks/useAuth"
 import { Settings } from "./pages/Settings"
+// import { GlobalContextProvider } from "./hooks/useGlobal"
 
 function App() {
+  const { setLogin } = useAuth()
+  // const { isLogged } = useGlobal()
+
   const location = useLocation()
-  const [isLogged, setIsLogged] = useState(false)
-  const [userData, setUserData] = useState({})
-  const [history, setHistory] = useState()
+  // const [setIsLogged] = useState(false)
+  // const [userData, setUserData] = useState({})
+  // const [history, setHistory] = useState()
 
   useEffect(() => {
-    setLogin(setIsLogged, setUserData)
+    console.log("rep")
+
+    setLogin()
+    // eslint-disable-next-line
   }, [])
 
   // console.log(location)
   return (
     <div className="App">
+      {/* <GlobalContextProvider> */}
       <GlobalStyle />
-      <NavBar isLogged={isLogged} />
+      <NavBar />
       <Cart />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
@@ -37,10 +45,10 @@ function App() {
             path="/"
             children={
               <Main
-                data={userData}
-                isLogged={isLogged}
-                setIsLogged={setIsLogged}
-                setHistory={setHistory}
+              // data={userData}
+              // isLogged={isLogged}
+              // setIsLogged={setIsLogged}
+              // setHistory={setHistory}
               />
             }
           />
@@ -49,11 +57,11 @@ function App() {
             exact
             children={
               <Login
-                history={history}
-                setHistory={setHistory}
-                isLogged={isLogged}
-                setIsLogged={setIsLogged}
-                setUserData={setUserData}
+              // history={history}
+              // setHistory={setHistory}
+              // isLogged={isLogged}
+              // setIsLogged={setIsLogged}
+              // setUserData={setUserData}
               />
             }
           />
@@ -62,26 +70,23 @@ function App() {
             exact
             children={
               <Signup
-                isLogged={isLogged}
-                setIsLogged={setIsLogged}
-                setUserData={setUserData}
+              // isLogged={isLogged}
+              // setIsLogged={setIsLogged}
+              // setUserData={setUserData}
               />
             }
           />
           <Route path="/products" children={<Products />} />
           <Route path="/product/:id" children={<SingleProduct />} />
-          <Route
-            path="/add-new"
-            children={<NewProduct isLogged={isLogged} />}
-          />
+          <Route path="/add-new" children={<NewProduct />} />
           <Route
             path="/settings"
             children={
               <Settings
-                setHistory={setHistory}
-                isLogged={isLogged}
-                data={userData}
-                setData={setUserData}
+              // setHistory={setHistory}
+              // isLogged={isLogged}
+              // data={userData}
+              // setData={setUserData}
               />
             }
           />
@@ -90,6 +95,7 @@ function App() {
           </Route>
         </Switch>
       </AnimatePresence>
+      {/* </GlobalContextProvider> */}
     </div>
   )
 }

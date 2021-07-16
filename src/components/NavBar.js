@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styled from "styled-components"
 import { motion } from "framer-motion"
+import { useGlobal } from "../hooks/useGlobal"
 import {
   faArrowLeft,
   // faBars,
@@ -28,7 +29,8 @@ const settings = <FontAwesomeIcon icon={faCog} />
 
 const isAdmin = false
 
-export const NavBar = ({ isLogged }) => {
+export const NavBar = () => {
+  const { isLogged } = useGlobal()
   const [searchInput, setSearchInput] = useState("")
 
   function submitHandler(e) {

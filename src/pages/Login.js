@@ -3,33 +3,31 @@ import { motion } from "framer-motion"
 import { pageAnimation } from "../animation/animation"
 import styled from "styled-components"
 import { Redirect } from "react-router-dom"
-import { useForm } from "../helpers/useForm"
-import { logInHandler } from "../helpers/loginHandler"
+import { useForm } from "../hooks/useForm"
+import { useAuth } from "../hooks/useAuth"
 import { Loader } from "../components/Loader"
+import { useGlobal } from "../hooks/useGlobal"
 
-export const Login = ({
-  isLogged,
-  setIsLogged,
-  setUserData,
-  history,
-  // setHistory,
-}) => {
+export const Login = () => {
   const emptyForm = {
     email: "",
     password: "",
   }
+
+  const { history, isLogged } = useGlobal()
+  const { logInHandler } = useAuth()
+
   const { form, onChangeHandler } = useForm(emptyForm)
   const [isLoading, setIsLoading] = useState(false)
 
   const loginAnim = () => {
     setIsLoading(true)
-    logInHandler(form, "login", setIsLogged, setUserData)
+    logInHandler(form, "login")
   }
 
   // const [current, setCurrent] = useState("/")
 
   useEffect(() => {
-    // console.log(isLogged)
     isLogged && setIsLoading(false)
   }, [isLogged])
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import { mainPageAnimation } from "../animation/animation"
 import { motion } from "framer-motion"
 import styled from "styled-components"
@@ -7,9 +7,15 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons"
 import { BigCircle } from "../components/BigCircle"
 import { useLocation } from "react-router-dom"
 // import axios from "axios"
+import { GlobalContext } from "../hooks/useGlobal"
 
-export const Main = ({ isLogged, setIsLogged, data, setHistory }) => {
+// export const Main = ({ isLogged, setIsLogged, data, setHistory }) => {
+export const Main = () => {
   let location = useLocation()
+  console.log(useContext(GlobalContext))
+  const { isLogged, setIsLogged, userData, setHistory } =
+    useContext(GlobalContext)
+  // const [confirmedLogin, setConfirmedLogin] = useState(false)
 
   //save location pathname in a state to be used in redirection after auth on login
   useEffect(() => {
@@ -27,8 +33,8 @@ export const Main = ({ isLogged, setIsLogged, data, setHistory }) => {
 
   const [username, setUsername] = useState()
   useEffect(() => {
-    setUsername(data.first_name)
-  }, [data])
+    setUsername(userData.first_name)
+  }, [userData])
 
   const variants = {
     clicked: { y: -50 },
@@ -36,6 +42,10 @@ export const Main = ({ isLogged, setIsLogged, data, setHistory }) => {
   }
 
   const [isClicked, setIsClicked] = useState(false)
+
+  useEffect(() => {
+    console.log(isLogged)
+  }, [isLogged])
 
   return !isLogged ? (
     <MainStyled

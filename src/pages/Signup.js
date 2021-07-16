@@ -3,11 +3,12 @@ import { pageAnimation } from "../animation/animation"
 import { motion } from "framer-motion"
 import styled from "styled-components"
 import { Redirect } from "react-router-dom"
-import { useForm } from "../helpers/useForm"
-import { signupHandler } from "../helpers/loginHandler"
+import { useForm } from "../hooks/useForm"
+import { useAuth } from "../hooks/useAuth"
 import { Loader } from "../components/Loader"
+import { useGlobal } from "../hooks/useGlobal"
 
-export const Signup = ({ isLogged, setIsLogged, setUserData }) => {
+export const Signup = () => {
   const emptyForm = {
     first_name: "",
     last_name: "",
@@ -18,13 +19,17 @@ export const Signup = ({ isLogged, setIsLogged, setUserData }) => {
     role: "ADMIN",
   }
 
+  const { isLogged } = useGlobal()
+
+  const { signupHandler } = useAuth()
+
   const { form, onChangeHandler } = useForm(emptyForm)
 
   const [isLoading, setIsLoading] = useState(false)
 
   const loginAnim = () => {
     setIsLoading(true)
-    signupHandler(form, "signup", setIsLogged, setUserData, setIsLoading)
+    signupHandler(form, "signup", setIsLoading)
   }
 
   useEffect(() => {
