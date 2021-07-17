@@ -63,6 +63,10 @@ export const Settings = () => {
         specsKey.push(key)
         if (userData[key].includes(":")) {
           specsValue.push(userData[key].slice(0, 10))
+        } else if (userData[key] === "F") {
+          specsValue.push("female")
+        } else if (userData[key] === "M") {
+          specsValue.push("male")
         } else {
           specsValue.push(userData[key])
         }

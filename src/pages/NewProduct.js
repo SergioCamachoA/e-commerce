@@ -9,7 +9,11 @@
 import React from "react"
 
 export const NewProduct = () => {
-  return <header>ahorita no, joven</header>
+  return (
+    <div>
+      <header>ahorita no, joven</header>
+    </div>
+  )
 }
 
 // export const NewProduct = () => {
