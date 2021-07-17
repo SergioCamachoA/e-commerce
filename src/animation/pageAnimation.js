@@ -42,7 +42,7 @@ export const mainPageAnimationLogged = {
 }
 
 export const planta = {
-  hidden: {},
+  hidden: { opacity: 0, fillOpacity: 0 },
   show: {
     // stroke: "rgba(11, 105, 24, 0.7)",
     stroke: ["#b4b4b4", "#b4b4b4", "#b4b4b4", "#cacaca"],
