@@ -36,8 +36,15 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+    .planta {
+    position: absolute;
+    height: 85%;
+    z-index: 1;
+  }
 }
 div {
+    position: relative;
+  z-index: 2;
   font-family: 'chill';
   font-size: 2vw;
 }

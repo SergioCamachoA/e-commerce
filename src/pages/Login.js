@@ -45,7 +45,6 @@ export const Login = () => {
       animate="show"
       className="Login"
     >
-      {/* <Loader /> */}
       <motion.div className="anim-container">
         <motion.header>login</motion.header>
       </motion.div>

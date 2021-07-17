@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useContext } from "react"
-import { mainPageAnimation } from "../animation/pageAnimation"
+import {
+  mainPageAnimation,
+  mainPageAnimationLogged,
+} from "../animation/pageAnimation"
 import { motion } from "framer-motion"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -56,7 +59,6 @@ export const Main = () => {
       className="Main"
     >
       <BigCircle />
-
       <ContainerStyled className="container">
         <header className="main-header">welcome, shopper</header>
       </ContainerStyled>
@@ -64,43 +66,39 @@ export const Main = () => {
   ) : isLoading ? (
     <Loader />
   ) : (
-    <>
-      <MainStyled
-        variants={mainPageAnimation}
-        initial="hidden"
-        animate="show"
-        exit="exit"
-        className="Main"
-      >
-        <ContainerStyled className="container">
-          <motion.header
+    <MainStyled
+      variants={mainPageAnimationLogged}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+      className="Main"
+    >
+      <ContainerStyled className="container">
+        <motion.header
+          initial={"notClicked"}
+          animate={isClicked ? "clicked" : "notClicked"}
+          variants={variants}
+          className="main-header"
+        >
+          {!isClicked ? `happy shopping, ${username}` : `logout`}
+        </motion.header>
+        {isClicked && (
+          <motion.div
             initial={"notClicked"}
             animate={isClicked ? "clicked" : "notClicked"}
             variants={variants}
-            className="main-header"
           >
-            {!isClicked ? `happy shopping, ${username}` : `logout`}
-          </motion.header>
-          {isClicked && (
-            <motion.div
-              initial={"notClicked"}
-              animate={isClicked ? "clicked" : "notClicked"}
-              variants={variants}
-            >
-              <button onClick={confirmLogOut}>confirm</button>
-              <button onClick={() => setIsClicked(!isClicked)}>
-                keep shopping
-              </button>
-            </motion.div>
-          )}
-        </ContainerStyled>
-      </MainStyled>
-      <div>
-        <LogOutStyled onClick={logOutHandler} className="log-out">
-          <FontAwesomeIcon icon={faSignOutAlt} />
-        </LogOutStyled>
-      </div>
-    </>
+            <button onClick={confirmLogOut}>confirm</button>
+            <button onClick={() => setIsClicked(!isClicked)}>
+              keep shopping
+            </button>
+          </motion.div>
+        )}
+      </ContainerStyled>
+      <LogOutStyled onClick={logOutHandler} className="log-out">
+        <FontAwesomeIcon icon={faSignOutAlt} />
+      </LogOutStyled>
+    </MainStyled>
   )
 }
 
@@ -111,6 +109,12 @@ const MainStyled = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* .planta {
+    position: absolute;
+    height: 85%;
+  }
+  .st1 {
+  } */
 `
 
 const ContainerStyled = styled(motion.div)`
@@ -139,10 +143,12 @@ const ContainerStyled = styled(motion.div)`
 
 const LogOutStyled = styled(motion.i)`
   position: absolute;
-  bottom: 2vh;
+  z-index: 99;
+  bottom: 1vh;
   right: 2vw;
   font-size: 2.5rem;
   transition: 400ms;
+  color: var(--one);
   &:hover {
     cursor: pointer;
     color: var(--three);
