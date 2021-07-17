@@ -62,6 +62,12 @@ export const NavBar = () => {
           </Link>
         </div>
       )}
+      <div className="hovered">
+        <Link to="/products">
+          <i>{all}</i>
+          <h2>all products</h2>
+        </Link>
+      </div>
       <div className="hovered hover-form">
         <form onSubmit={submitHandler}>
           <i>{search}</i>
@@ -73,12 +79,6 @@ export const NavBar = () => {
             placeholder="search"
           />
         </form>
-      </div>
-      <div className="hovered">
-        <Link to="/products">
-          <i>{all}</i>
-          <h2>all products</h2>
-        </Link>
       </div>
       {isLogged && isAdmin && (
         <div className="hovered">
@@ -159,7 +159,7 @@ const NavStyle = styled(motion.div)`
     i,
     h2 {
       margin: 0 1rem 0 2rem;
-      min-width: 50px;
+      min-width: 70px;
       display: flex;
       justify-content: center;
       align-items: center;

@@ -53,11 +53,35 @@ export const planta = {
     transition: {
       // repeatType: "mirror",
       // repeat: "Infinity",
-      duration: 6,
+      duration: 5,
       delay: 0.5,
     },
   },
   exit: { pathLength: 0, transition: { duration: 0.5 } },
+}
+
+// export const mainHeader = {
+//   hidden: { opacity: 0 },
+//   show: { opacity: 0, transition: { duration: 3, delay: 2 } },
+//   exit: {},
+// }
+
+export const mainProduct = {
+  hidden: {
+    opacity: 0,
+    // pointerEvent: "none"
+  },
+  show: {
+    opacity: 1,
+    // pointerEvent: "auto",
+    transition: {
+      duration: 3,
+      delay: 1.5,
+      repeat: "Infinity",
+      repeatType: "mirror",
+    },
+  },
+  exit: {},
 }
 
 // export const plantaOuter = {

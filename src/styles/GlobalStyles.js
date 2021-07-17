@@ -38,10 +38,13 @@ html {
   align-items: center;
     .planta {
     position: absolute;
-    height: 85%;
+    height: 47vw;
     z-index: 1;
   }
 }
+  .Main-in {
+    background-color: var(--bg);
+  }
 div {
     position: relative;
   z-index: 2;

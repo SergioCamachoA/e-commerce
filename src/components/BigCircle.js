@@ -6,8 +6,8 @@ export const BigCircle = () => {
   // let controls = useAnimation()
   return (
     <CircleSvg
-      width="636"
-      height="636"
+      width="936"
+      height="936"
       viewBox="0 0 636 636"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -46,6 +46,7 @@ const CircleSvg = styled(motion.svg)`
   position: absolute;
   /* left: 0; */
   z-index: 1;
+  height: 50vw;
 `
 // export const SmallCircle = () => {
 //   // let controls = useAnimation()
