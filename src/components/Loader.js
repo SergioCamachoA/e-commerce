@@ -32,7 +32,7 @@ export const Loader = () => {
 const StyledLoader = styled(motion.svg)`
   position: absolute;
   z-index: 1;
-  left: 0;
+  /* right: 10vw; */
   top: 0;
   transform: scale(0.5);
   stroke-width: 9;

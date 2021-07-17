@@ -27,10 +27,8 @@ const settings = <FontAwesomeIcon icon={faCog} />
 // const hamburger = <FontAwesomeIcon icon={faBars} />
 // const close = <FontAwesomeIcon icon={faTimes} />
 
-const isAdmin = false
-
 export const NavBar = () => {
-  const { isLogged } = useGlobal()
+  const { isLogged, isAdmin } = useGlobal()
   const [searchInput, setSearchInput] = useState("")
 
   function submitHandler(e) {

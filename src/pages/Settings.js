@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import React, { useEffect, useState } from "react"
 import { Redirect, useLocation } from "react-router-dom"
 import styled from "styled-components"
-import { pageAnimation } from "../animation/animation"
+import { pageAnimation } from "../animation/pageAnimation"
 import { useGlobal } from "../hooks/useGlobal"
 
 export const Settings = () => {

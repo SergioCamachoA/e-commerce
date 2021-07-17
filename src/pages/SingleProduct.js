@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import { motion } from "framer-motion"
-import { pageAnimation } from "../animation/animation"
-
+import { pageAnimation } from "../animation/pageAnimation"
 export const SingleProduct = () => {
   const { id } = useParams()
   const [item, setItem] = useState({})

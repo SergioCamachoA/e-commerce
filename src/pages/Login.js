@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { pageAnimation } from "../animation/animation"
+import { pageAnimation } from "../animation/pageAnimation"
 import styled from "styled-components"
 import { Redirect } from "react-router-dom"
 import { useForm } from "../hooks/useForm"

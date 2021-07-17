@@ -2,7 +2,7 @@ import axios from "axios"
 import { useGlobal } from "./useGlobal"
 
 export const useAuth = () => {
-  const { setIsLogged, setUserData } = useGlobal()
+  const { setIsLogged, setUserData, setIsAdmin } = useGlobal()
 
   const logInHandler = (form, accessType) => {
     axios
@@ -27,7 +27,6 @@ export const useAuth = () => {
       .catch((err) => {
         console.log(err)
         setIsLoading(false)
-        console.log("cabron")
       })
   }
 
@@ -44,9 +43,16 @@ export const useAuth = () => {
       axios.get("user/me", config).then(
         (res) => {
           setUserData(res.data.user)
+          // console.log(res.data.user.role)
+          if (res.data.user.role === "ADMIN") {
+            setIsAdmin(true)
+          } else {
+            setIsAdmin(false)
+          }
         },
         (err) => {
           console.log(err)
+          setIsAdmin(false)
           setIsLogged(false)
         }
       )

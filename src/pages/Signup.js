@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { pageAnimation } from "../animation/animation"
+import { pageAnimation } from "../animation/pageAnimation"
 import { motion } from "framer-motion"
 import styled from "styled-components"
 import { Redirect } from "react-router-dom"

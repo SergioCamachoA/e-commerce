@@ -1,6 +1,6 @@
 import React from "react"
 import { motion } from "framer-motion"
-import { pageAnimation } from "../animation/animation"
+import { pageAnimation } from "../animation/pageAnimation"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 

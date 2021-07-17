@@ -6,6 +6,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false)
   const [userData, setUserData] = useState({})
   const [history, setHistory] = useState()
+  const [isAdmin, setIsAdmin] = useState(true)
 
   const values = {
     isLogged,
@@ -14,6 +15,8 @@ export const GlobalContextProvider = ({ children }) => {
     setUserData,
     history,
     setHistory,
+    isAdmin,
+    setIsAdmin,
   }
 
   return (
