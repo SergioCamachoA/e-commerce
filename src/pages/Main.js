@@ -13,11 +13,12 @@ import { BigCircle } from "../components/BigCircle"
 import { Link, useLocation } from "react-router-dom"
 import { GlobalContext } from "../hooks/useGlobal"
 import { Loader } from "../components/Loader"
+import planta from "../svg/planta4.svg"
 
 export const Main = () => {
   let location = useLocation()
 
-  const { isLogged, setIsLogged, userData, setHistory } =
+  const { isLogged, setIsLogged, userData, setHistory, allProducts } =
     useContext(GlobalContext)
 
   const [isLoading, setIsLoading] = useState(true)
@@ -29,7 +30,7 @@ export const Main = () => {
 
   //animation properties
   const variants = {
-    clicked: { y: -50 },
+    clicked: { y: 150 },
     notClicked: { y: 0 },
   }
 
@@ -51,6 +52,39 @@ export const Main = () => {
   }, [userData])
 
   const [isClicked, setIsClicked] = useState(false)
+  const currentUndef = {
+    image: { planta },
+    price: "",
+    product_name: "",
+    _id: "",
+  }
+
+  const [current, setCurrent] = useState(currentUndef)
+  const [fetchedProducts, setFetchedProducts] = useState(false)
+
+  useEffect(() => {
+    let productsArray = []
+
+    function printCurrent() {
+      // console.log(productsArray)
+      if (productsArray.length !== 0) {
+        setCurrent(productsArray.shift())
+        setTimeout(() => {
+          printCurrent()
+        }, 4000)
+      }
+    }
+    if (allProducts.length !== 0) {
+      productsArray = allProducts.slice()
+      printCurrent()
+      setFetchedProducts(true)
+    }
+
+    //clean up to stop recursion on unmounting
+    return () => {
+      productsArray = []
+    }
+  }, [allProducts])
 
   return !isLogged ? (
     <MainStyled
@@ -84,35 +118,37 @@ export const Main = () => {
         >
           {!isClicked ? `happy shopping, ${username}` : `logout`}
         </motion.header>
-
         <ImageStyled
         // variants={mainProduct}
         // initial="hidden"
         // animate="show"
         // exit="exit"
         >
-          <motion.header
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: 3, delay: 1.5 } }}
-          >
-            check these out
-          </motion.header>
-          <motion.div
-            variants={mainProduct}
-            initial="hidden"
-            animate="show"
-            exit="exit"
-          >
-            <Link to={`product/123`}>
-              {/* <motion.Link to={`product/${id}`}> */}
-              <img
-                src="https://i.pinimg.com/originals/eb/83/be/eb83be580847bcdc4c8f403c8085d3c8.jpg"
-                alt="item"
-              />
-              <h3>random stupid title</h3>
-              <h3>$120</h3>
-            </Link>
-          </motion.div>
+          {fetchedProducts && (
+            <>
+              <motion.header
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, transition: { duration: 3 } }}
+              >
+                check these out
+              </motion.header>
+              <motion.div
+                variants={mainProduct}
+                initial="hidden"
+                animate="show"
+                exit="exit"
+              >
+                <Link to={current !== undefined && `product/${current._id}`}>
+                  <img
+                    src={current.image === undefined ? planta : current.image}
+                    alt="item"
+                  />
+                  <h3>{current.product_name}</h3>
+                  <h3>{`$${current.price}`}</h3>
+                </Link>
+              </motion.div>
+            </>
+          )}
         </ImageStyled>
 
         {isClicked && (
@@ -135,6 +171,9 @@ export const Main = () => {
     </MainStyled>
   )
 }
+
+//STYLED COMPONENTS -----------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------
 
 const MainStyled = styled(motion.div)`
   width: 100vw;

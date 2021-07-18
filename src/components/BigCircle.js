@@ -3,7 +3,6 @@ import styled from "styled-components"
 import React from "react"
 
 export const BigCircle = () => {
-  // let controls = useAnimation()
   return (
     <CircleSvg
       width="936"

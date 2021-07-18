@@ -14,14 +14,17 @@ import { useEffect } from "react"
 import { useAuth } from "./hooks/useAuth"
 import { Settings } from "./pages/Settings"
 import { Planta } from "./components/Planta"
+import { useGlobal } from "./hooks/useGlobal"
 
 function App() {
   const { setLogin } = useAuth()
+  const { getProducts } = useGlobal()
 
   const location = useLocation()
 
   useEffect(() => {
     setLogin()
+    getProducts()
     // eslint-disable-next-line
   }, [])
 

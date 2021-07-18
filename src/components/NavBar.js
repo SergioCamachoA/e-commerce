@@ -169,7 +169,7 @@ const NavStyle = styled(motion.div)`
       justify-content: left;
       align-items: flex-start;
       min-width: 300px;
-      margin: 0 0 0 1rem;
+      margin: 0;
       /* text-align: left; */
     }
     input {

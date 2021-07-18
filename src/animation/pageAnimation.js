@@ -75,8 +75,8 @@ export const mainProduct = {
     opacity: 1,
     // pointerEvent: "auto",
     transition: {
-      duration: 3,
-      delay: 1.5,
+      duration: 2,
+      // delay: 1,
       repeat: "Infinity",
       repeatType: "mirror",
     },

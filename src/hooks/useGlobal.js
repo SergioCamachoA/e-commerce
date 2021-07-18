@@ -1,3 +1,4 @@
+import axios from "axios"
 import { useState, createContext, useContext } from "react"
 
 export const GlobalContext = createContext()
@@ -7,6 +8,19 @@ export const GlobalContextProvider = ({ children }) => {
   const [userData, setUserData] = useState({})
   const [history, setHistory] = useState()
   const [isAdmin, setIsAdmin] = useState(true)
+  const [allProducts, setAllProducts] = useState([])
+
+  async function getProducts() {
+    const tempArray = await axios
+      .get("item")
+      .then((res) => {
+        return res.data
+        // setAllProducts(res.data)
+      })
+      .catch((err) => console.log(err))
+    // console.log(tempArray)
+    setAllProducts(tempArray)
+  }
 
   const values = {
     isLogged,
@@ -17,6 +31,8 @@ export const GlobalContextProvider = ({ children }) => {
     setHistory,
     isAdmin,
     setIsAdmin,
+    allProducts,
+    getProducts,
   }
 
   return (
