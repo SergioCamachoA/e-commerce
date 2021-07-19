@@ -69,7 +69,8 @@ export const Signup = () => {
             name="gender"
             id="gender"
           >
-            <option value="gender">binary gender</option>
+            <option value="gender">gender</option>
+            <option value="X">other</option>
             <option value="M">male</option>
             <option value="F">female</option>
           </select>
