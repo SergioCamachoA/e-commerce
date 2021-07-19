@@ -13,7 +13,7 @@ import { Cart } from "./components/Cart"
 import { useEffect } from "react"
 import { useAuth } from "./hooks/useAuth"
 import { Settings } from "./pages/Settings"
-import { Planta } from "./components/Planta"
+// import { Planta } from "./components/Planta"
 import { useGlobal } from "./hooks/useGlobal"
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
       <GlobalStyle />
       <NavBar />
       <Cart />
-      <Planta />
+      {/* <Planta /> */}
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
           <Route exact path="/" children={<Main />} />
