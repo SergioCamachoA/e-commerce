@@ -87,6 +87,8 @@ const ProductsStyle = styled(motion.div)`
     img {
       width: 15vw;
       border-radius: 50%;
+      border: 4px solid var(--one);
+
       transition: 500ms;
       &:hover {
         border-radius: 1rem;

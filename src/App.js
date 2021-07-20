@@ -9,12 +9,14 @@ import { Error } from "./pages/Error"
 import { NavBar } from "./components/NavBar"
 import { GlobalStyle } from "./styles/GlobalStyles"
 import { AnimatePresence } from "framer-motion"
-import { Cart } from "./components/Cart"
+import { CartIcon } from "./components/CartIcon"
 import { useEffect } from "react"
 import { useAuth } from "./hooks/useAuth"
 import { Settings } from "./pages/Settings"
 // import { Planta } from "./components/Planta"
 import { useGlobal } from "./hooks/useGlobal"
+import { Checkout } from "./pages/Checkout"
+import { Cart } from "./pages/Cart"
 
 function App() {
   const { setLogin } = useAuth()
@@ -32,7 +34,7 @@ function App() {
     <div className="App">
       <GlobalStyle />
       <NavBar />
-      <Cart />
+      <CartIcon />
       {/* <Planta /> */}
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
@@ -43,6 +45,8 @@ function App() {
           <Route path="/product/:id" children={<SingleProduct />} />
           <Route path="/add-new" children={<NewProduct />} />
           <Route path="/settings" children={<Settings />} />
+          <Route path="/cart" children={<Cart />} />
+          <Route path="/checkout" children={<Checkout />} />
           <Route path="*">
             <Error />
           </Route>

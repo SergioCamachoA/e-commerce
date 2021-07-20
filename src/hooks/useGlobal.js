@@ -9,6 +9,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [history, setHistory] = useState()
   const [isAdmin, setIsAdmin] = useState(true)
   const [allProducts, setAllProducts] = useState([])
+  const [cartCounter, setCartCounter] = useState(0)
 
   async function getProducts() {
     const tempArray = await axios
@@ -22,6 +23,10 @@ export const GlobalContextProvider = ({ children }) => {
     setAllProducts(tempArray)
   }
 
+  const cartNewItem = () => {
+    setCartCounter(cartCounter + 1)
+  }
+
   const values = {
     isLogged,
     setIsLogged,
@@ -33,6 +38,9 @@ export const GlobalContextProvider = ({ children }) => {
     setIsAdmin,
     allProducts,
     getProducts,
+    cartCounter,
+    // setCartCounter,
+    cartNewItem,
   }
 
   return (

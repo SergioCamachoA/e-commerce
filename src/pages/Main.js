@@ -19,8 +19,14 @@ import { Planta } from "../components/Planta"
 export const Main = () => {
   let location = useLocation()
 
-  const { isLogged, setIsLogged, userData, setHistory, allProducts } =
-    useContext(GlobalContext)
+  const {
+    isLogged,
+    setIsLogged,
+    userData,
+    setHistory,
+    allProducts,
+    cartNewItem,
+  } = useContext(GlobalContext)
 
   const [isLoading, setIsLoading] = useState(true)
 
@@ -148,6 +154,7 @@ export const Main = () => {
                   <h3>{current.product_name}</h3>
                   <h3>{`$${current.price}`}</h3>
                 </Link>
+                <button onClick={cartNewItem}>Add to cart</button>
               </motion.div>
             </>
           )}
@@ -253,6 +260,7 @@ const ImageStyled = styled(motion.div)`
   align-items: center;
   header {
     font-size: 2vw;
+    margin-top: 0.5rem;
     color: var(--one);
   }
   a {
@@ -272,6 +280,8 @@ const ImageStyled = styled(motion.div)`
     /* width: 40vh; */
     border-radius: 50%;
     transition: 500ms;
+    border: 4px solid var(--one);
+
     /* filter: grayscale(50%); */
     &:hover {
       border-radius: 1rem;
