@@ -46,7 +46,7 @@ export const Main = () => {
   }
 
   const confirmLogOut = () => {
-    localStorage.clear()
+    localStorage.removeItem("token")
     setIsLogged(false)
   }
 
@@ -73,9 +73,11 @@ export const Main = () => {
     let productsArray = []
 
     function printCurrent() {
+      let randomIndex = Math.floor(Math.random() * allProducts.length)
       // console.log(productsArray)
       if (productsArray.length !== 0) {
-        setCurrent(productsArray.shift())
+        setCurrent(productsArray[randomIndex])
+        // setCurrent(productsArray.pop())
         setTimeout(() => {
           printCurrent()
         }, 4000)
@@ -154,7 +156,10 @@ export const Main = () => {
                   <h3>{current.product_name}</h3>
                   <h3>{`$${current.price}`}</h3>
                 </Link>
-                <button onClick={() => cartNewItem(current._id)}>
+                <button
+                  className="add-btn"
+                  onClick={() => cartNewItem(current._id)}
+                >
                   Add to cart
                 </button>
               </motion.div>
@@ -244,6 +249,7 @@ const HeaderStyled = styled(motion.header)`
 `
 const ImageStyled = styled(motion.div)`
   /* opacity: 0; */
+  text-align: center;
   position: absolute;
   z-index: 5;
   bottom: 0;
@@ -260,6 +266,11 @@ const ImageStyled = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   header {
     font-size: 2vw;
     margin-top: 0.5rem;
@@ -289,6 +300,10 @@ const ImageStyled = styled(motion.div)`
       border-radius: 1rem;
       filter: grayscale(0%);
     }
+  }
+  .add-btn {
+    font-size: 1.5vw;
+    background-color: var(--three);
   }
 `
 

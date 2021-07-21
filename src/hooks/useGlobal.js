@@ -1,5 +1,11 @@
 import axios from "axios"
-import { useState, createContext, useContext, useCallback } from "react"
+import {
+  useState,
+  createContext,
+  useContext,
+  useCallback,
+  useEffect,
+} from "react"
 
 export const GlobalContext = createContext()
 
@@ -10,6 +16,8 @@ export const GlobalContextProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(true)
   const [allProducts, setAllProducts] = useState([])
   const [cartCounter, setCartCounter] = useState(0)
+  const [cartProducts, setCartProducts] = useState([])
+  const [newTotal, setNewTotal] = useState(0)
 
   async function getProducts() {
     const tempArray = await axios
@@ -25,11 +33,40 @@ export const GlobalContextProvider = ({ children }) => {
     }
   }
 
-  const [cartProducts, setCartProducts] = useState([])
-  const [newTotal, setNewTotal] = useState("0")
+  const reducer = (acumulator, currentValue) => acumulator + currentValue
+
+  const totalCount = (clonProducts) => {
+    const amountsArray = clonProducts.map((each) => each.amount)
+
+    const allItems =
+      amountsArray.length !== 0 ? amountsArray.reduce(reducer) : 0
+
+    setCartCounter(allItems)
+  }
+
+  const totalCost = (clonProducts) => {
+    const costsArrayFilter = clonProducts.filter(
+      (each) => each.price !== undefined
+    )
+    const costsArray = costsArrayFilter.map((each) => each.price * each.amount)
+    const totalCost = costsArray.length !== 0 ? costsArray.reduce(reducer) : 0
+    setNewTotal(totalCost)
+  }
+
+  useEffect(() => {
+    const fetchedLocal = localStorage.getItem("shoppingCart")
+    // console.log(fetchedLocal)
+    const storedCart =
+      fetchedLocal !== null ? [...JSON.parse(fetchedLocal)] : []
+    // console.log(storedCart)
+    setCartProducts(storedCart)
+    totalCost(storedCart)
+    totalCount(storedCart)
+    // eslint-disable-next-line
+  }, [])
 
   const cartNewItem = useCallback(
-    (id, itemSumRest) => {
+    (id, amountModifier) => {
       const clonProducts = [...cartProducts]
       let selectedItem = allProducts.find((el) => el._id === id)
       let alreadyAdded = cartProducts.findIndex((el) => el._id === id)
@@ -39,8 +76,9 @@ export const GlobalContextProvider = ({ children }) => {
         clonProducts.push({ ...selectedItem, amount: amount })
       } else {
         let newAmount = clonProducts[alreadyAdded].amount
-
-        if (itemSumRest === "subtract") {
+        if (amountModifier === "trash") {
+          clonProducts.splice(alreadyAdded, 1)
+        } else if (amountModifier === "subtract") {
           if (newAmount === 1) {
             clonProducts.splice(alreadyAdded, 1)
           } else {
@@ -57,28 +95,12 @@ export const GlobalContextProvider = ({ children }) => {
         }
       }
 
-      const reducer = (acumulator, currentValue) => acumulator + currentValue
-
-      const totalCount = () => {
-        const amountsArray = clonProducts.map((each) => each.amount)
-
-        const allItems =
-          amountsArray.length !== 0 ? amountsArray.reduce(reducer) : 0
-
-        setCartCounter(allItems)
-      }
-
-      const totalCost = () => {
-        const costsArray = clonProducts.map((each) => each.price * each.amount)
-        const totalCost =
-          costsArray.length !== 0 ? costsArray.reduce(reducer) : 0
-        setNewTotal(totalCost)
-      }
-
-      totalCost()
-      totalCount()
+      totalCost(clonProducts)
+      totalCount(clonProducts)
+      localStorage.setItem("shoppingCart", JSON.stringify(clonProducts))
       setCartProducts(clonProducts)
     },
+    // eslint-disable-next-line
     [allProducts, cartProducts]
   )
 
@@ -96,7 +118,10 @@ export const GlobalContextProvider = ({ children }) => {
     cartProducts,
     cartCounter,
     newTotal,
+    setNewTotal,
     cartNewItem,
+    setCartProducts,
+    setCartCounter,
   }
 
   return (

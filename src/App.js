@@ -41,7 +41,8 @@ function App() {
           <Route exact path="/" children={<Main />} />
           <Route path="/login" exact children={<Login />} />
           <Route path="/signup" exact children={<Signup />} />
-          <Route path="/products" children={<Products />} />
+          <Route path="/products/:search" children={<Products />} />
+          <Route path="/products/" children={<Products />} />
           <Route path="/product/:id" children={<SingleProduct />} />
           <Route path="/add-new" children={<NewProduct />} />
           <Route path="/settings" children={<Settings />} />

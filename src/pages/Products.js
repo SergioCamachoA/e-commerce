@@ -1,34 +1,54 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { pageAnimation } from "../animation/pageAnimation"
-import { Link } from "react-router-dom"
+import { productsPageAnimation } from "../animation/pageAnimation"
+import { Link, useParams } from "react-router-dom"
 import styled from "styled-components"
 import { useGlobal } from "../hooks/useGlobal"
 import planta from "../svg/planta4.svg"
+// import { Loader } from "../components/Loader"
 
 export const Products = () => {
   const { allProducts } = useGlobal()
+  const { search } = useParams()
+  const [filteredProducts, setFilteredProducts] = useState([])
+  // const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    if (search === undefined) {
+      setFilteredProducts([...allProducts])
+    } else {
+      const toBeFiltered = [...allProducts]
+      const filtered = toBeFiltered.filter((each) => {
+        return each.product_name.toLowerCase().includes(search.toLowerCase())
+      })
+      setFilteredProducts(filtered)
+    }
+  }, [allProducts, search])
   return (
     <ProductsStyle
       exit="exit"
-      variants={pageAnimation}
+      variants={productsPageAnimation}
       initial="hidden"
       animate="show"
       className="Products"
     >
-      <header>all products</header>
+      {/* <header>products</header> */}
       <div>
-        {allProducts.map((each) => {
-          return (
-            <Link to={`/product/${each._id}`} key={each._id}>
-              <h2>{each.product_name}</h2>
-              <img
-                src={each.image === undefined ? planta : each.image}
-                alt="item in stock"
-              />
-            </Link>
-          )
-        })}
+        {filteredProducts.length === 0 ? (
+          <header>nothing found, sorry</header>
+        ) : (
+          filteredProducts.map((each) => {
+            return (
+              <Link to={`/product/${each._id}`} key={each._id}>
+                <h2>{each.product_name}</h2>
+                <img
+                  src={each.image === undefined ? planta : each.image}
+                  alt="item in stock"
+                />
+              </Link>
+            )
+          })
+        )}
       </div>
     </ProductsStyle>
   )
@@ -47,9 +67,14 @@ const ProductsStyle = styled(motion.div)`
   }
   width: 80vw;
   height: 100vh;
-  /* svg {
-    transform: rotate(90deg);
-  } */
+  header {
+    position: relative;
+    /* z-index: 99; */
+    height: 100vh;
+    width: 100vw;
+    top: 40vh;
+    /* background-color: greenyellow; */
+  }
   a {
     display: flex;
     /* width: 500px; */

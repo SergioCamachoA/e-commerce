@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styled from "styled-components"
 import { motion } from "framer-motion"
@@ -31,8 +31,11 @@ export const NavBar = () => {
   const { isLogged, isAdmin } = useGlobal()
   const [searchInput, setSearchInput] = useState("")
 
+  const history = useHistory()
   function submitHandler(e) {
     e.preventDefault()
+    setSearchInput("")
+    history.push(`/products/${searchInput}`)
   }
   const searchInputHandler = (e) => {
     setSearchInput(e.target.value)

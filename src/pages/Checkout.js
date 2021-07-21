@@ -2,12 +2,19 @@ import React, { useEffect, useState } from "react"
 import { mainPageAnimation } from "../animation/pageAnimation"
 import styled from "styled-components"
 import { motion } from "framer-motion"
-import { Redirect, useHistory, useLocation } from "react-router-dom"
+import { Redirect, useLocation } from "react-router-dom"
 import { useGlobal } from "../hooks/useGlobal"
 
 export const Checkout = () => {
   //using useContext for global states
-  const { isLogged, setHistory } = useGlobal()
+  const {
+    isLogged,
+    setHistory,
+    setCartProducts,
+    setCartCounter,
+    newTotal,
+    setNewTotal,
+  } = useGlobal()
   const [isPurchased, setIsPurchased] = useState(false)
 
   let location = useLocation()
@@ -16,14 +23,14 @@ export const Checkout = () => {
   }, [location, setHistory])
 
   //submit handler for purchase to confirm login status and redirect ??
-  const history = useHistory()
+  // const history = useHistory()
+
   function purchaseHandler() {
-    let path = "/login"
-    if (!isLogged) {
-      history.push(path)
-    } else {
-      setIsPurchased(true)
-    }
+    localStorage.removeItem("shoppingCart")
+    setCartProducts([])
+    setCartCounter(0)
+    setNewTotal(0)
+    setIsPurchased(true)
   }
 
   return isLogged ? (
@@ -34,10 +41,11 @@ export const Checkout = () => {
       animate="show"
     >
       {isPurchased ? (
-        <header>thank you !</header>
+        <header>thanks!</header>
       ) : (
         <>
-          <header>BUY SHIT NOW</header>
+          <header>total due</header>
+          <header>$ {newTotal}</header>
           <button onClick={purchaseHandler}>complete purchase</button>
         </>
       )}
@@ -50,11 +58,25 @@ export const Checkout = () => {
 const StyledCheckout = styled(motion.div)`
   background-color: greenyellow;
   background: linear-gradient(315deg, var(--four) 0%, var(--bg) 100%);
-
+  border-radius: 2rem;
   height: 80%;
   width: 70%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  header {
+    font-size: 3rem;
+  }
+  button {
+    /* height: 3rem; */
+    margin-top: 3rem;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    transition: 500ms;
+    &:hover {
+      background-color: var(--one);
+      color: var(--four);
+    }
+  }
 `

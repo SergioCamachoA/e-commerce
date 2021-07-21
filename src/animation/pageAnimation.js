@@ -14,6 +14,20 @@ export const pageAnimation = {
   },
 }
 
+export const productsPageAnimation = {
+  hidden: { opacity: 0, y: 300 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: 0.6 },
+  },
+  exit: {
+    opacity: 0,
+    y: 300,
+    transition: { duration: 0.5 },
+  },
+}
+
 export const mainPageAnimation = {
   hidden: { opacity: 0, x: 500 },
   show: {
@@ -54,7 +68,7 @@ export const planta = {
       // repeatType: "mirror",
       // repeat: "Infinity",
       duration: 5,
-      delay: 0.5,
+      delay: 1.5,
     },
   },
   exit: { pathLength: 0, transition: { duration: 0.5 } },

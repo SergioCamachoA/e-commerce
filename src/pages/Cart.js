@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { mainPageAnimation } from "../animation/pageAnimation"
 import styled from "styled-components"
 import { motion } from "framer-motion"
 import { useHistory } from "react-router-dom"
 import { useGlobal } from "../hooks/useGlobal"
 import planta from "../svg/planta4.svg"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons"
+
+const trash = <FontAwesomeIcon icon={faTrashAlt} />
 
 export const Cart = () => {
   //using useContext for global states
@@ -14,9 +18,6 @@ export const Cart = () => {
   //submit handler for purchase to confirm login status and redirect ??
   const history = useHistory()
 
-  //   if (isLogged) {
-  //     history.push("/checkout")
-  //   }
   function purchaseHandler() {
     if (!isLogged) {
       setHistory("/checkout")
@@ -25,11 +26,6 @@ export const Cart = () => {
       history.push("/checkout")
     }
   }
-
-  const [cartProductsList, setCartProductsList] = useState(cartProducts)
-  useEffect(() => {
-    setCartProductsList(cartProducts)
-  }, [cartProducts])
 
   return (
     <CartStyled
@@ -41,10 +37,10 @@ export const Cart = () => {
       <section>
         <header>your items</header>
         <h2>$ {newTotal}</h2>
-        <button onClick={purchaseHandler}>checkout</button>
+        {newTotal !== 0 && <button onClick={purchaseHandler}>checkout</button>}
       </section>
       <div className="item-list">
-        {cartProductsList.map((each) => {
+        {cartProducts.map((each) => {
           return (
             <div key={each._id} className="item">
               <img
@@ -55,7 +51,17 @@ export const Cart = () => {
                 <p>{each.product_name}</p>
                 <p>$ {each.price}</p>
               </div>
+
+              <p className="each-total">
+                $ {each.price !== undefined && each.price * each.amount}
+              </p>
               <div className="amount">
+                <button
+                  className="trash"
+                  onClick={() => cartNewItem(each._id, "trash")}
+                >
+                  {trash}
+                </button>
                 <button onClick={() => cartNewItem(each._id, "subtract")}>
                   -
                 </button>
@@ -77,11 +83,10 @@ const CartStyled = styled(motion.div)`
   width: 70%;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
   align-items: center;
   section {
     width: 95%;
-    height: 25%;
+    min-height: 80px;
     margin-bottom: 1rem;
     display: flex;
     flex-direction: row;
@@ -95,7 +100,7 @@ const CartStyled = styled(motion.div)`
   button {
     background-color: var(--one);
     color: var(--bg);
-    height: 30%;
+    height: 40%;
     padding: 0 1rem;
     font-size: 1.5rem;
     transition: 500ms;
@@ -107,47 +112,58 @@ const CartStyled = styled(motion.div)`
   .item-list {
     width: 100%;
     overflow: scroll;
-    /* display: flex; */
-    /* justify-content: center; */
   }
   .item {
     /* background-color: red; */
     height: 7vw;
-    width: 65%;
+    width: 100%;
+    margin: 1rem 0;
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* justify-content: space-between; */
-    font-size: 1rem;
     img {
       height: 7vw;
       width: 7vw;
       margin: 0 2rem;
       border: 3px solid var(--one);
       border-radius: 0.5rem;
-      /* background-color: greenyellow; */
     }
     p {
-      font-size: 1.3rem;
+      font-size: 1.8vw;
+    }
+    .specs {
+      width: 40%;
+    }
+    .each-total {
+      width: 22%;
     }
 
     .amount {
-      /* background-color: greenyellow; */
+      width: 25%;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 10rem;
       p {
-        margin: 0 1rem;
-        /* background-color: var(--five); */
-        /* width: 1rem; */
+        margin: 0 0.5rem;
       }
       button {
         width: 0.5rem;
         display: flex;
         justify-content: center;
-        /* height: 0.5rem; */
         background-color: var(--three);
+      }
+      .trash {
+        height: 2rem;
+        border-radius: 0;
+        display: flex;
+        align-items: center;
+        color: var(--three);
+        margin-right: 1rem;
+        background-color: transparent;
+        &:hover {
+          color: var(--one);
+        }
       }
     }
   }
