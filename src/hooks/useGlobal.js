@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useState, createContext, useContext } from "react"
+import { useState, createContext, useContext, useCallback } from "react"
 
 export const GlobalContext = createContext()
 
@@ -20,12 +20,67 @@ export const GlobalContextProvider = ({ children }) => {
       })
       .catch((err) => console.log(err))
     // console.log(tempArray)
-    setAllProducts(tempArray)
+    if (tempArray !== undefined) {
+      setAllProducts(tempArray)
+    }
   }
 
-  const cartNewItem = () => {
-    setCartCounter(cartCounter + 1)
-  }
+  const [cartProducts, setCartProducts] = useState([])
+  const [newTotal, setNewTotal] = useState("0")
+
+  const cartNewItem = useCallback(
+    (id, itemSumRest) => {
+      const clonProducts = [...cartProducts]
+      let selectedItem = allProducts.find((el) => el._id === id)
+      let alreadyAdded = cartProducts.findIndex((el) => el._id === id)
+      let amount = 1
+
+      if (alreadyAdded === -1) {
+        clonProducts.push({ ...selectedItem, amount: amount })
+      } else {
+        let newAmount = clonProducts[alreadyAdded].amount
+
+        if (itemSumRest === "subtract") {
+          if (newAmount === 1) {
+            clonProducts.splice(alreadyAdded, 1)
+          } else {
+            clonProducts[alreadyAdded] = {
+              ...selectedItem,
+              amount: newAmount - 1,
+            }
+          }
+        } else {
+          clonProducts[alreadyAdded] = {
+            ...selectedItem,
+            amount: newAmount + 1,
+          }
+        }
+      }
+
+      const reducer = (acumulator, currentValue) => acumulator + currentValue
+
+      const totalCount = () => {
+        const amountsArray = clonProducts.map((each) => each.amount)
+
+        const allItems =
+          amountsArray.length !== 0 ? amountsArray.reduce(reducer) : 0
+
+        setCartCounter(allItems)
+      }
+
+      const totalCost = () => {
+        const costsArray = clonProducts.map((each) => each.price * each.amount)
+        const totalCost =
+          costsArray.length !== 0 ? costsArray.reduce(reducer) : 0
+        setNewTotal(totalCost)
+      }
+
+      totalCost()
+      totalCount()
+      setCartProducts(clonProducts)
+    },
+    [allProducts, cartProducts]
+  )
 
   const values = {
     isLogged,
@@ -38,8 +93,9 @@ export const GlobalContextProvider = ({ children }) => {
     setIsAdmin,
     allProducts,
     getProducts,
+    cartProducts,
     cartCounter,
-    // setCartCounter,
+    newTotal,
     cartNewItem,
   }
 

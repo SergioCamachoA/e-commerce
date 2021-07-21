@@ -25,7 +25,7 @@ export const CartIcon = () => {
 const CartStyle = styled(Link)`
   /* background-color: greenyellow; */
   position: absolute;
-  top: 2vh;
+  top: 1rem;
   right: 2vw;
   z-index: 3;
   color: var(--one);
@@ -39,12 +39,12 @@ const CartStyle = styled(Link)`
     background-color: #f84949;
     text-align: center;
     color: var(--bg);
-    font-size: 1.5rem;
+    font-size: 1rem;
     border-radius: 50%;
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 1.2rem;
+    width: 1.2rem;
     position: relative;
-    top: -4vh;
+    bottom: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;

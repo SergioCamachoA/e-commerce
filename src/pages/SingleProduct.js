@@ -38,7 +38,7 @@ export const SingleProduct = () => {
           <header>{item.product_name}</header>
           <h3>{`$${item.price}`}</h3>
           <p>{item.description}</p>
-          <button onClick={cartNewItem}>Add to cart</button>
+          <button onClick={() => cartNewItem(id)}>Add to cart</button>
         </div>
       </ItemStyled>
     </motion.div>

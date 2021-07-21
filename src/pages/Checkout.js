@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { mainPageAnimation } from "../animation/pageAnimation"
 import styled from "styled-components"
 import { motion } from "framer-motion"
@@ -8,6 +8,7 @@ import { useGlobal } from "../hooks/useGlobal"
 export const Checkout = () => {
   //using useContext for global states
   const { isLogged, setHistory } = useGlobal()
+  const [isPurchased, setIsPurchased] = useState(false)
 
   let location = useLocation()
   useEffect(() => {
@@ -21,7 +22,7 @@ export const Checkout = () => {
     if (!isLogged) {
       history.push(path)
     } else {
-      console.log("thank you, my dear")
+      setIsPurchased(true)
     }
   }
 
@@ -32,9 +33,14 @@ export const Checkout = () => {
       initial="hidden"
       animate="show"
     >
-      <header>BUY SHIT NOW</header>
-
-      <button onClick={purchaseHandler}>complete purchase</button>
+      {isPurchased ? (
+        <header>thank you !</header>
+      ) : (
+        <>
+          <header>BUY SHIT NOW</header>
+          <button onClick={purchaseHandler}>complete purchase</button>
+        </>
+      )}
     </StyledCheckout>
   ) : (
     <Redirect to="/login" />

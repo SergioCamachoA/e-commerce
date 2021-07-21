@@ -39,11 +39,11 @@ export const Login = () => {
     return (
       <Redirect
         to={
-          pathHistory.goBack() !== undefined
+          history !== undefined
+            ? history
+            : pathHistory.goBack() !== undefined
             ? pathHistory.goBack()
-            : history === undefined
-            ? "/"
-            : history
+            : "/"
         }
       />
     )

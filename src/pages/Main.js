@@ -154,7 +154,9 @@ export const Main = () => {
                   <h3>{current.product_name}</h3>
                   <h3>{`$${current.price}`}</h3>
                 </Link>
-                <button onClick={cartNewItem}>Add to cart</button>
+                <button onClick={() => cartNewItem(current._id)}>
+                  Add to cart
+                </button>
               </motion.div>
             </>
           )}
