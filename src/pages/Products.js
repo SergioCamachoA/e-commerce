@@ -98,7 +98,7 @@ const ProductsStyle = styled(motion.div)`
     /* background: linear-gradient(145deg, var(--four) 0%, var(--bg) 100%); */
 
     width: 17vw;
-    min-height: 26vw;
+    height: 26vw;
     margin: 1rem;
     border-radius: 0 2rem 0 2rem;
     &:hover {
