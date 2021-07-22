@@ -13,7 +13,7 @@ import { CartIcon } from "./components/CartIcon"
 import { useEffect } from "react"
 import { useAuth } from "./hooks/useAuth"
 import { Settings } from "./pages/Settings"
-// import { Planta } from "./components/Planta"
+import { Planta } from "./components/Planta"
 import { useGlobal } from "./hooks/useGlobal"
 import { Checkout } from "./pages/Checkout"
 import { Cart } from "./pages/Cart"
@@ -38,7 +38,7 @@ function App() {
       <GlobalStyle />
       <NavBar />
       <CartIcon />
-      {/* <Planta /> */}
+      <Planta />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
           <Route exact path="/" children={<Main />} />

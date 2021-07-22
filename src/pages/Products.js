@@ -93,16 +93,16 @@ const ProductsStyle = styled(motion.div)`
     justify-content: space-around;
     font-size: 2rem;
     transition: 500ms;
-    background-color: rgba(41, 41, 41, 0.1);
+    background-color: #cacacadf;
     box-shadow: inset 0 0 10px var(--two);
     /* background: linear-gradient(145deg, var(--four) 0%, var(--bg) 100%); */
 
     width: 17vw;
     height: 26vw;
     margin: 1rem;
-    border-radius: 0 2rem 0 2rem;
+    border-radius: 2rem 2rem 2rem 0;
     &:hover {
-      background: var(--bg);
+      background-color: var(--bg);
       box-shadow: 0 0 10px var(--two);
       h2 {
         color: var(--one);

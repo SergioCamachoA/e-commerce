@@ -14,7 +14,7 @@ import { Link, useLocation } from "react-router-dom"
 import { GlobalContext } from "../hooks/useGlobal"
 import { Loader } from "../components/Loader"
 import planta from "../svg/planta4.svg"
-import { Planta } from "../components/Planta"
+// import { Planta } from "../components/Planta"
 
 export const Main = () => {
   let location = useLocation()
@@ -103,7 +103,7 @@ export const Main = () => {
       exit="exit"
       className="Main"
     >
-      <Planta />
+      {/* <Planta /> */}
       <BigCircle />
       <ContainerStyled className="container">
         <HeaderStyled>welcome, shopper</HeaderStyled>
