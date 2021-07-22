@@ -35,7 +35,8 @@ export const NavBar = () => {
   function submitHandler(e) {
     e.preventDefault()
     setSearchInput("")
-    history.push(`/products/${searchInput}`)
+    history.push(`/products?search=${searchInput}`)
+    //setup of search query params
   }
   const searchInputHandler = (e) => {
     setSearchInput(e.target.value)

@@ -17,12 +17,15 @@ import { Settings } from "./pages/Settings"
 import { useGlobal } from "./hooks/useGlobal"
 import { Checkout } from "./pages/Checkout"
 import { Cart } from "./pages/Cart"
+import { useQuery } from "./hooks/useQuery"
 
 function App() {
   const { setLogin } = useAuth()
   const { getProducts } = useGlobal()
 
   const location = useLocation()
+
+  let query = useQuery()
 
   useEffect(() => {
     setLogin()
@@ -41,8 +44,11 @@ function App() {
           <Route exact path="/" children={<Main />} />
           <Route path="/login" exact children={<Login />} />
           <Route path="/signup" exact children={<Signup />} />
-          <Route path="/products/:search" children={<Products />} />
-          <Route path="/products/" children={<Products />} />
+          {/* <Route path="/products/search/:search" children={<Products />} /> */}
+          <Route
+            path="/products"
+            children={<Products search={query.get("search")} />}
+          />
           <Route path="/product/:id" children={<SingleProduct />} />
           <Route path="/add-new" children={<NewProduct />} />
           <Route path="/settings" children={<Settings />} />

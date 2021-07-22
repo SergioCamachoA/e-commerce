@@ -24,7 +24,7 @@ export const Login = () => {
 
   const loginAnim = () => {
     setIsLoading(true)
-    logInHandler(form, "login")
+    logInHandler(form, "login", setIsLoading)
   }
 
   // const [current, setCurrent] = useState("/")

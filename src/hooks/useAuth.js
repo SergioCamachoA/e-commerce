@@ -4,7 +4,7 @@ import { useGlobal } from "./useGlobal"
 export const useAuth = () => {
   const { setIsLogged, setUserData, setIsAdmin } = useGlobal()
 
-  const logInHandler = (form, accessType) => {
+  const logInHandler = (form, accessType, setIsLoading) => {
     axios
       .post(accessType, form)
       .then((res) => {
@@ -14,6 +14,7 @@ export const useAuth = () => {
       })
       .catch((err) => {
         console.log(err)
+        setIsLoading(false)
       })
   }
   const signupHandler = (form, accessType, setIsLoading) => {

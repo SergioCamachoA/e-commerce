@@ -19,7 +19,7 @@ export const NewProduct = () => {
     sku: Math.floor(Math.random() * 10000000),
     image: "",
   }
-  const { form, onChangeHandler } = useForm(emptyItem)
+  const { form, setForm, onChangeHandler } = useForm(emptyItem)
 
   let location = useLocation()
 
@@ -43,15 +43,10 @@ export const NewProduct = () => {
 
       axios
         .post("item", body, config)
-        .then(
-          (res) => {
-            console.log(res)
-          }
-          // (err) => {
-          //   console.log(err.response)
-          //   console.log(err.statusMessage)
-          // }
-        )
+        .then((res) => {
+          console.log(res)
+          setForm(emptyItem)
+        })
         .catch((err) => {
           console.log(err.response.data)
         })
@@ -73,6 +68,12 @@ export const NewProduct = () => {
       <header>add a new product</header>
       <form onSubmit={(e) => e.preventDefault()} className="signup-form">
         {inputs.map((each, index) => {
+          let placeholder =
+            each === "product_name"
+              ? "product name"
+              : each === "image"
+              ? "image URL"
+              : each
           return (
             <input
               name={each}
@@ -80,7 +81,7 @@ export const NewProduct = () => {
               type="text"
               onChange={onChangeHandler}
               value={form[each]}
-              placeholder={each}
+              placeholder={placeholder}
             />
           )
         })}
