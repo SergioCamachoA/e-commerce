@@ -37,32 +37,35 @@ export const Products = ({ search }) => {
       className="Products"
     >
       {/* <header>products</header> */}
-      <div>
-        {filteredProducts.length === 0 ? (
-          <header>nothing found, sorry</header>
-        ) : (
-          filteredProducts.map((each) => {
-            return (
-              <div className="each-item">
-                <Link to={`/product/${each._id}`} key={each._id}>
-                  <img
-                    src={each.image === undefined ? planta : each.image}
-                    alt="item in stock"
-                  />
-                  <h2>{each.product_name}</h2>
-                </Link>
-                <p onClick={() => cartNewItem(each._id)}>{add}</p>
-              </div>
-            )
-          })
-        )}
-      </div>
+      {/* <div> */}
+      {filteredProducts.length === 0 ? (
+        <header>nothing found, sorry</header>
+      ) : (
+        filteredProducts.map((each) => {
+          return (
+            <div className="each-item">
+              <Link to={`/product/${each._id}`} key={each._id}>
+                <img
+                  src={each.image === undefined ? planta : each.image}
+                  alt="item in stock"
+                />
+                <h2>{each.product_name}</h2>
+                <h2 className="price">$ {each.price}</h2>
+              </Link>
+              <p onClick={() => cartNewItem(each._id)}>{add}</p>
+            </div>
+          )
+        })
+      )}
+      {/* </div> */}
     </ProductsStyle>
   )
 }
 
 const ProductsStyle = styled(motion.div)`
   /* background-color: greenyellow; */
+  display: flex;
+  flex-wrap: wrap;
   position: relative;
   left: 2vw;
   text-align: center;
@@ -87,20 +90,19 @@ const ProductsStyle = styled(motion.div)`
     /* width: 500px; */
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    color: var(--one);
+    justify-content: space-around;
     font-size: 2rem;
     transition: 500ms;
-    background-color: rgba(41, 41, 41, 0.4);
+    background-color: rgba(41, 41, 41, 0.1);
     box-shadow: inset 0 0 10px var(--two);
     /* background: linear-gradient(145deg, var(--four) 0%, var(--bg) 100%); */
 
     width: 17vw;
     min-height: 26vw;
     margin: 1rem;
-    border-radius: 2rem 0 2rem 0;
+    border-radius: 0 2rem 0 2rem;
     &:hover {
-      background: var(--four);
+      background: var(--bg);
       box-shadow: 0 0 10px var(--two);
       h2 {
         color: var(--one);
@@ -108,42 +110,56 @@ const ProductsStyle = styled(motion.div)`
     }
     p,
     h2 {
-      min-height: 3rem;
       margin: 0 1rem 0 2rem;
       /* min-width: 40px; */
       display: flex;
-      justify-content: center;
-      align-items: center;
+      justify-content: flex-start;
+      align-items: flex-start;
       font-size: 2.7vh;
-      color: var(--four);
+      font-family: "chillbold";
+      color: var(--one);
+      height: 3rem;
     }
     p {
+      /* background-color: greenyellow; */
+      position: relative;
+      left: 5vw;
       color: rgba(41, 41, 41, 1);
       font-size: 1.7rem;
-      /* background-color: greenyellow; */
-      width: 70%;
+      /* width: 70%; */
       justify-content: flex-end;
+      align-items: flex-start;
       cursor: pointer;
       transition: 500ms;
       &:focus {
         color: var(--three);
       }
     }
-  }
-  div {
-    display: flex;
-    flex-wrap: wrap;
+    h2 {
+      overflow: hidden;
+    }
+    .price {
+      position: absolute;
+      top: 18rem;
+    }
+    a {
+      /* background-color: greenyellow; */
+      min-height: 23vw;
+    }
 
     img {
-      max-width: 13vw;
-      min-height: 13vw;
+      background-color: red;
+
       max-height: 15vw;
+      min-height: 10vw;
+      max-width: 13vw;
+      min-width: 10vw;
       border-radius: 50%;
       border: 4px solid var(--four);
-      margin: 1rem 0;
+      margin: 1rem;
       transition: 500ms;
       background-color: var(--bg);
-      box-shadow: 0 0 10px var(--two);
+      /* box-shadow: 0 0 10px var(--two); */
       color: var(--one);
 
       &:hover {
