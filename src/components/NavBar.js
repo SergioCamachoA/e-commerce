@@ -131,8 +131,8 @@ const NavStyle = styled(motion.div)`
     &:hover {
       background-color: var(--three);
 
-      min-width: 330px;
-      width: 20vw;
+      /* min-width: 330px; */
+      width: 22vw;
       a,
       form {
         color: var(--one);

@@ -118,7 +118,7 @@ const ProductsStyle = styled(motion.div)`
       font-size: 2.7vh;
       font-family: "chillbold";
       color: var(--one);
-      height: 3rem;
+      height: 5vw;
     }
     p {
       /* background-color: greenyellow; */
@@ -140,7 +140,7 @@ const ProductsStyle = styled(motion.div)`
     }
     .price {
       position: absolute;
-      top: 18rem;
+      top: 23vw;
     }
     a {
       /* background-color: greenyellow; */
