@@ -43,8 +43,8 @@ export const Products = ({ search }) => {
       ) : (
         filteredProducts.map((each) => {
           return (
-            <div className="each-item">
-              <Link to={`/product/${each._id}`} key={each._id}>
+            <div key={each._id} className="each-item">
+              <Link to={`/product/${each._id}`}>
                 <img
                   src={each.image === undefined ? planta : each.image}
                   alt="item in stock"
@@ -52,7 +52,7 @@ export const Products = ({ search }) => {
                 <h2>{each.product_name}</h2>
                 <h2 className="price">$ {each.price}</h2>
               </Link>
-              <p onClick={() => cartNewItem(each._id)}>{add}</p>
+              <button onClick={() => cartNewItem(each._id)}>{add}</button>
             </div>
           )
         })
@@ -87,17 +87,20 @@ const ProductsStyle = styled(motion.div)`
   }
   .each-item {
     display: flex;
-    /* width: 500px; */
+    /* width: 1500px; */
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    font-size: 2rem;
+    font-size: 5vh;
     transition: 500ms;
     background-color: #cacacadf;
     box-shadow: inset 0 0 10px var(--two);
     /* background: linear-gradient(145deg, var(--four) 0%, var(--bg) 100%); */
 
+    /* min-width: 250px; */
     width: 17vw;
+    /* min-height: ; */
+    min-height: 200px;
     height: 26vw;
     margin: 1rem;
     border-radius: 2rem 2rem 2rem 0;
@@ -108,7 +111,7 @@ const ProductsStyle = styled(motion.div)`
         color: var(--one);
       }
     }
-    p,
+    button,
     h2 {
       margin: 0 1rem 0 2rem;
       /* min-width: 40px; */
@@ -120,13 +123,15 @@ const ProductsStyle = styled(motion.div)`
       color: var(--one);
       height: 5vw;
     }
-    p {
+    button {
+      background-color: transparent;
       /* background-color: greenyellow; */
       position: relative;
       left: 5vw;
       color: rgba(41, 41, 41, 1);
       font-size: 1.7rem;
       /* width: 70%; */
+      border-radius: 0%;
       justify-content: flex-end;
       align-items: flex-start;
       cursor: pointer;
@@ -164,6 +169,55 @@ const ProductsStyle = styled(motion.div)`
 
       &:hover {
         border-radius: 1rem;
+      }
+    }
+  }
+  @media (max-width: 1084px) {
+    top: 15vh;
+    .each-item {
+      min-width: 30vw;
+      /* width: 17vw; */
+      /* min-height: ; */
+      min-height: 300px;
+      /* height: ; */
+      h2 {
+        /* background-color: greenyellow; */
+        height: 11vh;
+      }
+      .price {
+        height: 8vw;
+        top: 260px;
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    /* background-color: greenyellow; */
+    top: 15vh;
+    .each-item {
+      /* min-width: 350px; */
+      width: 250px;
+      /* min-height: ; */
+      min-height: 200px;
+      height: 300px;
+      img {
+        min-height: 170px;
+        min-width: 170px;
+        border-radius: 1rem;
+        margin-bottom: 0rem;
+      }
+      h2 {
+        /* background-color: greenyellow; */
+        height: 8vh;
+      }
+      button {
+        left: 80px;
+        bottom: 0.1rem;
+        height: 8vw;
+      }
+      .price {
+        height: 8vw;
+        top: 260px;
       }
     }
   }

@@ -26,7 +26,7 @@ const CartStyle = styled(Link)`
   /* background-color: greenyellow; */
   position: absolute;
   top: 1rem;
-  right: 2vw;
+  right: 2rem;
   z-index: 3;
   color: var(--one);
   font-size: 2.5rem;
