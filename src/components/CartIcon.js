@@ -9,10 +9,10 @@ import { useGlobal } from "../hooks/useGlobal"
 const cart = <FontAwesomeIcon icon={faShoppingCart} />
 
 export const CartIcon = () => {
-  const { cartCounter } = useGlobal()
+  const { cartCounter, setMenuActive } = useGlobal()
   return (
     <>
-      <CartStyle to="/cart">
+      <CartStyle onClick={() => setMenuActive(false)} to="/cart">
         {cart}
         {cartCounter !== 0 && <p className="counter">{cartCounter}</p>}
       </CartStyle>

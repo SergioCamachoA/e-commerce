@@ -225,16 +225,16 @@ const NavStyle = styled(motion.div)`
   @media (max-width: 700px) {
     left: ${(props) => props.position};
     background-color: ${(props) => props.bg};
-    height: 88vh;
+    height: 78vh;
     top: 12vh;
     width: ${(props) => props.width};
     .hovered {
-      width: 70%;
+      width: 90%;
       &:hover {
         background-color: var(--three);
 
         /* min-width: 330px; */
-        width: 70%;
+        width: 90%;
         a,
         form {
           color: var(--one);
