@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styled from "styled-components"
@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import { useGlobal } from "../hooks/useGlobal"
 import {
   faArrowLeft,
-  faBars,
+  // faBars,
   faSearch,
   faUserCircle,
   // faTimes,
@@ -16,7 +16,7 @@ import {
   faCog,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons"
-import { useWindowSize } from "../hooks/useWindowSize"
+// import { useWindowSize } from "../hooks/useWindowSize"
 
 const back = <FontAwesomeIcon icon={faArrowLeft} />
 const search = <FontAwesomeIcon icon={faSearch} />
@@ -25,16 +25,17 @@ const user = <FontAwesomeIcon icon={faFingerprint} />
 const all = <FontAwesomeIcon icon={faTags} />
 const add = <FontAwesomeIcon icon={faPlus} />
 const settings = <FontAwesomeIcon icon={faCog} />
-const hamburger = <FontAwesomeIcon icon={faBars} />
+// const burger = <FontAwesomeIcon icon={faBars} />
 // const close = <FontAwesomeIcon icon={faTimes} />
 
 export const NavBar = () => {
-  const { isLogged, isAdmin } = useGlobal()
+  const { isLogged, isAdmin, menuActive, setMenuActive } = useGlobal()
   const [searchInput, setSearchInput] = useState("")
 
   const history = useHistory()
   function submitHandler(e) {
     e.preventDefault()
+    setMenuActive(false)
     setSearchInput("")
     history.push(`/products?search=${searchInput}`)
     //setup of search query params
@@ -43,70 +44,81 @@ export const NavBar = () => {
     setSearchInput(e.target.value)
   }
 
-  let size = useWindowSize()
+  // const size = useWindowSize()
+  // const [isShown, setIsShown] = useState(1)
+
+  const [position, setPosition] = useState("")
+  const [width, setWidth] = useState("")
+  const [bg, setBg] = useState("")
+  useEffect(() => {
+    if (menuActive) {
+      setPosition("-1rem")
+      setWidth("110%")
+      setBg("var(--bg)")
+    } else {
+      setPosition("-7rem")
+      setWidth("1%")
+      setBg("transparent")
+    }
+  }, [menuActive])
+
   return (
-    <NavStyle className="navbar">
-      {size.width < 1084 ? (
-        <button>{hamburger}</button>
-      ) : (
-        <>
-          <div className="hovered">
-            <Link to="/">
-              <i>{back}</i>
-              <h2>home</h2>
-            </Link>
-          </div>
-          {!isLogged && (
-            <div className="hovered">
-              <Link to="/login">
-                <i>{user}</i>
-                <h2>login</h2>
-              </Link>
-            </div>
-          )}
-          {!isLogged && (
-            <div className="hovered">
-              <Link to="/signup">
-                <i>{newUser}</i>
-                <h2>signup</h2>
-              </Link>
-            </div>
-          )}
-          <div className="hovered">
-            <Link to="/products">
-              <i>{all}</i>
-              <h2>all products</h2>
-            </Link>
-          </div>
-          <div className="hovered hover-form">
-            <form onSubmit={submitHandler}>
-              <i>{search}</i>
-              {/* <h2>search</h2> */}
-              <input
-                onChange={searchInputHandler}
-                value={searchInput}
-                type="text"
-                placeholder="search"
-              />
-            </form>
-          </div>
-          {isLogged && isAdmin && (
-            <div className="hovered">
-              <Link to={"/add-new"}>
-                <i>{add}</i>
-                <h2>add new</h2>
-              </Link>
-            </div>
-          )}
-          {isLogged && (
-            <div className="hovered">
-              <Link to="/settings">
-                <i>{settings}</i>
-                <h2>settings</h2>
-              </Link>
-            </div>
-          )}
-        </>
+    <NavStyle position={position} width={width} bg={bg} className="navbar">
+      <div className="hovered">
+        <Link onClick={() => setMenuActive(false)} to="/">
+          <i>{back}</i>
+          <h2>home</h2>
+        </Link>
+      </div>
+      {!isLogged && (
+        <div className="hovered">
+          <Link onClick={() => setMenuActive(false)} to="/login">
+            <i>{user}</i>
+            <h2>login</h2>
+          </Link>
+        </div>
+      )}
+      {!isLogged && (
+        <div className="hovered">
+          <Link onClick={() => setMenuActive(false)} to="/signup">
+            <i>{newUser}</i>
+            <h2>signup</h2>
+          </Link>
+        </div>
+      )}
+      <div className="hovered">
+        <Link onClick={() => setMenuActive(false)} to="/products">
+          <i>{all}</i>
+          <h2>all products</h2>
+        </Link>
+      </div>
+      <div className="hovered hover-form">
+        <form onSubmit={submitHandler}>
+          <i>{search}</i>
+          {/* <h2>search</h2> */}
+          <input
+            onChange={searchInputHandler}
+            value={searchInput}
+            type="text"
+            placeholder="search"
+          />
+        </form>
+      </div>
+      {isLogged && isAdmin && (
+        <div className="hovered">
+          <Link onClick={() => setMenuActive(false)} to={"/add-new"}>
+            <i>{add}</i>
+            <h2>add new</h2>
+          </Link>
+        </div>
+      )}
+      {isLogged && (
+        <div className="hovered">
+          <Link onClick={() => setMenuActive(false)} to="/settings">
+            <i>{settings}</i>
+            <h2>settings</h2>
+          </Link>
+        </div>
       )}
     </NavStyle>
   )
@@ -121,22 +133,23 @@ const NavStyle = styled(motion.div)`
   z-index: 3;
   /* overflow: hidden; */
   top: 0;
-  left: 0;
+  left: -1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: left;
+  transition: 500ms;
   .hovered {
     height: 8vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 700ms;
     width: 10vh; // <--------------
     /* width: 20vh; */
     min-width: 100px;
     border-radius: 0 2rem 2rem 0;
     &:hover {
+      transition: 700ms;
       background-color: var(--three);
 
       min-width: 330px;
@@ -196,6 +209,7 @@ const NavStyle = styled(motion.div)`
 
   button {
     background-color: transparent;
+    border-radius: 0%;
     text-align: center;
     position: absolute;
     top: 1rem;
@@ -205,6 +219,33 @@ const NavStyle = styled(motion.div)`
     transition: 500ms;
     &:hover {
       color: var(--four);
+    }
+  }
+
+  @media (max-width: 700px) {
+    left: ${(props) => props.position};
+    background-color: ${(props) => props.bg};
+    height: 88vh;
+    top: 12vh;
+    width: ${(props) => props.width};
+    .hovered {
+      width: 70%;
+      &:hover {
+        background-color: var(--three);
+
+        /* min-width: 330px; */
+        width: 70%;
+        a,
+        form {
+          color: var(--one);
+          i {
+            color: var(--four);
+          }
+          input {
+            background-color: var(--four);
+          }
+        }
+      }
     }
   }
 `

@@ -84,6 +84,13 @@ const CartStyled = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* background-color: greenyellow; */
+  @media (max-width: 700px) {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
   section {
     width: 95%;
     min-height: 80px;
@@ -92,9 +99,20 @@ const CartStyled = styled(motion.div)`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    /* background-color: greenyellow; */
     header {
       margin: 1rem 0;
+    }
+    @media (max-width: 700px) {
+      flex-direction: column;
+      height: 130px;
+      font-size: 1rem;
+      header {
+        margin: 0;
+      }
+      button {
+        font-size: 1rem;
+        height: 27%;
+      }
     }
   }
   button {
@@ -114,7 +132,6 @@ const CartStyled = styled(motion.div)`
     overflow: scroll;
   }
   .item {
-    /* background-color: red; */
     height: 7vw;
     width: 100%;
     margin: 1rem 0;
@@ -164,6 +181,25 @@ const CartStyled = styled(motion.div)`
         &:hover {
           color: var(--one);
         }
+      }
+    }
+    @media (max-width: 700px) {
+      /* background-color: greenyellow; */
+      height: 150px;
+      flex-wrap: wrap;
+      section,
+      button {
+        overflow-y: hidden;
+      }
+      p {
+        font-size: 1rem;
+      }
+      img {
+        height: 80px;
+        width: 80px;
+      }
+      .each-total {
+        margin-left: 2rem;
       }
     }
   }

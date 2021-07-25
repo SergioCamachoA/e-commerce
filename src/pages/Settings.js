@@ -144,6 +144,13 @@ const StyledInfo = styled(motion.div)`
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
+  div {
+    margin: 0 1rem;
+    font-size: 1.5rem;
+    @media (max-width: 900px) {
+      font-size: 1.3rem;
+    }
+  }
   .specs {
     color: var(--one);
   }
@@ -164,7 +171,7 @@ const StyledChanges = styled(motion.div)`
     min-width: 15rem;
     width: 15vw;
     margin: 0.5rem 0.5rem;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     text-align: center;
     border: none;
     background-color: var(--bg);
@@ -196,11 +203,10 @@ const StyledSettings = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  div {
-    margin-left: 2rem;
-  }
   header {
     margin-left: 2rem;
     text-align: center;
+    font-size: 3rem;
+    color: var(--one);
   }
 `

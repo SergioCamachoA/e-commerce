@@ -24,18 +24,20 @@ export const CartIcon = () => {
 
 const CartStyle = styled(Link)`
   /* background-color: greenyellow; */
-  position: absolute;
+  position: fixed;
   top: 1rem;
   right: 2rem;
   z-index: 3;
   color: var(--one);
   font-size: 2.5rem;
   transition: 400ms;
+  overflow: hidden;
   &:hover {
     cursor: pointer;
     color: var(--three);
   }
   p {
+    overflow: hidden;
     background-color: #f84949;
     text-align: center;
     color: var(--bg);

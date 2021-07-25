@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react"
 import {
-  // mainHeader,
   mainPageAnimation,
   mainPageAnimationLogged,
   mainProduct,
@@ -14,7 +13,7 @@ import { Link, useLocation } from "react-router-dom"
 import { GlobalContext } from "../hooks/useGlobal"
 import { Loader } from "../components/Loader"
 import planta from "../svg/planta4.svg"
-// import { Planta } from "../components/Planta"
+import { useWindowSize } from "../hooks/useWindowSize"
 
 export const Main = () => {
   let location = useLocation()
@@ -37,7 +36,7 @@ export const Main = () => {
 
   //animation properties
   const variants = {
-    clicked: { y: 150 },
+    clicked: { y: -150 },
     notClicked: { y: 0 },
   }
 
@@ -95,6 +94,8 @@ export const Main = () => {
     }
   }, [allProducts])
 
+  const size = useWindowSize()
+
   return !isLogged ? (
     <MainStyled
       variants={mainPageAnimation}
@@ -103,11 +104,10 @@ export const Main = () => {
       exit="exit"
       className="Main"
     >
-      {/* <Planta /> */}
-      <BigCircle />
-      <ContainerStyled className="container">
-        <HeaderStyled>welcome, shopper</HeaderStyled>
-      </ContainerStyled>
+      <BigCircle className="circle" />
+      <div className="container">
+        <header>welcome, shopper</header>
+      </div>
     </MainStyled>
   ) : isLoading ? (
     <Loader />
@@ -119,53 +119,54 @@ export const Main = () => {
       exit="exit"
       className="Main-in"
     >
-      <ContainerStyled className="container">
-        <motion.header
-          initial={"notClicked"}
-          animate={isClicked ? "clicked" : "notClicked"}
-          variants={variants}
+      <ContainerStyled>
+        <header
+          // initial={"notClicked"}
+          // animate={isClicked ? "clicked" : "notClicked"}
+          // variants={variants}
           className="main-header"
         >
           {!isClicked ? `happy shopping, ${username}` : `logout`}
-        </motion.header>
-        <ImageStyled
-        // variants={mainProduct}
-        // initial="hidden"
-        // animate="show"
-        // exit="exit"
-        >
-          {fetchedProducts && (
-            <>
-              <motion.header
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { duration: 3 } }}
-              >
-                check these out
-              </motion.header>
-              <motion.div
-                variants={mainProduct}
-                initial="hidden"
-                animate="show"
-                exit="exit"
-              >
-                <Link to={current !== undefined && `product/${current._id}`}>
-                  <img
-                    src={current.image === undefined ? planta : current.image}
-                    alt="item"
-                  />
-                  <h3>{current.product_name}</h3>
-                  <h3>{`$${current.price}`}</h3>
-                </Link>
-                <button
-                  className="add-btn"
-                  onClick={() => cartNewItem(current._id)}
+        </header>
+        {(window.innerWidth > 1084 || size > 1084 || !isClicked) && (
+          <ImageStyled>
+            {fetchedProducts && (
+              <>
+                <motion.header
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { duration: 3 } }}
                 >
-                  Add to cart
-                </button>
-              </motion.div>
-            </>
-          )}
-        </ImageStyled>
+                  check these out
+                </motion.header>
+                <motion.div
+                  variants={mainProduct}
+                  initial="hidden"
+                  animate="show"
+                  exit="exit"
+                >
+                  <Link to={current !== undefined && `product/${current._id}`}>
+                    <div className="img-div">
+                      <img
+                        src={
+                          current.image === undefined ? planta : current.image
+                        }
+                        alt="item"
+                      />
+                    </div>
+                    <h3>{current.product_name}</h3>
+                    <h3>{`$${current.price}`}</h3>
+                  </Link>
+                  <button
+                    className="add-btn"
+                    onClick={() => cartNewItem(current._id)}
+                  >
+                    Add to cart
+                  </button>
+                </motion.div>
+              </>
+            )}
+          </ImageStyled>
+        )}
 
         {isClicked && (
           <motion.div
@@ -198,7 +199,11 @@ const MainStyled = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: var(--bg); */
+  @media (max-width: 700px) {
+    header {
+      font-size: 2rem;
+    }
+  }
 `
 
 const ContainerStyled = styled(motion.div)`
@@ -208,23 +213,25 @@ const ContainerStyled = styled(motion.div)`
   height: 85vh;
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   justify-content: center;
   align-items: center;
-  /* background-color: greenyellow; */
   overflow: visible;
   .log-div {
-    overflow-x: visible;
-    /* background-color: greenyellow; */
-    position: relative;
-    left: 20vw;
-    bottom: 12vw;
+    /* background-color: red; */
+    /* text-align: center; */
+    /* overflow-x: visible; */
+    position: absolute;
+    right: 1rem;
+    bottom: 0;
   }
   .main-header {
+    /* background-color: greenyellow; */
     text-align: right;
     position: relative;
-    left: 15vw;
-    bottom: 14vw;
+    width: 42%;
+    left: 10%;
+    /* bottom: 14vw; */
   }
   button {
     /* position: relative; */
@@ -242,21 +249,58 @@ const ContainerStyled = styled(motion.div)`
       color: var(--three);
     }
   }
+
+  @media (max-width: 1084px) {
+    flex-direction: column;
+    .log-div {
+      width: 80%;
+      text-align: center;
+      /* overflow-x: visible; */
+      position: absolute;
+      /* right: 4rem; */
+      bottom: 0;
+    }
+    .main-header {
+      width: 80%;
+      left: 0;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+  }
+  @media (max-width: 600px) {
+    .main-header {
+      width: 80%;
+      left: 0;
+      text-align: right;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .log-div {
+      /* background-color: greenyellow; */
+      width: 80%;
+      text-align: right;
+      /* overflow-x: visible; */
+      position: absolute;
+      /* right: 4rem; */
+      bottom: 0;
+      right: 2rem;
+      button {
+        margin: 0;
+      }
+    }
+  }
 `
-const HeaderStyled = styled(motion.header)`
-  position: absolute;
-  /* opacity: 0; */
-`
+
 const ImageStyled = styled(motion.div)`
   /* opacity: 0; */
   text-align: center;
-  position: absolute;
+  /* position: absolute; */
   z-index: 5;
-  bottom: 0;
-  left: 20vw;
+  /* bottom: 0; */
+  /* left: 20vw; */
   /* right: 25vw; */
   height: 30vw;
-  width: 30vw;
+  width: 30%;
   /* border: 6px solid var(--two); */
   background-color: rgba(202, 202, 202, 0.5);
   background: linear-gradient(45deg, var(--four) 0%, var(--bg) 100%);
@@ -272,7 +316,7 @@ const ImageStyled = styled(motion.div)`
     align-items: center;
   }
   header {
-    font-size: 2vw;
+    font-size: 2rem;
     margin-top: 0.5rem;
     color: var(--one);
   }
@@ -288,9 +332,9 @@ const ImageStyled = styled(motion.div)`
     justify-content: center;
     align-items: center;
   }
-  img {
-    height: 15vw;
-    /* width: 40vh; */
+  .img-div {
+    height: 200px;
+    width: 200px;
     border-radius: 50%;
     transition: 500ms;
     border: 4px solid var(--one);
@@ -300,10 +344,34 @@ const ImageStyled = styled(motion.div)`
       border-radius: 1rem;
       filter: grayscale(0%);
     }
+    img {
+      width: 100%;
+      min-height: 100%;
+    }
   }
   .add-btn {
     font-size: 1.5vw;
     background-color: var(--three);
+  }
+
+  @media (max-width: 1084px) {
+    width: 400px;
+    height: 400px;
+    header {
+      font-size: 1.5rem;
+    }
+    a,
+    .add-btn {
+      font-size: 1.5rem;
+    }
+  }
+  @media (max-width: 600px) {
+    width: 300px;
+    height: 400px;
+    a,
+    .add-btn {
+      font-size: 1rem;
+    }
   }
 `
 

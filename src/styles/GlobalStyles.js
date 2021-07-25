@@ -25,8 +25,15 @@ export const GlobalStyle = createGlobalStyle`
   margin: 0;
   box-sizing: border-box;
   overflow: hidden;
+ @media (max-width: 1084px) {
+      overflow-y: auto;
+      overflow-x: hidden;
+  } 
 }
+
 html {
+    background-color: var(--bg);
+
 }
 .App {
     background-color: var(--bg);
@@ -40,6 +47,12 @@ html {
     position: absolute;
     height: 47vw;
     z-index: 1;
+      @media (max-width: 1084px) {
+    height: 500px;
+  }
+  @media (max-width: 700px) {
+    height: 300px;
+  }
   }
 }
   .Main-in {

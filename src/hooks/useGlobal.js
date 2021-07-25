@@ -18,6 +18,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [cartCounter, setCartCounter] = useState(0)
   const [cartProducts, setCartProducts] = useState([])
   const [newTotal, setNewTotal] = useState(0)
+  const [menuActive, setMenuActive] = useState(false)
 
   async function getProducts() {
     const tempArray = await axios
@@ -122,6 +123,8 @@ export const GlobalContextProvider = ({ children }) => {
     cartNewItem,
     setCartProducts,
     setCartCounter,
+    menuActive,
+    setMenuActive,
   }
 
   return (

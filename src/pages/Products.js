@@ -45,10 +45,12 @@ export const Products = ({ search }) => {
           return (
             <div key={each._id} className="each-item">
               <Link to={`/product/${each._id}`}>
-                <img
-                  src={each.image === undefined ? planta : each.image}
-                  alt="item in stock"
-                />
+                <div className="img-div">
+                  <img
+                    src={each.image === undefined ? planta : each.image}
+                    alt="item in stock"
+                  />
+                </div>
                 <h2>{each.product_name}</h2>
                 <h2 className="price">$ {each.price}</h2>
               </Link>
@@ -66,8 +68,7 @@ const ProductsStyle = styled(motion.div)`
   /* background-color: greenyellow; */
   display: flex;
   flex-wrap: wrap;
-  position: relative;
-  left: 2vw;
+  justify-content: center;
   text-align: center;
   overflow: scroll;
   -ms-overflow-style: none; /* IE and Edge */
@@ -95,13 +96,9 @@ const ProductsStyle = styled(motion.div)`
     transition: 500ms;
     background-color: #cacacadf;
     box-shadow: inset 0 0 10px var(--two);
-    /* background: linear-gradient(145deg, var(--four) 0%, var(--bg) 100%); */
-
-    /* min-width: 250px; */
-    width: 17vw;
-    /* min-height: ; */
-    min-height: 200px;
-    height: 26vw;
+    width: 220px;
+    height: 320px;
+    /* height: 26vw; */
     margin: 1rem;
     border-radius: 2rem 2rem 2rem 0;
     &:hover {
@@ -121,13 +118,15 @@ const ProductsStyle = styled(motion.div)`
       font-size: 2.7vh;
       font-family: "chillbold";
       color: var(--one);
-      height: 5vw;
+      max-height: 60px;
     }
     button {
       background-color: transparent;
       /* background-color: greenyellow; */
       position: relative;
-      left: 5vw;
+      left: 60px;
+      bottom: 10px;
+
       color: rgba(41, 41, 41, 1);
       font-size: 1.7rem;
       /* width: 70%; */
@@ -145,20 +144,22 @@ const ProductsStyle = styled(motion.div)`
     }
     .price {
       position: absolute;
-      top: 23vw;
+      bottom: 10px;
+      left: 0;
     }
     a {
       /* background-color: greenyellow; */
-      min-height: 23vw;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
-    img {
-      background-color: red;
-
-      max-height: 15vw;
-      min-height: 10vw;
-      max-width: 13vw;
-      min-width: 10vw;
+    .img-div {
+      /* background-color: red; */
+      height: 180px;
+      width: 180px;
       border-radius: 50%;
       border: 4px solid var(--four);
       margin: 1rem;
@@ -170,54 +171,83 @@ const ProductsStyle = styled(motion.div)`
       &:hover {
         border-radius: 1rem;
       }
+      img {
+        /* max-height: 200px; */
+        width: 120%;
+        min-height: 100%;
+
+        /* max-height: 180%; */
+      }
     }
   }
   @media (max-width: 1084px) {
-    top: 15vh;
+    position: fixed;
+    top: 11vh;
+    height: 89vh;
+
     .each-item {
-      min-width: 30vw;
+      min-width: 230px;
       /* width: 17vw; */
       /* min-height: ; */
-      min-height: 300px;
+      min-height: 350px;
       /* height: ; */
-      h2 {
-        /* background-color: greenyellow; */
-        height: 11vh;
+      overflow: hidden;
+      a {
+        overflow: hidden;
       }
+      /* h2 {
+        height: 10px;
+      } */
       .price {
         height: 8vw;
-        top: 260px;
+        top: 310px;
+      }
+      button {
+        top: 0px;
+      }
+      .img-div {
+        overflow-y: hidden;
       }
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     /* background-color: greenyellow; */
-    top: 15vh;
+    top: 80px;
     .each-item {
+      overflow: hidden;
       /* min-width: 350px; */
       width: 250px;
       /* min-height: ; */
-      min-height: 200px;
-      height: 300px;
-      img {
-        min-height: 170px;
-        min-width: 170px;
-        border-radius: 1rem;
-        margin-bottom: 0rem;
+      min-height: 320px;
+      /* height: 300px; */
+      &:hover {
+        background-color: #cacacadf;
+        box-shadow: inset 0 0 10px var(--two);
+        h2 {
+          color: var(--one);
+        }
       }
-      h2 {
-        /* background-color: greenyellow; */
-        height: 8vh;
+      .img-div {
+        overflow-y: hidden;
+        img {
+          overflow-y: hidden;
+          min-height: 170px;
+          min-width: 170px;
+          border-radius: 1rem;
+          margin-bottom: 0rem;
+        }
       }
+
       button {
         left: 80px;
-        bottom: 0.1rem;
-        height: 8vw;
+        top: -10px;
+        /* height: 8vw; */
+        /* top: 5px; */
       }
       .price {
-        height: 8vw;
-        top: 260px;
+        /* height: 8vw; */
+        top: 280px;
       }
     }
   }

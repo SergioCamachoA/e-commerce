@@ -18,6 +18,7 @@ import { useGlobal } from "./hooks/useGlobal"
 import { Checkout } from "./pages/Checkout"
 import { Cart } from "./pages/Cart"
 import { useQuery } from "./hooks/useQuery"
+import { Burger } from "./components/Burger"
 
 function App() {
   const { setLogin } = useAuth()
@@ -39,6 +40,7 @@ function App() {
       <NavBar />
       <CartIcon />
       <Planta />
+      <Burger />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
           <Route exact path="/" children={<Main />} />
