@@ -56,9 +56,8 @@ const ItemStyled = styled.div`
   justify-content: center;
   align-items: center;
   text-align: right;
-  /* background-color: greenyellow; */
   background: linear-gradient(45deg, var(--four) 0%, var(--bg) 100%);
-
+  /* background-color: greenyellow; */
   img {
     height: 40vh;
     transition: 800ms;
@@ -74,6 +73,11 @@ const ItemStyled = styled.div`
     header {
       font-size: 2rem;
     }
+    h3 {
+      height: 2rem;
+      overflow: hidden;
+      font-size: 1.6rem;
+    }
     p {
       max-height: 300px;
       font-size: 1.3rem;
@@ -81,11 +85,6 @@ const ItemStyled = styled.div`
       align-items: center;
       margin: 1rem 0;
       overflow: scroll;
-    }
-    h3 {
-      height: 2rem;
-      overflow: hidden;
-      font-size: 1.6rem;
     }
     button {
       font-size: 1.6rem;
@@ -96,17 +95,36 @@ const ItemStyled = styled.div`
       }
     }
   }
+
+  @media (max-width: 900px) {
+    height: 550px;
+    width: 350px;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: none;
+    img {
+      margin-top: 0;
+      height: 200px;
+    }
+    div {
+      min-width: 320px;
+      header {
+        /* background-color: red; */
+        text-align: center;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+      }
+      h3 {
+        font-size: 1.4rem;
+      }
+      p {
+        height: 150px;
+        text-align: left;
+        font-size: 1.2rem;
+      }
+      button {
+        overflow: hidden;
+      }
+    }
+  }
 `
-
-// const headerAnim = {
-//   hidden: { opacity: 0 },
-//   show: { opacity: 1, transition: { duration: 2 } },
-// }
-
-// const itemContainer = {
-//   hidden: { x: 300 },
-//   show: {
-//     x: 0,
-//     transition: { duration: 1, staggerChildren: 1, when: "afterChildren" },
-//   },
-// }
