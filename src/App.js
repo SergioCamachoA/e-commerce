@@ -1,24 +1,24 @@
+import { useEffect } from "react"
 import { Route, Switch, useLocation } from "react-router-dom"
-import { Main } from "./pages/Main"
-import { Login } from "./pages/Login"
-import { Signup } from "./pages/Signup"
-import { Products } from "./pages/Products"
-import { SingleProduct } from "./pages/SingleProduct"
-import { NewProduct } from "./pages/NewProduct"
-import { Error } from "./pages/Error"
-import { NavBar } from "./components/NavBar"
 import { GlobalStyle } from "./styles/GlobalStyles"
 import { AnimatePresence } from "framer-motion"
-import { CartIcon } from "./components/CartIcon"
-import { useEffect } from "react"
-import { useAuth } from "./hooks/useAuth"
-import { Settings } from "./pages/Settings"
-import { Planta } from "./components/Planta"
 import { useGlobal } from "./hooks/useGlobal"
-import { Checkout } from "./pages/Checkout"
-import { Cart } from "./pages/Cart"
 import { useQuery } from "./hooks/useQuery"
+import { useAuth } from "./hooks/useAuth"
+import { SingleProduct } from "./pages/SingleProduct"
+import { NewProduct } from "./pages/NewProduct"
+import { Products } from "./pages/Products"
+import { Checkout } from "./pages/Checkout"
+import { Signup } from "./pages/Signup"
+import { Login } from "./pages/Login"
+import { Error } from "./pages/Error"
+import { Cart } from "./pages/Cart"
+import { Main } from "./pages/Main"
+import { CartIcon } from "./components/CartIcon"
+import { NavBar } from "./components/NavBar"
+import { Planta } from "./components/Planta"
 import { Burger } from "./components/Burger"
+import { Settings } from "./pages/Settings"
 
 function App() {
   const { setLogin } = useAuth()
@@ -46,7 +46,6 @@ function App() {
           <Route exact path="/" children={<Main />} />
           <Route path="/login" exact children={<Login />} />
           <Route path="/signup" exact children={<Signup />} />
-          {/* <Route path="/products/search/:search" children={<Products />} /> */}
           <Route
             path="/products"
             children={<Products search={query.get("search")} />}
