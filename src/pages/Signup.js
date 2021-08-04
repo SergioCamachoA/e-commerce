@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { pageAnimation } from "../animation/animation"
+import { pageAnimation } from "../animation/pageAnimation"
 import { motion } from "framer-motion"
 import styled from "styled-components"
 import { Redirect } from "react-router-dom"
@@ -16,7 +16,7 @@ export const Signup = () => {
     gender: "",
     email: "",
     password: "",
-    role: "ADMIN",
+    role: "",
   }
 
   const { isLogged } = useGlobal()
@@ -47,6 +47,16 @@ export const Signup = () => {
       >
         <header>signup</header>
         <form className="signup-form">
+          <select
+            onChange={onChangeHandler}
+            value={form.select}
+            name="role"
+            id="role"
+          >
+            <option value="role">role</option>
+            <option value="CUSTOMER">customer</option>
+            <option value="ADMIN">admin</option>
+          </select>
           <input
             onChange={onChangeHandler}
             value={form.name}
@@ -69,7 +79,8 @@ export const Signup = () => {
             name="gender"
             id="gender"
           >
-            <option value="gender">binary gender</option>
+            <option value="gender">gender</option>
+            <option value="X">other</option>
             <option value="M">male</option>
             <option value="F">female</option>
           </select>

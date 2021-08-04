@@ -2,23 +2,24 @@ import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import { motion } from "framer-motion"
-import { pageAnimation } from "../animation/animation"
-
+import { pageAnimation } from "../animation/pageAnimation"
+import { useGlobal } from "../hooks/useGlobal"
+import planta from "../svg/planta4.svg"
 export const SingleProduct = () => {
   const { id } = useParams()
-  const [item, setItem] = useState({})
+  const [item, setItem] = useState({
+    product_name: "",
+    image: "",
+    price: "",
+    descrption: "",
+  })
+  const { cartNewItem, allProducts } = useGlobal()
 
   useEffect(() => {
-    async function getItem() {
-      const currentItem = await fetch(
-        "https://ecomerce-master.herokuapp.com/api/v1/item/5fbc19a65a3f794d72471163"
-      )
-        .then((res) => res.json())
-        .catch((err) => console.log(err))
-      setItem(currentItem)
+    if (allProducts.length !== 0) {
+      setItem(allProducts.find((el) => el._id === id))
     }
-    getItem()
-  }, [id])
+  }, [allProducts, id, setItem])
 
   return (
     <motion.div
@@ -28,50 +29,102 @@ export const SingleProduct = () => {
       animate="show"
       className="Item"
     >
-      <HeaderStyled>{id}</HeaderStyled>
       <ItemStyled className="content">
-        <img src={item.image} alt="product" />
-        <h3>{item.product_name}</h3>
-        <h3>{item.description}</h3>
-        <h3>{`$${item.price}`}</h3>
+        <img
+          src={item.image === undefined ? planta : item.image}
+          alt="product"
+        />
+        <div>
+          <header>{item.product_name}</header>
+          <h3>{`$${item.price}`}</h3>
+          <p>{item.description}</p>
+          <button onClick={() => cartNewItem(id)}>Add to cart</button>
+        </div>
       </ItemStyled>
     </motion.div>
   )
 }
-//styled component
-const HeaderStyled = styled(motion.header)`
-  text-align: center;
-`
 
+//styled component
 const ItemStyled = styled.div`
+  height: 60vh;
+  padding: 2rem;
+  /* border: 4px solid var(--one); */
+  border-radius: 2rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  text-align: right;
+  background: linear-gradient(45deg, var(--four) 0%, var(--bg) 100%);
+  /* background-color: greenyellow; */
   img {
-    height: 200px;
-    border-radius: 50%;
+    height: 40vh;
     transition: 800ms;
-    &:hover {
-      border-radius: 1rem;
+    border-radius: 1rem;
+    margin: 1rem;
+    border: 4px solid var(--one);
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 40vw;
+    header {
+      font-size: 2rem;
+    }
+    h3 {
+      height: 2rem;
+      overflow: hidden;
+      font-size: 1.6rem;
+    }
+    p {
+      max-height: 300px;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      margin: 1rem 0;
+      overflow: scroll;
+    }
+    button {
+      font-size: 1.6rem;
+      padding: 0.5rem;
+      transition: 500ms;
+      &:hover {
+        background-color: var(--one);
+      }
     }
   }
-  h3 {
-    max-width: 450px;
-    height: 60px;
-    overflow: hidden;
+
+  @media (max-width: 900px) {
+    height: 550px;
+    width: 350px;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: none;
+    img {
+      margin-top: 0;
+      height: 200px;
+    }
+    div {
+      min-width: 320px;
+      header {
+        /* background-color: red; */
+        text-align: center;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+      }
+      h3 {
+        font-size: 1.4rem;
+      }
+      p {
+        height: 150px;
+        text-align: left;
+        font-size: 1.2rem;
+      }
+      button {
+        overflow: hidden;
+      }
+    }
   }
 `
-
-// const headerAnim = {
-//   hidden: { opacity: 0 },
-//   show: { opacity: 1, transition: { duration: 2 } },
-// }
-
-// const itemContainer = {
-//   hidden: { x: 300 },
-//   show: {
-//     x: 0,
-//     transition: { duration: 1, staggerChildren: 1, when: "afterChildren" },
-//   },
-// }

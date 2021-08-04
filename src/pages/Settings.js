@@ -3,63 +3,65 @@ import { motion } from "framer-motion"
 import React, { useEffect, useState } from "react"
 import { Redirect, useLocation } from "react-router-dom"
 import styled from "styled-components"
-import { pageAnimation } from "../animation/animation"
+import { pageAnimation } from "../animation/pageAnimation"
+import { useForm } from "../hooks/useForm"
 import { useGlobal } from "../hooks/useGlobal"
 
 export const Settings = () => {
   const { userData, setUserData, isLogged, setHistory } = useGlobal()
 
   const [userId, setUserId] = useState("")
-  const [input, setInput] = useState("")
-  let location = useLocation()
+
+  let tempInfo = {
+    first_name: "",
+    last_name: "",
+    email: "",
+  }
+  const { form, setForm, onChangeHandler } = useForm(tempInfo)
 
   //save location pathname in a state to be used in redirection after auth on login
+  let location = useLocation()
   useEffect(() => {
-<<<<<<< HEAD
-    if (data.data.data !== undefined) {
-      console.log(data.data.data)
-      setUserId(data.data.data.user._id)
-    }
-  }, [data])
-
-  const token = localStorage.getItem("token")
-=======
     setHistory(location.pathname)
   }, [location, setHistory])
->>>>>>> main
 
   useEffect(() => {
     userData !== undefined && setUserId(userData._id)
   }, [userData])
 
-  const inputHandler = (e) => {
-    setInput(e.target.value)
-  }
-
-  const changeName = () => {
-    const token = localStorage.getItem("token")
-    let body = { first_name: input }
-    if (token !== null) {
-      const config = {
-        headers: { Authorization: `JWT ${token}` },
-      }
-      axios.patch(`user/${userId}`, body, config).then(
-        (res) => {
-<<<<<<< HEAD
-          // setUserData(res)
-          // setIsLogged(true)
-          console.log(userId)
-          console.log(res)
-=======
-          setUserData(res.userData)
-          setInput("")
->>>>>>> main
-        },
-        (err) => {
-          console.log(err)
-        }
-      )
-    }
+  const ChangeName = () => {
+    //     const token = localStorage.getItem("token")
+    //     let body = {
+    //       first_name: !form.first_name ? userData.first_name : form.first_name,
+    //       last_name: !form.last_name ? userData.last_name : form.last_name,
+    //       email: !form.email ? userData.email : form.email,
+    //     }
+    //     if (token !== null) {
+    //       const config = {
+    //         headers: { Authorization: `JWT ${token}` },
+    //       }
+    //       axios.patch(`user/${userId}`, body, config).then(
+    //         (res) => {
+    // <<<<<<< HEAD
+    // <<<<<<< HEAD
+    //           // setUserData(res)
+    //           // setIsLogged(true)
+    //           console.log(userId)
+    //           console.log(res)
+    // =======
+    //           setUserData(res.userData)
+    //           setInput("")
+    // >>>>>>> main
+    // =======
+    //           setUserData(res.data)
+    //           setForm(tempInfo)
+    // >>>>>>> main
+    //         },
+    //         (err) => {
+    //           console.log(err.response)
+    //         }
+    //       )
+    //     }
   }
 
   const [specsType, setSpecsType] = useState([])
@@ -80,6 +82,10 @@ export const Settings = () => {
         specsKey.push(key)
         if (userData[key].includes(":")) {
           specsValue.push(userData[key].slice(0, 10))
+        } else if (userData[key] === "F") {
+          specsValue.push("female")
+        } else if (userData[key] === "M") {
+          specsValue.push("male")
         } else {
           specsValue.push(userData[key])
         }
@@ -88,10 +94,6 @@ export const Settings = () => {
     setSpecsType(specsKey)
     setSpecs(specsValue)
   }, [userData])
-
-  useEffect(() => {
-    console.log(isLogged)
-  }, [isLogged])
 
   return isLogged ? (
     <StyledSettings
@@ -115,18 +117,33 @@ export const Settings = () => {
           </div>
         </StyledInfo>
       </div>
-      <motion.div>
-        <header>change name</header>
+      {/* <header>change it</header> */}
+      <StyledChanges>
         <form onSubmit={(e) => e.preventDefault()}>
           <input
-            onChange={inputHandler}
-            value={input}
+            onChange={onChangeHandler}
+            value={form.first_name}
+            name="first_name"
             type="text"
             placeholder="new name"
           />
-          <button onClick={changeName}>confirm</button>
+          <input
+            onChange={onChangeHandler}
+            value={form.last_name}
+            name="last_name"
+            type="text"
+            placeholder="new last name"
+          />
+          <input
+            onChange={onChangeHandler}
+            value={form.email}
+            name="email"
+            type="text"
+            placeholder="new email"
+          />
+          <button onClick={ChangeName}>confirm</button>
         </form>
-      </motion.div>
+      </StyledChanges>
     </StyledSettings>
   ) : (
     <Redirect to="login" />
@@ -139,36 +156,34 @@ const StyledInfo = styled(motion.div)`
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
+  div {
+    margin: 0 1rem;
+    font-size: 1.5rem;
+    @media (max-width: 900px) {
+      font-size: 1.3rem;
+    }
+  }
   .specs {
     color: var(--one);
   }
 `
-const StyledSettings = styled(motion.div)`
-  height: 100%;
+const StyledChanges = styled(motion.div)`
+  /* background-color: greenyellow; */
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  header {
-    text-align: center;
-  }
-  div {
-    margin-left: 2rem;
-  }
+  flex-direction: row;
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
   input,
-  select,
   button {
     min-height: 2rem;
     height: 4vh;
-    min-width: 16rem;
-    width: 20vw;
-    margin-top: 1rem;
-    font-size: 1.5rem;
+    min-width: 15rem;
+    width: 15vw;
+    margin: 0.5rem 0.5rem;
+    font-size: 1.3rem;
     text-align: center;
     border: none;
     background-color: var(--bg);
@@ -179,13 +194,31 @@ const StyledSettings = styled(motion.div)`
     }
   }
   button {
-    background-color: var(--one);
-    color: var(--three);
+    background-color: var(--three);
+    color: var(--one);
+    min-width: 7rem;
+    width: 10vw;
   }
 
   input:focus,
   select:focus {
     outline: none;
     background-color: var(--three);
+  }
+`
+
+const StyledSettings = styled(motion.div)`
+  background-color: var(--bg);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  header {
+    margin-left: 2rem;
+    text-align: center;
+    font-size: 3rem;
+    color: var(--one);
   }
 `

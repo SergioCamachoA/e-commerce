@@ -1,101 +1,65 @@
+import { useEffect } from "react"
 import { Route, Switch, useLocation } from "react-router-dom"
-import { Main } from "./pages/Main"
-import { Login } from "./pages/Login"
-import { Signup } from "./pages/Signup"
-import { Products } from "./pages/Products"
-import { SingleProduct } from "./pages/SingleProduct"
-import { NewProduct } from "./pages/NewProduct"
-import { Error } from "./pages/Error"
-import { NavBar } from "./components/NavBar"
 import { GlobalStyle } from "./styles/GlobalStyles"
 import { AnimatePresence } from "framer-motion"
-import { Cart } from "./components/Cart"
-import { useEffect } from "react"
+import { useGlobal } from "./hooks/useGlobal"
+import { useQuery } from "./hooks/useQuery"
 import { useAuth } from "./hooks/useAuth"
+import { SingleProduct } from "./pages/SingleProduct"
+import { NewProduct } from "./pages/NewProduct"
+import { Products } from "./pages/Products"
+import { Checkout } from "./pages/Checkout"
+import { Signup } from "./pages/Signup"
+import { Login } from "./pages/Login"
+import { Error } from "./pages/Error"
+import { Cart } from "./pages/Cart"
+import { Main } from "./pages/Main"
+import { CartIcon } from "./components/CartIcon"
+import { NavBar } from "./components/NavBar"
+import { Planta } from "./components/Planta"
+import { Burger } from "./components/Burger"
 import { Settings } from "./pages/Settings"
-// import { GlobalContextProvider } from "./hooks/useGlobal"
 
 function App() {
   const { setLogin } = useAuth()
-  // const { isLogged } = useGlobal()
+  const { getProducts } = useGlobal()
 
   const location = useLocation()
-  // const [setIsLogged] = useState(false)
-  // const [userData, setUserData] = useState({})
-  // const [history, setHistory] = useState()
+
+  let query = useQuery()
 
   useEffect(() => {
-    console.log("rep")
-
     setLogin()
+    getProducts()
     // eslint-disable-next-line
   }, [])
 
-  // console.log(location)
   return (
     <div className="App">
-      {/* <GlobalContextProvider> */}
       <GlobalStyle />
       <NavBar />
-      <Cart />
+      <CartIcon />
+      <Planta />
+      <Burger />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
+          <Route exact path="/" children={<Main />} />
+          <Route path="/login" exact children={<Login />} />
+          <Route path="/signup" exact children={<Signup />} />
           <Route
-            exact
-            path="/"
-            children={
-              <Main
-              // data={userData}
-              // isLogged={isLogged}
-              // setIsLogged={setIsLogged}
-              // setHistory={setHistory}
-              />
-            }
+            path="/products"
+            children={<Products search={query.get("search")} />}
           />
-          <Route
-            path="/login"
-            exact
-            children={
-              <Login
-              // history={history}
-              // setHistory={setHistory}
-              // isLogged={isLogged}
-              // setIsLogged={setIsLogged}
-              // setUserData={setUserData}
-              />
-            }
-          />
-          <Route
-            path="/signup"
-            exact
-            children={
-              <Signup
-              // isLogged={isLogged}
-              // setIsLogged={setIsLogged}
-              // setUserData={setUserData}
-              />
-            }
-          />
-          <Route path="/products" children={<Products />} />
           <Route path="/product/:id" children={<SingleProduct />} />
           <Route path="/add-new" children={<NewProduct />} />
-          <Route
-            path="/settings"
-            children={
-              <Settings
-              // setHistory={setHistory}
-              // isLogged={isLogged}
-              // data={userData}
-              // setData={setUserData}
-              />
-            }
-          />
+          <Route path="/settings" children={<Settings />} />
+          <Route path="/cart" children={<Cart />} />
+          <Route path="/checkout" children={<Checkout />} />
           <Route path="*">
             <Error />
           </Route>
         </Switch>
       </AnimatePresence>
-      {/* </GlobalContextProvider> */}
     </div>
   )
 }

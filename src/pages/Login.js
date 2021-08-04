@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { pageAnimation } from "../animation/animation"
+import { pageAnimation } from "../animation/pageAnimation"
 import styled from "styled-components"
-import { Redirect } from "react-router-dom"
+import { Redirect, useHistory } from "react-router-dom"
 import { useForm } from "../hooks/useForm"
 import { useAuth } from "../hooks/useAuth"
 import { Loader } from "../components/Loader"
@@ -14,7 +14,9 @@ export const Login = () => {
     password: "",
   }
 
-  const { history, isLogged } = useGlobal()
+  const pathHistory = useHistory()
+
+  const { isLogged, history } = useGlobal()
   const { logInHandler } = useAuth()
 
   const { form, onChangeHandler } = useForm(emptyForm)
@@ -22,7 +24,7 @@ export const Login = () => {
 
   const loginAnim = () => {
     setIsLoading(true)
-    logInHandler(form, "login")
+    logInHandler(form, "login", setIsLoading)
   }
 
   // const [current, setCurrent] = useState("/")
@@ -34,7 +36,18 @@ export const Login = () => {
   //redirects to previous pathname (currently set up only in Settings.js)
   //if pathname undefined returns to homepage '/'
   if (isLogged) {
-    return <Redirect to={history === undefined ? "/" : history} />
+    return (
+      <Redirect
+        to={
+          history !== undefined
+            ? history
+            : pathHistory.goBack() !== undefined
+            ? pathHistory.goBack()
+            : "/"
+        }
+      />
+    )
+    // return <Redirect to={history === undefined ? "/" : history} />
   }
 
   return !isLoading ? (
@@ -45,7 +58,6 @@ export const Login = () => {
       animate="show"
       className="Login"
     >
-      {/* <Loader /> */}
       <motion.div className="anim-container">
         <motion.header>login</motion.header>
       </motion.div>

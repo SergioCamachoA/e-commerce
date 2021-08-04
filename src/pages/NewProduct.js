@@ -1,44 +1,38 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { motion } from "framer-motion"
-import { pageAnimation } from "../animation/animation"
-import { Redirect } from "react-router-dom"
+import { pageAnimation } from "../animation/pageAnimation"
+import { Redirect, useLocation } from "react-router-dom"
 import axios from "axios"
 import styled from "styled-components"
-// import { useAuth } from "../helpers/useAuth"
 import { useGlobal } from "../hooks/useGlobal"
+import { useForm } from "../hooks/useForm"
 
 export const NewProduct = () => {
-  const { isLogged } = useGlobal()
+  const { isAdmin, isLogged, setHistory } = useGlobal()
 
-  let inputs =
-    // [
-    //   "isActive",
-    //   "product_name",
-    //   "description",
-    //   "price",
-    //   "category",
-    //   "brand",
-    //   "sku",
-    //   "image",
-    // ]
+  const emptyItem = {
+    isActive: true,
+    product_name: "",
+    description: "",
+    price: "",
+    brand: "",
+    sku: Math.floor(Math.random() * 10000000),
+    image: "",
+  }
+  const { form, setForm, onChangeHandler } = useForm(emptyItem)
 
-    {
-      isActive: true,
-      product_name: "tacos al pastor",
-      description:
-        "Bonitos tacos No Yaiba Aretes De Sol Kamado Tanjiro Demon Slayer 2",
-      price: 90962,
-      category: "Women",
-      brand: "Hatori Hanso",
-      sku: "e9cbfdb4-890a-42c3-b94a-687a39dc7ed1",
-      image:
-        "https://i.pinimg.com/originals/eb/83/be/eb83be580847bcdc4c8f403c8085d3c8.jpg",
-    }
+  let location = useLocation()
+
+  useEffect(() => {
+    setHistory(location.pathname)
+  }, [location, setHistory])
+
+  let inputs = ["product_name", "description", "price", "brand", "image"]
 
   const newItemHandler = () => {
     const token = localStorage.getItem("token")
 
-    let body = inputs
+    let body = form
 
     if (token !== null) {
       const config = {
@@ -47,20 +41,17 @@ export const NewProduct = () => {
         },
       }
 
-      axios.post("item", body, config).then(
-        (res) => {
+      axios
+        .post("item", body, config)
+        .then((res) => {
           console.log(res)
-        },
-        (err) => {
-          console.log(config)
-          console.log(body)
-          console.log("bailo berta")
-        }
-      )
+          setForm(emptyItem)
+        })
+        .catch((err) => {
+          console.log(err.response.data)
+        })
     }
   }
-
-  const isAdmin = false
 
   return !isLogged ? (
     <Redirect to="/login" />
@@ -76,9 +67,24 @@ export const NewProduct = () => {
     >
       <header>add a new product</header>
       <form onSubmit={(e) => e.preventDefault()} className="signup-form">
-        {/* {inputs.map((each, index) => {
-          return <input key={index} type="text" placeholder={each} />
-        })} */}
+        {inputs.map((each, index) => {
+          let placeholder =
+            each === "product_name"
+              ? "product name"
+              : each === "image"
+              ? "image URL"
+              : each
+          return (
+            <input
+              name={each}
+              key={index}
+              type="text"
+              onChange={onChangeHandler}
+              value={form[each]}
+              placeholder={placeholder}
+            />
+          )
+        })}
         <button onClick={newItemHandler}>confirm</button>
       </form>
     </SignupStyled>
