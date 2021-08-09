@@ -106,7 +106,7 @@ export const NavBar = () => {
       </div>
       {isLogged && isAdmin && (
         <div className="hovered">
-          <Link onClick={() => setMenuActive(false)} to={"/add-new"}>
+          <Link onClick={() => setMenuActive(false)} to="/add-new">
             <i>{add}</i>
             <h2>add new</h2>
           </Link>

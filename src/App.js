@@ -19,6 +19,8 @@ import { NavBar } from "./components/NavBar"
 import { Planta } from "./components/Planta"
 import { Burger } from "./components/Burger"
 import { Settings } from "./pages/Settings"
+// import { Home } from "./pages/Home"
+import PrivateRoute from "./components/PrivateRoute"
 
 function App() {
   const { setLogin } = useAuth()
@@ -43,21 +45,20 @@ function App() {
       <Burger />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
-          <Route exact path="/" children={<Main />} />
-          <Route path="/login" exact children={<Login />} />
-          <Route path="/signup" exact children={<Signup />} />
+          <Route exact path="/" component={Main} />
+          {/* <PrivateRoute path="/home" component={Home} /> */}
+          <Route path="/cart" component={Cart} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/signup" exact component={Signup} />
+          <Route path="/product/:id" component={SingleProduct} />
           <Route
             path="/products"
             children={<Products search={query.get("search")} />}
           />
-          <Route path="/product/:id" children={<SingleProduct />} />
-          <Route path="/add-new" children={<NewProduct />} />
-          <Route path="/settings" children={<Settings />} />
-          <Route path="/cart" children={<Cart />} />
-          <Route path="/checkout" children={<Checkout />} />
-          <Route path="*">
-            <Error />
-          </Route>
+          <PrivateRoute path="/add-new" component={NewProduct} />
+          <PrivateRoute path="/settings" component={Settings} />
+          <PrivateRoute path="/checkout" component={Checkout} />
+          <Route path="*" component={Error} />
         </Switch>
       </AnimatePresence>
     </div>

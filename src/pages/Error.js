@@ -1,11 +1,6 @@
 import React from "react"
+import { Redirect } from "react-router-dom"
 
 export const Error = () => {
-  return (
-    <div>
-      <h1>
-        Wrong turn, <span>404</span> found
-      </h1>
-    </div>
-  )
+  return <Redirect to="/" />
 }

@@ -70,8 +70,6 @@ header {
 }
 a {
   text-decoration: none;
-  &:hover {
-    }
 }
 
 button,
@@ -88,9 +86,4 @@ select {
 button:hover {
   cursor: pointer;
 }
-select{
-  /* padding-left: 16%; */
-  /* transform: translateX(50%); */
-}
-
 `

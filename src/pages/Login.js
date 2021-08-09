@@ -2,21 +2,20 @@ import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { pageAnimation } from "../animation/pageAnimation"
 import styled from "styled-components"
-import { Redirect, useHistory } from "react-router-dom"
+import { Redirect } from "react-router-dom"
 import { useForm } from "../hooks/useForm"
 import { useAuth } from "../hooks/useAuth"
 import { Loader } from "../components/Loader"
 import { useGlobal } from "../hooks/useGlobal"
 
-export const Login = () => {
+export const Login = (props) => {
   const emptyForm = {
     email: "",
     password: "",
   }
 
-  const pathHistory = useHistory()
+  const { isLogged } = useGlobal()
 
-  const { isLogged, history } = useGlobal()
   const { logInHandler } = useAuth()
 
   const { form, onChangeHandler } = useForm(emptyForm)
@@ -27,27 +26,19 @@ export const Login = () => {
     logInHandler(form, "login", setIsLoading)
   }
 
-  // const [current, setCurrent] = useState("/")
-
   useEffect(() => {
     isLogged && setIsLoading(false)
   }, [isLogged])
 
   //redirects to previous pathname (currently set up only in Settings.js)
   //if pathname undefined returns to homepage '/'
+  const referer =
+    props.location.state !== undefined ? props.location.state.from : "/"
+
+  // console.log(referer)
+
   if (isLogged) {
-    return (
-      <Redirect
-        to={
-          history !== undefined
-            ? history
-            : pathHistory.goBack() !== undefined
-            ? pathHistory.goBack()
-            : "/"
-        }
-      />
-    )
-    // return <Redirect to={history === undefined ? "/" : history} />
+    return <Redirect to={referer} />
   }
 
   return !isLoading ? (

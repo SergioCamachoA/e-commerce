@@ -1,14 +1,13 @@
 import axios from "axios"
 import { motion } from "framer-motion"
 import React, { useEffect, useState } from "react"
-import { Redirect, useLocation } from "react-router-dom"
 import styled from "styled-components"
 import { pageAnimation } from "../animation/pageAnimation"
 import { useForm } from "../hooks/useForm"
 import { useGlobal } from "../hooks/useGlobal"
 
 export const Settings = () => {
-  const { userData, setUserData, isLogged, setHistory } = useGlobal()
+  const { userData, setUserData } = useGlobal()
 
   const [userId, setUserId] = useState("")
 
@@ -19,49 +18,31 @@ export const Settings = () => {
   }
   const { form, setForm, onChangeHandler } = useForm(tempInfo)
 
-  //save location pathname in a state to be used in redirection after auth on login
-  let location = useLocation()
-  useEffect(() => {
-    setHistory(location.pathname)
-  }, [location, setHistory])
-
   useEffect(() => {
     userData !== undefined && setUserId(userData._id)
   }, [userData])
 
   const ChangeName = () => {
-    //     const token = localStorage.getItem("token")
-    //     let body = {
-    //       first_name: !form.first_name ? userData.first_name : form.first_name,
-    //       last_name: !form.last_name ? userData.last_name : form.last_name,
-    //       email: !form.email ? userData.email : form.email,
-    //     }
-    //     if (token !== null) {
-    //       const config = {
-    //         headers: { Authorization: `JWT ${token}` },
-    //       }
-    //       axios.patch(`user/${userId}`, body, config).then(
-    //         (res) => {
-    // <<<<<<< HEAD
-    // <<<<<<< HEAD
-    //           // setUserData(res)
-    //           // setIsLogged(true)
-    //           console.log(userId)
-    //           console.log(res)
-    // =======
-    //           setUserData(res.userData)
-    //           setInput("")
-    // >>>>>>> main
-    // =======
-    //           setUserData(res.data)
-    //           setForm(tempInfo)
-    // >>>>>>> main
-    //         },
-    //         (err) => {
-    //           console.log(err.response)
-    //         }
-    //       )
-    //     }
+    const token = localStorage.getItem("token")
+    let body = {
+      first_name: !form.first_name ? userData.first_name : form.first_name,
+      last_name: !form.last_name ? userData.last_name : form.last_name,
+      email: !form.email ? userData.email : form.email,
+    }
+    if (token !== null) {
+      const config = {
+        headers: { Authorization: `JWT ${token}` },
+      }
+      axios.patch(`user/${userId}`, body, config).then(
+        (res) => {
+          setUserData(res.data)
+          setForm(tempInfo)
+        },
+        (err) => {
+          console.log(err.response)
+        }
+      )
+    }
   }
 
   const [specsType, setSpecsType] = useState([])
@@ -95,7 +76,7 @@ export const Settings = () => {
     setSpecs(specsValue)
   }, [userData])
 
-  return isLogged ? (
+  return (
     <StyledSettings
       exit="exit"
       variants={pageAnimation}
@@ -117,7 +98,6 @@ export const Settings = () => {
           </div>
         </StyledInfo>
       </div>
-      {/* <header>change it</header> */}
       <StyledChanges>
         <form onSubmit={(e) => e.preventDefault()}>
           <input
@@ -145,8 +125,6 @@ export const Settings = () => {
         </form>
       </StyledChanges>
     </StyledSettings>
-  ) : (
-    <Redirect to="login" />
   )
 }
 

@@ -1,29 +1,13 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { mainPageAnimation } from "../animation/pageAnimation"
 import styled from "styled-components"
 import { motion } from "framer-motion"
-import { Redirect, useLocation } from "react-router-dom"
 import { useGlobal } from "../hooks/useGlobal"
 
 export const Checkout = () => {
-  //using useContext for global states
-  const {
-    isLogged,
-    setHistory,
-    setCartProducts,
-    setCartCounter,
-    newTotal,
-    setNewTotal,
-  } = useGlobal()
+  const { setCartProducts, setCartCounter, newTotal, setNewTotal } = useGlobal()
+
   const [isPurchased, setIsPurchased] = useState(false)
-
-  let location = useLocation()
-  useEffect(() => {
-    setHistory(location.pathname)
-  }, [location, setHistory])
-
-  //submit handler for purchase to confirm login status and redirect ??
-  // const history = useHistory()
 
   function purchaseHandler() {
     localStorage.removeItem("shoppingCart")
@@ -33,7 +17,7 @@ export const Checkout = () => {
     setIsPurchased(true)
   }
 
-  return isLogged ? (
+  return (
     <StyledCheckout
       exit="exit"
       variants={mainPageAnimation}
@@ -50,8 +34,6 @@ export const Checkout = () => {
         </>
       )}
     </StyledCheckout>
-  ) : (
-    <Redirect to="/login" />
   )
 }
 

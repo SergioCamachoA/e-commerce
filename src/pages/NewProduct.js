@@ -1,14 +1,14 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { motion } from "framer-motion"
 import { pageAnimation } from "../animation/pageAnimation"
-import { Redirect, useLocation } from "react-router-dom"
+import { Redirect } from "react-router-dom"
 import axios from "axios"
 import styled from "styled-components"
 import { useGlobal } from "../hooks/useGlobal"
 import { useForm } from "../hooks/useForm"
 
 export const NewProduct = () => {
-  const { isAdmin, isLogged, setHistory } = useGlobal()
+  const { isAdmin } = useGlobal()
 
   const emptyItem = {
     isActive: true,
@@ -20,12 +20,6 @@ export const NewProduct = () => {
     image: "",
   }
   const { form, setForm, onChangeHandler } = useForm(emptyItem)
-
-  let location = useLocation()
-
-  useEffect(() => {
-    setHistory(location.pathname)
-  }, [location, setHistory])
 
   let inputs = ["product_name", "description", "price", "brand", "image"]
 
@@ -53,10 +47,8 @@ export const NewProduct = () => {
     }
   }
 
-  return !isLogged ? (
-    <Redirect to="/login" />
-  ) : !isAdmin ? (
-    <Redirect to="/" />
+  return !isAdmin ? (
+    <Redirect to="/home" />
   ) : (
     <SignupStyled
       exit="exit"
